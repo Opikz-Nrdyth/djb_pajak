@@ -136,22 +136,22 @@ foreach ($wajib_pajak_list as $key => $wp) {
                                 </a>
                                 <ul class="admin-submenu">
                                     <li class="<?php echo (isset($current_page) && $current_page == 'laporan_detail') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/laporan_detail.html"><i class="fas fa-file-alt fa-fw"></i> Laporan Detail</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>/Gui/admin/laporan_detail.html"><i class="fas fa-file-alt fa-fw"></i> Laporan Detail</a>
                                     </li>
                                     <li class="<?php echo (isset($current_page) && $current_page == 'laporan_harian') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/laporan_harian.html"><i class="fas fa-calendar-day fa-fw"></i> Laporan Harian</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>/Gui/admin/laporan_harian.html"><i class="fas fa-calendar-day fa-fw"></i> Laporan Harian</a>
                                     </li>
                                     <li class="<?php echo (isset($current_page) && $current_page == 'laporan_bulanan') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/laporan_bulanan.html"><i class="fas fa-calendar-alt fa-fw"></i> Laporan Bulanan</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>/Gui/admin/laporan_bulanan.html"><i class="fas fa-calendar-alt fa-fw"></i> Laporan Bulanan</a>
                                     </li>
                                     <li class="<?php echo (isset($current_page) && $current_page == 'rekapitulasi') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/rekaptulasi.html"><i class="fas fa-clipboard-list fa-fw"></i> Rekapitulasi</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>/Gui/admin/rekaptulasi.html"><i class="fas fa-clipboard-list fa-fw"></i> Rekapitulasi</a>
                                     </li>
                                 </ul>
                             </li>
 
                             <li class="<?php echo (isset($current_page) && $current_page == 'pengaturan_admin') ? 'active' : ''; ?>">
-                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/pengaturan.html">
+                                <a href="<?php echo BASE_URL_ADMIN; ?>/Gui/admin/pengaturan.html">
                                     <i class="fas fa-cog fa-fw"></i>
                                     <span>Pengaturan</span>
                                 </a>
