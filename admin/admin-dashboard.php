@@ -1,5 +1,5 @@
 <?php
-// admin/dashboard_admin.php (Layout Menyatu)
+// /admin/dashboard_admin.php (Layout Menyatu)
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -68,7 +68,7 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
             <nav class="admin-sidebar-nav">
                 <ul>
                     <li class="<?php echo ($current_page == 'dashboard_admin') ? 'active' : ''; ?>">
-                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/dashboard_admin.php">
+                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/dashboard_admin.php">
                             <i class="fas fa-tachometer-alt fa-fw"></i>
                             <span>Dashboard</span>
                         </a>
@@ -81,12 +81,12 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
                         </a>
                         <ul class="admin-submenu">
                             <li class="<?php echo (isset($current_page) && $current_page == 'management_wajib_pajak') ? 'active' : ''; ?>">
-                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/kelola_wajib_pajak.php">
+                                <a href="<?php echo BASE_URL_ADMIN; ?>/admin/kelola_wajib_pajak.php">
                                     <i class="fas fa-users fa-fw"></i> Management Wajib Pajak
                                 </a>
                             </li>
                             <li class="<?php echo (isset($current_page) && $current_page == 'tagihan_perhitungan') ? 'active' : ''; ?>">
-                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/tagihan_perhitungan.php">
+                                <a href="<?php echo BASE_URL_ADMIN; ?>/admin/tagihan_perhitungan.php">
                                     <i class="fas fa-file-invoice-dollar fa-fw"></i> Tagihan & Perhitungan
                                 </a>
                             </li>
@@ -98,27 +98,27 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
                                 </a>
                                 <ul class="admin-submenu">
                                     <li class="<?php echo (isset($current_page) && $current_page == 'laporan_detail') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/laporan_detail.php"><i class="fas fa-file-alt fa-fw"></i> Laporan Detail</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/laporan_detail.php"><i class="fas fa-file-alt fa-fw"></i> Laporan Detail</a>
                                     </li>
                                     <li class="<?php echo (isset($current_page) && $current_page == 'laporan_harian') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/laporan_harian.php"><i class="fas fa-calendar-day fa-fw"></i> Laporan Harian</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/laporan_harian.php"><i class="fas fa-calendar-day fa-fw"></i> Laporan Harian</a>
                                     </li>
                                     <li class="<?php echo (isset($current_page) && $current_page == 'laporan_bulanan') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/laporan_bulanan.php"><i class="fas fa-calendar-alt fa-fw"></i> Laporan Bulanan</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/laporan_bulanan.php"><i class="fas fa-calendar-alt fa-fw"></i> Laporan Bulanan</a>
                                     </li>
                                     <li class="<?php echo (isset($current_page) && $current_page == 'rekapitulasi') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/rekapitulasi_laporan.php"><i class="fas fa-clipboard-list fa-fw"></i> Rekapitulasi</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/rekapitulasi_laporan.php"><i class="fas fa-clipboard-list fa-fw"></i> Rekapitulasi</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="<?php echo (isset($current_page) && $current_page == 'kelola_pengguna') ? 'active' : ''; ?>">
-                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/kelola_pengguna.php">
+                                <a href="<?php echo BASE_URL_ADMIN; ?>/admin/kelola_pengguna.php">
                                     <i class="fas fa-user-cog fa-fw"></i>
                                     <span>Manajemen Pengguna</span>
                                 </a>
                             </li>
                             <li class="<?php echo (isset($current_page) && $current_page == 'pengaturan_admin') ? 'active' : ''; ?>">
-                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/pengaturan_admin.php">
+                                <a href="<?php echo BASE_URL_ADMIN; ?>/admin/pengaturan_admin.php">
                                     <i class="fas fa-cog fa-fw"></i>
                                     <span>Pengaturan</span>
                                 </a>
@@ -145,13 +145,13 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
                     <p class="header-welcome-text">Selamat Datang, <?php echo $nama_admin; ?>!</p>
                 </div>
                 <div class="header-center">
-                    <form action="<?php echo BASE_URL_ADMIN; ?>admin/search_results.php" method="GET" class="header-search-form">
+                    <form action="<?php echo BASE_URL_ADMIN; ?>/admin/search_results.php" method="GET" class="header-search-form">
                         <input type="search" name="q" placeholder="Cari..." aria-label="Search">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
                 <div class="header-right">
-                    <a href="<?php echo BASE_URL_ADMIN; ?>admin/notifikasi.php" class="header-icon-link notification-link" aria-label="Notifikasi">
+                    <a href="<?php echo BASE_URL_ADMIN; ?>/admin/notifikasi.php" class="header-icon-link notification-link" aria-label="Notifikasi">
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge">3</span> </a>
                     <div class="admin-profile-dropdown">
@@ -162,8 +162,8 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
                             <i class="fas fa-chevron-down dropdown-arrow-header"></i>
                         </a>
                         <div class="profile-dropdown-menu" id="profile-menu">
-                            <a href="<?php echo BASE_URL_ADMIN; ?>admin/pengaturan_admin.php?tab=profil">Profil Saya</a>
-                            <a href="<?php echo BASE_URL_ADMIN; ?>admin/pengaturan_admin.php?tab=keamanan">Ganti Password</a>
+                            <a href="<?php echo BASE_URL_ADMIN; ?>/admin/pengaturan_admin.php?tab=profil">Profil Saya</a>
+                            <a href="<?php echo BASE_URL_ADMIN; ?>/admin/pengaturan_admin.php?tab=keamanan">Ganti Password</a>
                             <hr>
                             <a href="<?php echo BASE_URL_ADMIN; ?>logout.php">Logout</a>
                         </div>
@@ -202,7 +202,7 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
                                 }
                                 ?>
                             </p>
-                            <a href="<?php echo BASE_URL_ADMIN; ?>admin/kelola_pengguna.php?status=pending" class="summary-link">Lihat Detail</a>
+                            <a href="<?php echo BASE_URL_ADMIN; ?>/admin/kelola_pengguna.php?status=pending" class="summary-link">Lihat Detail</a>
                         </div>
                         <div class="summary-item">
                             <h4>Total Perhitungan Pajak</h4>
