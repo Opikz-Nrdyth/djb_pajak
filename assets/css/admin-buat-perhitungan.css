@@ -1,0 +1,162 @@
+/* assets/css/admin-buat-perhitungan-content.css */
+/* Styling spesifik untuk konten halaman Buat Perhitungan Pajak */
+
+/* Styling untuk Form Admin Umum yang digunakan di halaman ini */
+.admin-form fieldset {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 6px;
+}
+.admin-form legend {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #003366;
+  padding: 0 10px;
+  margin-left: 5px;
+}
+.admin-form .form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+.admin-form .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+.admin-form .form-group:last-child {
+  /* Tidak ada style khusus */
+}
+.admin-form > .form-group {
+  /* Jika .form-group tidak di dalam .form-row */
+  margin-bottom: 15px;
+}
+
+.admin-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #444;
+}
+.admin-form input[type="text"],
+.admin-form input[type="email"],
+.admin-form input[type="tel"],
+.admin-form input[type="number"],
+.admin-form input[type="password"],
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+}
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+.admin-form input[readonly][disabled] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+.admin-form small {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 4px;
+}
+.admin-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-actions {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.form-actions .button {
+  /* Styling .button sudah ada di admin_style.css */
+}
+
+/* Styling spesifik untuk .calculation-form */
+.admin-form.calculation-form fieldset {
+  margin-bottom: 30px;
+}
+
+.admin-form.calculation-form legend {
+  font-size: 1.15rem;
+  margin-bottom: 5px;
+  padding: 0 5px;
+}
+
+.admin-form.calculation-form .form-group small {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 3px;
+  display: block;
+}
+
+.admin-form.calculation-form input[readonly][disabled] {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+  color: #495057;
+  font-weight: 500;
+}
+
+.input-currency {
+  text-align: right;
+}
+
+.calculation-summary {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #e9f5ff;
+  border: 1px solid #b8daff;
+  border-radius: 6px;
+}
+.calculation-summary h4 {
+  font-size: 1.1rem;
+  color: #003366;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #b8daff;
+  padding-bottom: 8px;
+}
+.calculation-summary p {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.calculation-summary p strong {
+  font-size: 1.05rem;
+  color: #0056b3;
+}
+.calculation-summary p span {
+  font-weight: 600;
+}
+
+/* Responsif untuk form perhitungan */
+@media (max-width: 768px) {
+  .admin-form.calculation-form .form-row {
+    /* Sudah dihandle oleh .admin-form .form-row di admin_style.css jika ada */
+  }
+  .calculation-summary p {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .calculation-summary p span {
+    margin-top: 3px;
+  }
+}

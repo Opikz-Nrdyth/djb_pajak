@@ -1,0 +1,831 @@
+/* assets/css/admin-edit-perhitungan.css */
+/* File ini berisi style spesifik untuk halaman edit perhitungan,
+   dan elemen-elemen terkait seperti form, tabel, status, dll.,
+   yang mungkin juga digunakan di halaman admin lain.
+   Pastikan admin_style.css sudah di-load terlebih dahulu untuk layout dasar. */
+
+/* === STYLING UNTUK KELOLA WAJIB PAJAK & FORM EDIT (jika belum ada di admin_style.css) === */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: 1.6rem; /* Mungkin sudah ada di admin_style.css jika .header-page-title dipakai di sini */
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.actions-bar {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-filter-wp input[type="text"] {
+  padding: 10px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 14px;
+  min-width: 300px;
+  transition: border-color 0.3s ease-out;
+}
+.search-filter-wp input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-add-new {
+  /* Jika berbeda dari .button .btn-primary di admin_style.css */
+  background-color: #007bff;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease-out;
+}
+.btn-add-new:hover {
+  background-color: #0056b3;
+}
+.btn-add-new i {
+  font-size: 1em;
+}
+
+.filter-tabs {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0;
+}
+.filter-tabs .tab-item {
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  font-size: 15px;
+  color: #495057;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-right: 5px;
+  margin-bottom: -1px; /* Agar border bawah menyatu dengan border container */
+  transition: color 0.3s ease-out, border-bottom-color 0.3s ease-out;
+}
+.filter-tabs .tab-item.active,
+.filter-tabs .tab-item:hover {
+  color: #007bff;
+  border-bottom-color: #007bff;
+  font-weight: 500;
+}
+
+.table-container {
+  background-color: #fff; /* Mungkin .admin-card sudah memberi background ini */
+  border-radius: 8px; /* Mungkin .admin-card sudah memberi radius ini */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Mungkin .admin-card sudah memberi shadow ini */
+  overflow: auto; /* Penting untuk tabel responsif */
+  margin-bottom: 20px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap; /* Hati-hati dengan ini, bisa membuat tabel terlalu lebar */
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.data-table td:last-child, /* Agar konten di kolom aksi bisa wrap jika perlu */
+.data-table th:last-child {
+  white-space: normal;
+}
+
+.data-table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.data-table th input[type="checkbox"],
+.data-table td input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+.data-table tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+/* Menggunakan class .button dari admin_style.css dan variasi .btn-sm jika perlu */
+.action-buttons .btn {
+  /* Jika .button dan .btn-sm dari admin_style.css tidak cukup */
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  text-decoration: none; /* .button sudah punya ini */
+  /* border: 1px solid transparent; .button sudah punya ini */
+  transition: all 0.3s ease-out; /* .button sudah punya ini */
+  display: inline-flex; /* .button sudah punya ini */
+  align-items: center;
+  white-space: nowrap; /* Mencegah wrap pada tombol aksi individual */
+}
+.action-buttons .btn i {
+  margin-right: 4px;
+}
+
+/* Styling spesifik untuk tombol aksi jika berbeda dari .button, .btn-info, .btn-warning (jika ada), .btn-danger (jika ada) */
+.btn-view {
+  /* Jika tidak ada padanan di admin_style.css */
+  color: #17a2b8;
+  background-color: #e8f7fa;
+  border-color: #b1e5ee;
+}
+.btn-view:hover {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-edit {
+  /* Jika tidak ada padanan di admin_style.css (misal .btn-warning) */
+  color: #ffc107;
+  background-color: #fff8e6;
+  border-color: #ffeeba;
+}
+.btn-edit:hover {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-delete {
+  /* Jika tidak ada padanan di admin_style.css (misal .btn-danger) */
+  color: #dc3545;
+  background-color: #ffeef0;
+  border-color: #f5c6cb;
+}
+.btn-delete:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.table-footer-actions {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.table-footer-actions select {
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: white; /* Umumnya input select sudah putih */
+}
+.table-footer-actions .btn-apply-bulk {
+  /* Jika .button .btn-secondary dari admin_style.css tidak cocok */
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.table-footer-actions .btn-apply-bulk:hover {
+  background-color: #5a6268;
+}
+
+/* Styling untuk Form Admin (.admin-form) */
+/* Jika .admin-card tidak digunakan sebagai container form, styling ini penting */
+.admin-form fieldset {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 6px;
+}
+.admin-form legend {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #003366; /* Warna DJP */
+  padding: 0 10px;
+  margin-left: 5px; /* Sedikit indentasi dari border fieldset */
+}
+.admin-form .form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+.admin-form .form-group {
+  /* Termasuk yang tidak di dalam .form-row */
+  flex: 1; /* Agar grup dalam .form-row membagi ruang sama rata */
+  margin-bottom: 15px; /* Jarak antar grup form jika tidak dalam .form-row */
+}
+.admin-form .form-row .form-group {
+  margin-bottom: 0; /* Reset margin bawah jika sudah dihandle .form-row */
+}
+
+.admin-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #444;
+}
+.admin-form input[type="text"],
+.admin-form input[type="email"],
+.admin-form input[type="tel"],
+.admin-form input[type="number"],
+.admin-form input[type="password"],
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff; /* Umumnya sudah default */
+}
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+  border-color: #007bff; /* Warna aksen */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Efek focus Bootstrap */
+  outline: none;
+}
+.admin-form input[readonly],
+.admin-form input[disabled] {
+  /* Style untuk input yang tidak bisa diedit */
+  background-color: #e9ecef; /* Warna abu-abu muda */
+  cursor: not-allowed;
+}
+.admin-form small.form-text {
+  /* Untuk teks bantuan di bawah input */
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d; /* Abu-abu netral */
+  margin-top: 4px;
+}
+.admin-form textarea {
+  min-height: 80px;
+  resize: vertical; /* Izinkan resize vertikal */
+}
+
+.form-actions {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end; /* Tombol rata kanan */
+}
+/* .form-actions .button class diambil dari admin_style.css */
+
+/* === STYLING SPESIFIK UNTUK FORM PERHITUNGAN PAJAK (calculation-form) === */
+.admin-form.calculation-form fieldset {
+  margin-bottom: 30px; /* Sedikit lebih banyak ruang antar fieldset */
+}
+
+.admin-form.calculation-form legend {
+  font-size: 1.15rem; /* Judul fieldset sedikit lebih besar */
+  margin-bottom: 5px; /* Jarak ke elemen pertama di fieldset */
+  padding: 0 5px; /* Jarak horizontal padding */
+}
+
+.admin-form.calculation-form input[readonly][disabled] {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+  color: #495057; /* Teks sedikit lebih jelas */
+  font-weight: 500; /* Info read-only penting */
+}
+
+.input-currency {
+  /* Untuk input mata uang */
+  text-align: right;
+}
+
+.calculation-summary {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #e9f5ff; /* Biru muda yang lembut */
+  border: 1px solid #b8daff; /* Border biru muda */
+  border-radius: 6px;
+}
+.calculation-summary h4 {
+  font-size: 1.1rem;
+  color: #003366; /* Biru tua DJP */
+  margin-bottom: 15px;
+  border-bottom: 1px solid #b8daff;
+  padding-bottom: 8px;
+}
+.calculation-summary p {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between; /* Label dan nilai terpisah */
+}
+.calculation-summary p strong {
+  /* Untuk PBB Terutang */
+  font-size: 1.05rem;
+  color: #0056b3; /* Biru yang lebih kuat */
+}
+.calculation-summary p span {
+  /* Untuk nilai */
+  font-weight: 600;
+}
+
+/* Tombol .btn-info sudah ada di admin_style.css */
+/* Tombol .btn-success, .btn-print adalah custom jika diperlukan, bisa juga masuk admin_style.css jika general */
+.btn-success {
+  background-color: #198754; /* Bootstrap success green */
+  color: white;
+  border-color: #198754;
+}
+.btn-success:hover {
+  background-color: #157347;
+  border-color: #146c43;
+}
+.btn-print {
+  background-color: #6c757d; /* Bootstrap secondary gray */
+  color: white;
+  border-color: #6c757d;
+}
+.btn-print:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+/* === STYLING UNTUK TAGIHAN & PERHITUNGAN PAJAK & LAPORAN (Tambahan) === */
+.filter-form-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end; /* Tombol filter sejajar dengan bawah input */
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa; /* Latar form filter sedikit beda */
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+.filter-form-inline .form-group {
+  /* Menggunakan .form-group dari style form umum */
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Jarak antara label dan input */
+  flex-grow: 1;
+  min-width: 180px; /* Lebar minimum untuk tiap item filter */
+}
+.filter-form-inline label {
+  /* Menggunakan style label dari form umum */
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #495057;
+}
+.filter-form-inline select,
+.filter-form-inline input[type="text"],
+.filter-form-inline input[type="number"],
+.filter-form-inline input[type="date"] {
+  /* Menggunakan style input dari form umum */
+  padding: 8px 10px; /* Sedikit lebih kecil padding untuk form inline */
+  font-size: 0.9rem;
+  width: 100%; /* Input mengambil lebar penuh grupnya */
+}
+/* Tombol filter menggunakan .button .btn-sm dari admin_style.css jika ada */
+.filter-form-inline .button.btn-sm {
+  align-self: flex-end; /* Pastikan tombol di bawah jika form-groupnya flex-column */
+}
+
+/* Status colors in table */
+.data-table td.status-lengkap,
+.data-table td.status-diverifikasi {
+  color: #198754; /* Hijau untuk status positif */
+  font-weight: 500;
+  text-align: center;
+}
+.data-table td.status-belum-lengkap {
+  color: #ffc107; /* Kuning untuk perhatian */
+  font-weight: 500;
+  text-align: center;
+}
+.data-table td.status-perlu-revisi {
+  color: #fd7e14; /* Oranye untuk revisi */
+  font-weight: 500;
+  text-align: center;
+}
+.data-table td.status-draft {
+  color: #6c757d; /* Abu-abu untuk draft */
+  font-weight: 500;
+  text-align: center;
+}
+.data-table td.status-final {
+  color: #0d6efd; /* Biru untuk final */
+  font-weight: 500;
+  text-align: center;
+}
+.data-table td.status-dikirim-ke-user {
+  color: #0dcaf0; /* Cyan untuk terkirim */
+  font-weight: 500;
+  text-align: center;
+}
+.data-table .text-right {
+  /* Utility class */
+  text-align: right !important;
+}
+.data-table small {
+  /* Info tambahan di sel tabel */
+  font-size: 0.8em;
+  color: #6c757d;
+  display: block;
+  margin-top: 2px;
+}
+
+/* === STYLING UNTUK DETAIL VIEW (WAJIB PAJAK, PERHITUNGAN) & LAPORAN (HARIAN/BULANAN/REKAP) === */
+.admin-card.detail-view-card .admin-card-header, /* Menggunakan .admin-card-header dari admin_style.css */
+.admin-card#hasil-laporan-harian .admin-card-header,
+.admin-card#hasil-laporan-bulanan .admin-card-header,
+.admin-card#hasil-rekapitulasi .admin-card-header {
+  display: flex; /* Memungkinkan tombol aksi di kanan header card */
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-card.detail-view-card .header-actions,
+.admin-card#hasil-laporan-harian .header-actions,
+.admin-card#hasil-laporan-bulanan .header-actions,
+.admin-card#hasil-rekapitulasi .header-actions {
+  display: flex;
+  gap: 10px;
+}
+/* Tombol di header card bisa menggunakan .button .btn-sm .btn-info dll. dari admin_style.css */
+
+.report-summary {
+  /* Untuk ringkasan di laporan harian/bulanan */
+  margin: 15px 0;
+  padding: 15px;
+  background-color: #e9f5ff;
+  border: 1px solid #b8daff;
+  border-radius: 6px;
+}
+.report-summary p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+.report-summary p strong {
+  font-weight: 600;
+  color: #003366;
+}
+.report-summary p:last-child {
+  margin-bottom: 0;
+}
+
+.detail-grid {
+  /* Untuk layout grid di detail wajib pajak */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+.detail-section {
+  /* Section di dalam detail view */
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #e0e0e0;
+}
+.detail-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.detail-section h3 {
+  /* Sub-judul di detail view */
+  font-size: 1.15rem;
+  color: #0056b3;
+  margin-bottom: 12px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+.detail-section p {
+  /* Paragraf info di detail view */
+  font-size: 0.95rem;
+  color: #454545;
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+.detail-section p strong {
+  /* Label untuk info */
+  font-weight: 600;
+  color: #333;
+  min-width: 180px; /* Agar alignment rapi */
+  display: inline-block;
+  margin-right: 5px;
+}
+/* Status badges di detail view */
+.detail-section span[class*="status-"],
+.detail-section span[class*="role-"] {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: white;
+}
+span.status-aktif,
+span.role-admin {
+  background-color: #198754; /* Hijau */
+}
+span.status-pending {
+  background-color: #ffc107; /* Kuning */
+  color: #333; /* Teks gelap agar kontras dengan kuning */
+}
+span.status-nonaktif {
+  background-color: #dc3545; /* Merah */
+}
+span.role-user {
+  background-color: #0dcaf0; /* Cyan */
+}
+
+.calculation-details {
+  /* Container untuk detail perhitungan */
+  margin-top: 20px;
+}
+.calculation-details hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 10px 0;
+}
+.calculation-details .pbb-terutang strong {
+  /* PBB Terutang di detail */
+  font-size: 1.1rem;
+  color: #dc3545; /* Merah untuk menonjolkan jumlah */
+}
+.calculation-details .catatan-box {
+  /* Kotak untuk catatan admin */
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  min-height: 50px; /* Agar tidak terlalu kecil jika catatan pendek */
+  white-space: pre-wrap; /* Agar line break di catatan ditampilkan */
+}
+/* Status badges dengan background color, bukan hanya text color */
+.calculation-details span.status-lengkap,
+.calculation-details span.status-diverifikasi {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+.calculation-details span.status-belum-lengkap {
+  background-color: #fff3cd;
+  color: #664d03;
+}
+.calculation-details span.status-perlu-revisi {
+  background-color: #ffe5d0;
+  color: #723b0a;
+}
+.calculation-details span.status-draft {
+  background-color: #e9ecef;
+  color: #495057;
+}
+.calculation-details span.status-final {
+  background-color: #cfe2ff;
+  color: #052c65;
+}
+.calculation-details span.status-dikirim-ke-user {
+  background-color: #cff4fc;
+  color: #055160;
+}
+
+.admin-card-header small {
+  /* Untuk teks kecil di header card, misal periode laporan */
+  display: block;
+  font-size: 0.85em;
+  color: #555;
+  font-weight: normal;
+  margin-top: 3px;
+}
+
+/* === STYLING UNTUK PENGATURAN ADMIN (Tabulasi) === */
+/* .settings-card .admin-card-header (menggunakan style .admin-card-header) */
+
+.settings-tabs {
+  display: flex;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 25px;
+}
+.settings-tabs .tab-link {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #495057;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px; /* Agar border bawah menyatu */
+  transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+.settings-tabs .tab-link:hover {
+  color: #0056b3;
+}
+.settings-tabs .tab-link.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+}
+
+.settings-tab-content {
+  display: none; /* Konten tab disembunyikan default */
+}
+.settings-tab-content.active {
+  display: block; /* Tampilkan konten tab yang aktif */
+}
+
+.profile-pic-group {
+  /* Untuk form upload foto profil */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Atau center jika ingin di tengah */
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.current-profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #eee;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.profile-pic-group input[type="file"] {
+  /* Styling standar browser atau custom jika perlu */
+  font-size: 0.9rem;
+}
+
+/* Responsif tambahan (jika belum ada atau perlu di-override dari admin_style.css) */
+@media (max-width: 992px) {
+  .filter-form-inline .form-group,
+  .admin-form.filter-form .form-group {
+    /* Untuk filter form di tablet */
+    min-width: calc(50% - 10px); /* Dua kolom */
+    flex-basis: calc(50% - 10px);
+  }
+  .admin-form.filter-form {
+    /* Jika filter form adalah class admin-form */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 20px; /* Gap horizontal, vertical dihandle .form-group */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Responsif untuk Kelola WP & Form */
+  .page-header,
+  .actions-bar {
+    flex-direction: column;
+    align-items: stretch; /* Agar elemen mengambil lebar penuh */
+    gap: 10px;
+  }
+  .search-filter-wp input[type="text"] {
+    min-width: 100%;
+  }
+  .btn-add-new {
+    /* Jika ada */
+    width: 100%;
+    justify-content: center;
+  }
+  .filter-tabs {
+    /* Agar bisa discroll horizontal jika banyak tab */
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 5px; /* Ruang untuk scrollbar */
+  }
+  .filter-tabs .tab-item {
+    white-space: nowrap; /* Mencegah tab wrap */
+  }
+  .action-buttons .btn span {
+    /* Sembunyikan teks tombol aksi, sisakan ikon */
+    display: none;
+  }
+  .action-buttons .btn i {
+    margin-right: 0;
+  }
+  .table-footer-actions {
+    flex-direction: column;
+    align-items: stretch; /* Agar select dan tombol full width */
+  }
+  .admin-form .form-row {
+    flex-direction: column;
+    gap: 0; /* Margin bottom di .form-group sudah cukup */
+  }
+  .admin-form .form-row .form-group {
+    margin-bottom: 15px; /* Jarak antar field di mode kolom */
+  }
+  .admin-form .form-row .form-group:last-child {
+    margin-bottom: 0; /* Hapus margin untuk elemen terakhir */
+  }
+  .form-actions {
+    flex-direction: column;
+  }
+  .form-actions .button {
+    /* Tombol aksi di form jadi full width */
+    width: 100%;
+  }
+
+  /* Responsif untuk Filter Form Inline & Form Filter di Laporan */
+  .filter-form-inline,
+  .admin-form.filter-form {
+    flex-direction: column;
+    align-items: stretch; /* Input dan select full width */
+  }
+  .filter-form-inline .form-group,
+  .admin-form.filter-form .form-group {
+    min-width: 0; /* Override min-width tablet */
+    width: 100%;
+    flex-basis: auto;
+  }
+  .filter-form-inline .button.btn-sm,
+  .admin-form.filter-form .form-actions .button {
+    width: 100%;
+    margin-top: 10px; /* Jarak tombol dari input terakhir */
+  }
+
+  .calculation-summary p {
+    /* Ringkasan perhitungan di mobile */
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .calculation-summary p span {
+    margin-top: 3px;
+  }
+
+  /* Responsif untuk Detail View Card Header */
+  .admin-card.detail-view-card .admin-card-header,
+  .admin-card#hasil-laporan-harian .admin-card-header,
+  .admin-card#hasil-laporan-bulanan .admin-card-header,
+  .admin-card#hasil-rekapitulasi .admin-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .admin-card.detail-view-card .header-actions,
+  .admin-card#hasil-laporan-harian .header-actions,
+  .admin-card#hasil-laporan-bulanan .header-actions,
+  .admin-card#hasil-rekapitulasi .header-actions {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start; /* Atau space-around jika ingin tersebar */
+    gap: 5px; /* Jarak antar tombol aksi */
+  }
+  .admin-card.detail-view-card .header-actions .btn,
+  .admin-card#hasil-laporan-harian .header-actions .btn,
+  .admin-card#hasil-laporan-bulanan .header-actions .btn,
+  .admin-card#hasil-rekapitulasi .header-actions .btn {
+    flex-grow: 1; /* Tombol mengambil ruang sama rata */
+    text-align: center;
+  }
+
+  .detail-section p strong {
+    /* Label di detail view mobile */
+    min-width: auto; /* Hapus min-width */
+    display: block; /* Label jadi satu baris sendiri */
+    margin-bottom: 2px;
+  }
+
+  /* Responsif untuk Tab Pengaturan Admin */
+  .settings-tabs {
+    flex-direction: column;
+    border-bottom: none; /* Hapus border bawah karena jadi vertikal */
+  }
+  .settings-tabs .tab-link {
+    border-bottom: none; /* Hapus border bawah tab */
+    border-left: 3px solid transparent; /* Indikator aktif di kiri */
+    margin-bottom: 0; /* Tidak perlu karena sudah vertikal */
+    padding: 10px 15px;
+    border-radius: 4px 0 0 4px; /* Sedikit radius jika perlu */
+  }
+  .settings-tabs .tab-link.active {
+    border-left-color: #007bff; /* Warna aksen untuk tab aktif */
+    background-color: #e9f5ff; /* Latar sedikit beda untuk tab aktif */
+    border-bottom-color: transparent; /* Pastikan border bawah tetap transparan */
+  }
+}

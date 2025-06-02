@@ -1,266 +1,270 @@
-.card-lr {
-  background-color: #fff;
-  padding: 20px 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
-  margin-bottom: 25px;
+/* assets/css/admin-rekapitulasi.css */
+/* Styling spesifik untuk Halaman Rekapitulasi Laporan. */
+/* Bergantung pada admin_style.css global untuk layout dasar. */
+
+/* Styling Form Umum yang digunakan oleh Filter Form di halaman ini */
+.admin-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #444;
 }
 
-.report-controls-lr .filter-row-lr {
+.admin-form input[type="text"],
+.admin-form input[type="number"],
+.admin-form input[type="email"],
+.admin-form input[type="password"],
+.admin-form input[type="date"], /* Ditambahkan untuk input tanggal */
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none; /* Untuk konsistensi tampilan select di beberapa browser */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Penyesuaian untuk select agar ada arrow dropdown (jika tidak dihandle global) */
+.admin-form select {
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px 10px;
+  padding-right: 30px; /* Ruang untuk arrow */
+}
+
+.admin-form input:focus,
+.admin-form input[type="date"]:focus, /* Ditambahkan untuk input tanggal :focus */
+.admin-form select:focus,
+.admin-form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.admin-form input[readonly],
+.admin-form input[disabled] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.admin-form .form-row {
   display: flex;
-  flex-wrap: wrap; /* Agar responsif */
-  align-items: flex-end; /* Sejajarkan item ke bawah untuk label dan input */
-  gap: 15px; /* Jarak antar grup filter */
+  flex-wrap: wrap;
+  gap: 20px;
   margin-bottom: 15px;
 }
-.report-controls-lr .filter-row-lr:last-child {
+
+.admin-form .form-row .form-group {
+  flex: 1;
+  min-width: calc(50% - 10px);
   margin-bottom: 0;
 }
 
-.report-controls-lr .action-row-lr {
-  justify-content: space-between; /* Tombol tampilkan di kiri, aksi lain di kanan */
-  margin-top: 10px;
+.admin-form > .form-group {
+  margin-bottom: 15px;
 }
 
-.filter-group-lr {
-  display: flex;
-  flex-direction: column; /* Label di atas input/select */
-  gap: 5px; /* Jarak antara label dan input */
-  flex-grow: 1; /* Agar grup filter mengisi ruang jika memungkinkan */
-}
-.filter-group-lr.date-range-lr {
-  min-width: 180px; /* Lebar minimal untuk date picker */
-}
-
-.filter-group-lr label {
-  font-size: 14px;
-  color: #495057;
-  font-weight: 500;
-}
-
-.filter-group-lr select,
-.filter-group-lr input[type="date"] {
-  padding: 9px 10px;
-  font-size: 14px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  width: 100%; /* Input/select mengisi lebar grupnya */
-}
-
-.filter-group-lr select:focus,
-.filter-group-lr input[type="date"]:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.btn-lr {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.2s ease-out, transform 0.1s ease-out;
-}
-
-.btn-primary-lr {
-  background-color: #007bff;
-  color: white;
-}
-.btn-primary-lr:hover {
-  background-color: #0056b3;
-}
-.btn-primary-lr:active {
-  transform: translateY(1px);
-}
-
-.btn-secondary-lr {
-  background-color: #6c757d;
-  color: white;
-}
-.btn-secondary-lr:hover {
-  background-color: #545b62;
-}
-.btn-secondary-lr:active {
-  transform: translateY(1px);
-}
-
-.action-group-lr {
+.admin-form .form-actions {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
   display: flex;
   gap: 10px;
 }
 
-.summary-metrics-lr {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-  margin-bottom: 25px;
+/* Form Filter Spesifik */
+.admin-form.filter-form .form-actions {
+  justify-content: flex-start;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 10px;
 }
 
-.metric-card-lr {
-  /* Sama seperti laporan lain */
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+/* Header Card untuk Hasil Rekapitulasi */
+#hasil-rekapitulasi .admin-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
 }
-.metric-card-lr h4 {
-  font-size: 14px;
-  color: #6c757d;
+
+#hasil-rekapitulasi .admin-card-header span {
+  font-size: 1.2em;
+  display: block;
+}
+#hasil-rekapitulasi .admin-card-header small {
+  font-size: 0.85em;
+  color: #555;
+  font-weight: normal;
+  margin-top: 3px;
+  display: block;
+}
+
+#hasil-rekapitulasi .admin-card-header .header-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-self: flex-end;
+}
+
+.btn-print {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-print:hover {
+  background-color: #5a6268;
+}
+
+/* Konten Rekapitulasi */
+.rekap-content {
+  margin-top: 15px;
+}
+
+.report-summary {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #e9f5ff;
+  border: 1px solid #b8daff;
+  border-radius: 6px;
+}
+.report-summary p {
+  font-size: 0.95rem;
+  color: #333;
   margin-bottom: 8px;
-  font-weight: 500;
 }
-.metric-card-lr p {
-  font-size: 24px;
-  font-weight: bold;
-  color: #007bff;
-  margin: 0;
+.report-summary p:last-child {
+  margin-bottom: 0;
 }
-
-.rekap-data-container {
-  display: grid;
-  grid-template-columns: 1fr; /* Default satu kolom */
-  gap: 25px;
+.report-summary p strong {
+  font-weight: 600;
+  color: #003366;
 }
 
-/* Jika ingin tabel dan chart berdampingan di layar besar */
-@media (min-width: 1024px) {
-  .rekap-data-container {
-    grid-template-columns: 1.5fr 1fr; /* Tabel lebih lebar dari chart */
-  }
-}
-
-.report-table-container-lr .table-header-info-lr {
-  margin-bottom: 15px;
-  font-size: 16px;
-  color: #495057;
-}
-.report-table-container-lr .table-header-info-lr strong {
-  color: #0d1b2a;
-}
-
-.table-wrapper-lr {
+/* Tabel Data untuk Rekapitulasi */
+.table-container {
   overflow-x: auto;
 }
-.data-table-lr {
+
+.data-table {
   width: 100%;
-  border-collapse: collapse; /* white-space: nowrap; (opsional, tergantung data) */
+  border-collapse: collapse;
+  background-color: #fff;
+  table-layout: auto;
 }
-.data-table-lr th,
-.data-table-lr td {
-  padding: 12px 15px;
+
+.data-table th,
+.data-table td {
+  padding: 10px 12px;
   text-align: left;
-  border-bottom: 1px solid #e9ecef;
-  font-size: 14px;
+  border: 1px solid #e0e0e0;
+  font-size: 0.9rem;
   vertical-align: middle;
+  word-wrap: break-word;
 }
-.data-table-lr th {
+
+.data-table th {
   background-color: #f8f9fa;
-  color: #495057;
+  color: #343a40;
   font-weight: 600;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  font-size: 12px;
+  white-space: nowrap;
 }
-.data-table-lr tbody tr:hover {
+
+.data-table tbody tr:hover {
   background-color: #f1f3f5;
-  transition: background-color 0.2s ease-out;
 }
-/* Class text-align bisa ditambahkan dari CSS global jika ada */
-.data-table-lr .text-right {
+
+/* Kelas Status untuk Tabel Rekapitulasi */
+.data-table td[class*="status-"] {
+  padding: 5px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+  min-width: 100px;
+  line-height: 1.4;
+  border: none;
+}
+.data-table td.status-draft {
+  color: #495057;
+  background-color: #e9ecef;
+}
+.data-table td.status-final {
+  color: #052c65;
+  background-color: #cfe2ff;
+}
+.data-table td.status-dikirim-ke-user {
+  color: #055160;
+  background-color: #cff4fc;
+}
+
+/* Utility Text Alignment */
+.data-table .text-right {
   text-align: right !important;
 }
-.data-table-lr .text-center {
+.data-table .text-center {
   text-align: center !important;
 }
 
-.chart-container-lr .chart-header-lr {
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.chart-container-lr .chart-header-lr h3 {
-  font-size: 17px;
-  color: #343a40;
-  font-weight: 600;
-  margin: 0;
-}
-.chart-type-select-lr {
-  padding: 6px 8px;
-  font-size: 13px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-}
-
-.chart-placeholder-lr {
-  min-height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-}
-#rekapReportChartCanvas {
-  max-width: 100%;
-}
-
-.message-placeholder-lr {
-  /* Sama seperti laporan lain */
-  text-align: center;
-  padding: 40px 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  color: #6c757d;
-}
-.message-placeholder-lr i {
-  font-size: 36px;
-  margin-bottom: 15px;
-  color: #007bff;
-}
-.message-placeholder-lr p {
-  font-size: 16px;
-  margin: 0;
+/* Penyesuaian Responsif */
+@media (max-width: 992px) {
+  .admin-form.filter-form .form-group {
+    min-width: calc(50% - 10px);
+    flex-basis: calc(50% - 10px);
+  }
+  .admin-form.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 20px;
+  }
+  .admin-form.filter-form .form-row {
+    flex-basis: 100%;
+  }
 }
 
 @media (max-width: 768px) {
-  .report-controls-lr .filter-row-lr {
+  .admin-form.filter-form .form-row {
     flex-direction: column;
-    align-items: stretch;
-    gap: 10px; /* Jarak antar grup filter yang ditumpuk */
+    gap: 0;
   }
-  .filter-group-lr {
-    width: 100%;
+  .admin-form.filter-form .form-group {
+    margin-bottom: 15px;
+    min-width: 100%;
+    flex-basis: auto;
   }
-  .report-controls-lr .action-row-lr {
-    flex-direction: column;
-    gap: 10px;
+  .admin-form.filter-form .form-group:last-child {
+    margin-bottom: 0;
   }
-  .action-group-lr {
-    width: 100%;
-    display: flex;
-    justify-content: stretch;
-  }
-  .action-group-lr .btn-lr {
-    flex-grow: 1; /* Tombol aksi berbagi ruang */
-  }
-  .btn-lr {
-    width: 100%;
-    justify-content: center;
-  }
-  .summary-metrics-lr {
-    grid-template-columns: 1fr;
-  }
-  .rekap-data-container {
-    grid-template-columns: 1fr;
-  } /* Chart dan tabel selalu tumpuk di mobile */
-  .chart-container-lr .chart-header-lr {
-    flex-direction: column;
+
+  #hasil-rekapitulasi .admin-card-header {
     align-items: flex-start;
-    gap: 10px;
+  }
+  #hasil-rekapitulasi .admin-card-header .header-actions {
+    align-self: flex-start;
+    margin-top: 10px;
+    width: auto;
+  }
+
+  .data-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .data-table thead,
+  .data-table tbody,
+  .data-table tr {
+    display: block;
   }
 }

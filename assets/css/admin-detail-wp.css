@@ -906,15 +906,32 @@ body {
   margin-top: 2px;
 }
 
-/* === STYLING UNTUK DETAIL PERHITUNGAN PAJAK & LAPORAN HARIAN/BULANAN (Tambahan) === */
-.admin-card .admin-card-header .header-actions {
+/* === STYLING UNTUK DETAIL WAJIB PAJAK & DETAIL PERHITUNGAN & LAPORAN HARIAN/BULANAN (Tambahan) === */
+.admin-card.detail-view-card .admin-card-header, /* Untuk Detail WP */
+.admin-card#hasil-laporan-harian .admin-card-header, /* Untuk Laporan Harian */
+.admin-card#hasil-laporan-bulanan .admin-card-header, /* Untuk Laporan Bulanan */
+.admin-card#hasil-rekapitulasi .admin-card-header /* Untuk Rekapitulasi */ {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-card.detail-view-card .header-actions,
+.admin-card#hasil-laporan-harian .header-actions,
+.admin-card#hasil-laporan-bulanan .header-actions,
+.admin-card#hasil-rekapitulasi .header-actions {
   display: flex;
   gap: 10px;
 }
-.admin-card .admin-card-header .header-actions .btn {
+.admin-card.detail-view-card .header-actions .btn,
+.admin-card#hasil-laporan-harian .header-actions .btn,
+.admin-card#hasil-laporan-bulanan .header-actions .btn,
+.admin-card#hasil-rekapitulasi .header-actions .btn {
   margin-left: 0;
 }
-.admin-card .admin-card-header .header-actions .btn-sm {
+.admin-card.detail-view-card .header-actions .btn-sm,
+.admin-card#hasil-laporan-harian .header-actions .btn-sm,
+.admin-card#hasil-laporan-bulanan .header-actions .btn-sm,
+.admin-card#hasil-rekapitulasi .header-actions .btn-sm {
   font-size: 0.8rem;
   padding: 5px 10px;
 }
@@ -958,38 +975,73 @@ body {
   margin-bottom: 0;
 }
 
-.calculation-details {
-  /* Digunakan di Detail Perhitungan */
+.detail-grid {
+  /* Untuk Detail Wajib Pajak */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
   margin-top: 20px;
 }
-.calculation-details .detail-section {
+.detail-section {
+  /* Untuk Detail Wajib Pajak & Detail Perhitungan */
   margin-bottom: 25px;
   padding-bottom: 15px;
   border-bottom: 1px dashed #e0e0e0;
 }
-.calculation-details .detail-section:last-child {
+.detail-section:last-child {
   border-bottom: none;
   margin-bottom: 0;
   padding-bottom: 0;
 }
-.calculation-details .detail-section h3 {
+.detail-section h3 {
   font-size: 1.15rem;
   color: #0056b3;
   margin-bottom: 12px;
   padding-bottom: 5px;
   border-bottom: 1px solid #eee;
 }
-.calculation-details p {
+.detail-section p {
   font-size: 0.95rem;
   color: #454545;
   margin-bottom: 8px;
   line-height: 1.7;
 }
-.calculation-details p strong {
+.detail-section p strong {
   font-weight: 600;
   color: #333;
-  min-width: 200px;
+  min-width: 180px;
   display: inline-block;
+  margin-right: 5px;
+}
+.detail-section span[class*="status-"], /* Untuk status di Detail WP */
+.detail-section span[class*="role-"] {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: white;
+}
+span.status-aktif,
+span.role-admin {
+  background-color: #198754;
+  color: white;
+}
+span.status-pending {
+  background-color: #ffc107;
+  color: #333;
+}
+span.status-nonaktif {
+  background-color: #dc3545;
+  color: white;
+}
+span.role-user {
+  background-color: #0dcaf0;
+  color: white;
+}
+
+.calculation-details {
+  /* Digunakan di Detail Perhitungan */
+  margin-top: 20px;
 }
 .calculation-details hr {
   border: none;
@@ -1009,13 +1061,7 @@ body {
   min-height: 50px;
   white-space: pre-wrap;
 }
-.calculation-details .detail-section span[class*="status-"] {
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  color: white;
-}
-
+/* Status di Detail Perhitungan (menggunakan styling dari Laporan Harian/Bulanan) */
 .calculation-details span.status-lengkap,
 .calculation-details span.status-diverifikasi {
   background-color: #d1e7dd;
@@ -1059,6 +1105,61 @@ body {
   color: #555;
   font-weight: normal;
   margin-top: 3px;
+}
+
+/* === STYLING UNTUK PENGATURAN ADMIN (Tabulasi) === */
+.settings-card .admin-card-header {
+  /* Styling standar .admin-card-header */
+}
+
+.settings-tabs {
+  display: flex;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 25px;
+}
+.settings-tabs .tab-link {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #495057;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+.settings-tabs .tab-link:hover {
+  color: #0056b3;
+}
+.settings-tabs .tab-link.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+}
+
+.settings-tab-content {
+  display: none;
+}
+.settings-tab-content.active {
+  display: block;
+}
+
+.profile-pic-group {
+  /* Untuk form profil di pengaturan */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.current-profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #eee;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.profile-pic-group input[type="file"] {
+  font-size: 0.9rem;
 }
 
 /* Responsif untuk Content Area Admin (Tambahan untuk Kelola WP & Form) */
@@ -1241,6 +1342,23 @@ body {
     min-width: auto;
     display: block;
     margin-bottom: 2px;
+  }
+  /* Responsif untuk Pengaturan Admin Tabs */
+  .settings-tabs {
+    flex-direction: column;
+    border-bottom: none;
+  }
+  .settings-tabs .tab-link {
+    border-bottom: none;
+    border-left: 3px solid transparent;
+    margin-bottom: 0;
+    padding: 10px 15px;
+    border-radius: 4px 0 0 4px; /* Rounded di kiri */
+  }
+  .settings-tabs .tab-link.active {
+    border-left-color: #007bff;
+    background-color: #e9f5ff;
+    border-bottom-color: transparent; /* Hapus border bawah di mobile */
   }
 }
 

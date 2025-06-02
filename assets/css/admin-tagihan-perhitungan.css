@@ -1,0 +1,279 @@
+/* assets/css/admin-tagihan-perhitungan.css */
+/* Styling spesifik untuk konten halaman Tagihan & Perhitungan Pajak */
+
+/* Header Halaman dengan Tombol Tambah */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px; /* Tambahan jika ingin ada garis bawah atau jarak */
+  border-bottom: 1px solid #eee; /* Garis pemisah opsional */
+}
+.page-header h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+/* .btn-add-new akan menggunakan .button .btn-primary dari admin_style.css */
+/* Jika butuh style khusus untuk .btn-add-new, tambahkan di sini, contoh: */
+.btn-add-new i {
+  margin-right: 8px;
+}
+
+/* Styling untuk Form Filter Inline */
+.filter-form-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+.filter-form-inline .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+  min-width: 180px;
+}
+.filter-form-inline label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #495057;
+}
+.filter-form-inline select,
+.filter-form-inline input[type="text"], /* Jika ada input text di filter */
+.filter-form-inline input[type="date"] {
+  /* Jika ada input date di filter */
+  padding: 8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 100%;
+  background-color: #fff; /* Pastikan background putih */
+  color: #333; /* Warna teks input */
+}
+.filter-form-inline select:focus,
+.filter-form-inline input[type="text"]:focus,
+.filter-form-inline input[type="date"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+/* Tombol filter di form inline, bisa menggunakan .button .btn-primary .btn-sm dari admin_style.css */
+.filter-form-inline .button.btn-sm {
+  align-self: flex-end; /* Agar sejajar dengan bawah jika label di atas */
+}
+
+/* Styling untuk Tabel Data */
+.table-container {
+  background-color: #fff; /* Sebaiknya sudah dihandle .admin-card */
+  border-radius: 8px; /* Sebaiknya sudah dihandle .admin-card */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sebaiknya sudah dihandle .admin-card */
+  overflow-x: auto; /* Penting untuk tabel yang lebar agar bisa discroll horizontal */
+  margin-top: 20px; /* Jarak dari filter form */
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap; /* Default agar tidak wrap, kecuali kolom tertentu */
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.data-table th {
+  background-color: #f8f9fa; /* Latar header tabel */
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  white-space: nowrap; /* Header sebaiknya tidak wrap */
+}
+
+.data-table tbody tr:hover {
+  background-color: #f1f3f5; /* Efek hover pada baris tabel */
+}
+
+.data-table td:last-child, /* Kolom aksi */
+.data-table th:last-child {
+  white-space: normal; /* Izinkan wrap untuk kolom aksi jika banyak tombol */
+  text-align: center; /* Pusatkan tombol aksi jika diinginkan */
+  min-width: 120px; /* Lebar minimum untuk tombol aksi */
+}
+.data-table td.action-buttons {
+  min-width: 130px; /* Cukup untuk 2 tombol dengan ikon & teks */
+}
+
+/* Tombol Aksi dalam Tabel */
+.action-buttons {
+  display: flex;
+  gap: 8px; /* Jarak antar tombol */
+  align-items: center;
+  justify-content: center; /* Pusatkan tombol jika text-align:center di td */
+}
+/* .action-buttons .button akan mengambil style dari .button di admin_style.css */
+/* .action-buttons .btn-sm akan mengambil style dari .btn-sm di admin_style.css */
+
+.btn-view {
+  /* Tombol lihat detail, bisa juga .btn-info dari admin_style.css */
+  background-color: #e8f7fa;
+  color: #17a2b8;
+  border: 1px solid #b1e5ee;
+}
+.btn-view:hover {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-edit {
+  /* Tombol edit, bisa juga .btn-warning atau sejenisnya dari admin_style.css */
+  background-color: #fff8e6;
+  color: #ffc107;
+  border: 1px solid #ffeeba;
+}
+.btn-edit:hover {
+  background-color: #ffc107;
+  color: #212529; /* Teks gelap agar kontras dengan kuning */
+}
+/* Jika ada tombol delete, bisa menggunakan .btn-danger dari admin_style.css */
+
+/* Kelas Status dalam Tabel */
+.data-table td.status-lengkap,
+.data-table td.status-diverifikasi {
+  color: #0f5132; /* Teks lebih gelap untuk kontras yang lebih baik */
+  background-color: #d1e7dd; /* Latar hijau muda */
+  font-weight: 500;
+  text-align: center;
+  padding: 5px 8px; /* Padding untuk tampilan seperti badge */
+  border-radius: 4px;
+  display: inline-block; /* Agar padding dan radius bekerja baik */
+  min-width: 100px; /* Lebar minimum agar badge seragam */
+}
+.data-table td.status-belum-lengkap {
+  color: #664d03;
+  background-color: #fff3cd; /* Latar kuning muda */
+  font-weight: 500;
+  text-align: center;
+  padding: 5px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  min-width: 100px;
+}
+.data-table td.status-perlu-revisi {
+  color: #723b0a;
+  background-color: #ffe5d0; /* Latar oranye muda */
+  font-weight: 500;
+  text-align: center;
+  padding: 5px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  min-width: 100px;
+}
+.data-table td.status-draft {
+  color: #495057;
+  background-color: #e9ecef; /* Latar abu-abu muda */
+  font-weight: 500;
+  text-align: center;
+  padding: 5px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  min-width: 100px;
+}
+.data-table td.status-final {
+  color: #052c65;
+  background-color: #cfe2ff; /* Latar biru muda */
+  font-weight: 500;
+  text-align: center;
+  padding: 5px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  min-width: 100px;
+}
+.data-table td.status-dikirim-ke-user {
+  color: #055160;
+  background-color: #cff4fc; /* Latar cyan muda */
+  font-weight: 500;
+  text-align: center;
+  padding: 5px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  min-width: 100px;
+}
+
+/* Utility classes jika belum ada di admin_style.css */
+.data-table .text-right {
+  text-align: right !important;
+}
+.data-table .text-center {
+  text-align: center !important;
+}
+.data-table small {
+  /* Teks kecil di bawah nama WP, NIK, dll. */
+  font-size: 0.8em;
+  color: #6c757d;
+  display: block; /* Agar di baris baru */
+  margin-top: 2px;
+  white-space: normal; /* Izinkan wrap untuk NIK/NPWP panjang */
+}
+
+/* Penyesuaian responsif (sebagian sudah ada di atas) */
+@media (max-width: 992px) {
+  .filter-form-inline .form-group {
+    min-width: calc(50% - 10px); /* Filter jadi 2 kolom di tablet */
+  }
+}
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch; /* Tombol jadi full width */
+    gap: 10px;
+  }
+  .page-header h1 {
+    text-align: center; /* Judul di tengah jika mau */
+  }
+  .filter-form-inline {
+    flex-direction: column;
+    align-items: stretch; /* Semua elemen filter full width */
+  }
+  .filter-form-inline .form-group {
+    min-width: 0; /* Override dari tablet */
+    width: 100%;
+  }
+  .filter-form-inline .button.btn-sm {
+    /* Tombol filter full width */
+    width: 100%;
+    margin-top: 10px;
+  }
+  .data-table td,
+  .data-table th {
+    font-size: 13px; /* Font lebih kecil di mobile */
+    padding: 8px 10px; /* Padding lebih kecil */
+  }
+  .data-table {
+    white-space: normal; /* Izinkan wrap semua kolom di mobile */
+  }
+  .action-buttons {
+    flex-direction: row; /* Tetap row tapi mungkin perlu penyesuaian lain */
+    gap: 5px;
+  }
+  .action-buttons .button span {
+    /* Sembunyikan teks tombol, sisakan ikon */
+    display: none;
+  }
+  .action-buttons .button i {
+    margin-right: 0;
+  }
+}

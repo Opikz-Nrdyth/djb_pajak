@@ -573,7 +573,8 @@ body {
   margin-right: 4px;
 }
 .action-buttons .btn span {
-  /* display: none; */
+  /* Untuk teks di tombol aksi */
+  /* display: none; */ /* Bisa disembunyikan di mobile jika perlu */
 }
 
 .btn-view {
@@ -644,18 +645,19 @@ body {
   font-weight: 600;
   color: #003366;
   padding: 0 10px;
-  margin-left: 5px;
+  margin-left: 5px; /* Sedikit indentasi */
 }
 .admin-form .form-row {
   display: flex;
-  gap: 20px;
+  gap: 20px; /* Jarak antar kolom di satu baris */
   margin-bottom: 15px;
 }
 .admin-form .form-group {
-  flex: 1;
-  margin-bottom: 0;
+  flex: 1; /* Agar kolom mengambil lebar yang sama */
+  margin-bottom: 0; /* Margin bawah diatur oleh .form-row */
 }
 .admin-form .form-group:last-child {
+  /* Jika hanya satu .form-group di .form-row */
   /* Tidak perlu style khusus, flex: 1 sudah cukup */
 }
 /* Jika .form-group tidak di dalam .form-row */
@@ -674,7 +676,7 @@ body {
 .admin-form input[type="email"],
 .admin-form input[type="tel"],
 .admin-form input[type="number"],
-.admin-form input[type="password"],
+.admin-form input[type="password"], /* Tambahkan untuk password jika ada */
 .admin-form select,
 .admin-form textarea {
   width: 100%;
@@ -683,7 +685,7 @@ body {
   border-radius: 5px;
   font-size: 0.95rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  background-color: #fff;
+  background-color: #fff; /* Pastikan background input putih */
 }
 .admin-form input:focus,
 .admin-form select:focus,
@@ -694,18 +696,20 @@ body {
 }
 .admin-form input[readonly],
 .admin-form input[disabled] {
+  /* Styling untuk input readonly/disabled */
   background-color: #e9ecef;
   cursor: not-allowed;
 }
 .admin-form small {
+  /* Untuk teks bantuan di bawah input */
   display: block;
   font-size: 0.8rem;
   color: #6c757d;
   margin-top: 4px;
 }
 .admin-form textarea {
-  min-height: 80px;
-  resize: vertical;
+  min-height: 80px; /* Tinggi minimal textarea */
+  resize: vertical; /* Izinkan resize vertikal */
 }
 
 .form-actions {
@@ -714,13 +718,15 @@ body {
   border-top: 1px solid #e0e0e0;
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: flex-end; /* Tombol ke kanan */
 }
 .form-actions .button {
+  /* Menggunakan kelas .button yang sudah ada */
   padding: 10px 20px;
   font-size: 0.95rem;
 }
 .btn-primary {
+  /* Spesifik untuk tombol utama form */
   background-color: #007bff;
   color: white;
   border-color: #007bff;
@@ -730,6 +736,7 @@ body {
   border-color: #0056b3;
 }
 .btn-secondary {
+  /* Spesifik untuk tombol sekunder/batal */
   background-color: #6c757d;
   color: white;
   border-color: #6c757d;
@@ -737,328 +744,6 @@ body {
 .btn-secondary:hover {
   background-color: #5a6268;
   border-color: #545b62;
-}
-
-/* === STYLING UNTUK FORM BUAT PERHITUNGAN PAJAK (Tambahan) === */
-.admin-form.calculation-form fieldset {
-  margin-bottom: 30px;
-}
-
-.admin-form.calculation-form legend {
-  font-size: 1.15rem;
-  margin-bottom: 5px;
-  padding: 0 5px;
-}
-
-.admin-form.calculation-form .form-group small {
-  font-size: 0.8rem;
-  color: #6c757d;
-  margin-top: 3px;
-  display: block;
-}
-
-.admin-form.calculation-form input[readonly][disabled] {
-  background-color: #e9ecef;
-  border-color: #ced4da;
-  color: #495057;
-  font-weight: 500;
-  cursor: not-allowed;
-}
-
-.input-currency {
-  text-align: right;
-}
-
-.calculation-summary {
-  margin-top: 25px;
-  padding: 20px;
-  background-color: #e9f5ff;
-  border: 1px solid #b8daff;
-  border-radius: 6px;
-}
-.calculation-summary h4 {
-  font-size: 1.1rem;
-  color: #003366;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #b8daff;
-  padding-bottom: 8px;
-}
-.calculation-summary p {
-  font-size: 0.95rem;
-  color: #333;
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-.calculation-summary p strong {
-  font-size: 1.05rem;
-  color: #0056b3;
-}
-.calculation-summary p span {
-  font-weight: 600;
-}
-
-.btn-info {
-  background-color: #0dcaf0;
-  color: white;
-  border-color: #0dcaf0;
-}
-.btn-info:hover {
-  background-color: #0aa8c2;
-  border-color: #0aa8c2;
-}
-
-/* === STYLING UNTUK TAGIHAN & PERHITUNGAN PAJAK & LAPORAN (Tambahan) === */
-.filter-form-inline {
-  /* Digunakan juga untuk Laporan Detail Filter Form */
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: flex-end;
-  margin-bottom: 20px;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-radius: 6px;
-  border: 1px solid #e9ecef;
-}
-.filter-form-inline .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  flex-grow: 1;
-  min-width: 180px;
-}
-.filter-form-inline label {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #495057;
-}
-.filter-form-inline select,
-.filter-form-inline input[type="text"],
-.filter-form-inline input[type="number"],
-.filter-form-inline input[type="date"] {
-  padding: 8px 10px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  width: 100%;
-}
-.filter-form-inline .button.btn-sm,
-.admin-form.filter-form .form-actions .button {
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  align-self: flex-end;
-}
-.filter-form-inline .button.btn-sm:hover,
-.admin-form.filter-form .form-actions .button:hover {
-  background-color: #0056b3;
-}
-.admin-form.filter-form .form-actions {
-  border-top: none;
-  padding-top: 0;
-  margin-top: 10px;
-  justify-content: flex-start;
-}
-
-.data-table td.status-lengkap,
-.data-table td.status-diverifikasi {
-  color: #198754;
-  font-weight: 500;
-  text-align: center;
-}
-.data-table td.status-belum-lengkap {
-  color: #ffc107;
-  font-weight: 500;
-  text-align: center;
-}
-.data-table td.status-perlu-revisi {
-  color: #fd7e14;
-  font-weight: 500;
-  text-align: center;
-}
-.data-table td.status-draft {
-  color: #6c757d;
-  font-weight: 500;
-  text-align: center;
-}
-.data-table td.status-final {
-  color: #0d6efd;
-  font-weight: 500;
-  text-align: center;
-}
-.data-table td.status-dikirim-ke-user {
-  color: #0dcaf0;
-  font-weight: 500;
-  text-align: center;
-}
-.data-table .text-right {
-  text-align: right !important;
-}
-.data-table small {
-  font-size: 0.8em;
-  color: #6c757d;
-  display: block;
-  margin-top: 2px;
-}
-
-/* === STYLING UNTUK DETAIL PERHITUNGAN PAJAK & LAPORAN HARIAN/BULANAN (Tambahan) === */
-.admin-card .admin-card-header .header-actions {
-  display: flex;
-  gap: 10px;
-}
-.admin-card .admin-card-header .header-actions .btn {
-  margin-left: 0;
-}
-.admin-card .admin-card-header .header-actions .btn-sm {
-  font-size: 0.8rem;
-  padding: 5px 10px;
-}
-.btn-print {
-  background-color: #6c757d;
-  color: white;
-  border-color: #6c757d;
-}
-.btn-print:hover {
-  background-color: #5a6268;
-  border-color: #545b62;
-}
-.btn-success {
-  background-color: #198754;
-  color: white;
-  border-color: #198754;
-}
-.btn-success:hover {
-  background-color: #157347;
-  border-color: #146c43;
-}
-
-.report-summary {
-  /* Digunakan di Laporan Harian & Bulanan */
-  margin: 15px 0;
-  padding: 15px;
-  background-color: #e9f5ff;
-  border: 1px solid #b8daff;
-  border-radius: 6px;
-}
-.report-summary p {
-  font-size: 1rem;
-  color: #333;
-  margin-bottom: 8px;
-}
-.report-summary p strong {
-  font-weight: 600;
-  color: #003366;
-}
-.report-summary p:last-child {
-  margin-bottom: 0;
-}
-
-.calculation-details {
-  /* Digunakan di Detail Perhitungan */
-  margin-top: 20px;
-}
-.calculation-details .detail-section {
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 1px dashed #e0e0e0;
-}
-.calculation-details .detail-section:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-.calculation-details .detail-section h3 {
-  font-size: 1.15rem;
-  color: #0056b3;
-  margin-bottom: 12px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #eee;
-}
-.calculation-details p {
-  font-size: 0.95rem;
-  color: #454545;
-  margin-bottom: 8px;
-  line-height: 1.7;
-}
-.calculation-details p strong {
-  font-weight: 600;
-  color: #333;
-  min-width: 200px;
-  display: inline-block;
-}
-.calculation-details hr {
-  border: none;
-  border-top: 1px solid #eee;
-  margin: 10px 0;
-}
-.calculation-details .pbb-terutang strong {
-  font-size: 1.1rem;
-  color: #dc3545;
-}
-.calculation-details .catatan-box {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  padding: 10px 15px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  min-height: 50px;
-  white-space: pre-wrap;
-}
-.calculation-details .detail-section span[class*="status-"] {
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  color: white;
-}
-
-.calculation-details span.status-lengkap,
-.calculation-details span.status-diverifikasi {
-  background-color: #d1e7dd;
-  color: #0f5132;
-}
-.calculation-details span.status-belum-lengkap {
-  background-color: #fff3cd;
-  color: #664d03;
-}
-.calculation-details span.status-perlu-revisi {
-  background-color: #ffe5d0;
-  color: #723b0a;
-}
-.calculation-details span.status-draft {
-  background-color: #e9ecef;
-  color: #495057;
-}
-.calculation-details span.status-final {
-  background-color: #cfe2ff;
-  color: #052c65;
-}
-.calculation-details span.status-dikirim-ke-user {
-  background-color: #cff4fc;
-  color: #055160;
-}
-
-.rekap-content {
-  /* Untuk halaman rekapitulasi */
-  margin-top: 20px;
-}
-.rekap-content .report-summary {
-  /* Styling sudah ada */
-}
-.rekap-content .table-container {
-  /* Styling sudah ada */
-}
-.admin-card-header small {
-  /* Untuk periode di header card hasil rekap */
-  display: block;
-  font-size: 0.85em;
-  color: #555;
-  font-weight: normal;
-  margin-top: 3px;
 }
 
 /* Responsif untuk Content Area Admin (Tambahan untuk Kelola WP & Form) */
@@ -1078,20 +763,6 @@ body {
   }
   .header-center {
     display: none;
-  }
-  .filter-form-inline .form-group {
-    /* Untuk Tagihan & Perhitungan */
-    min-width: calc(50% - 10px);
-  }
-  .admin-form.filter-form .form-group {
-    /* Untuk Laporan Detail Filter & Rekapitulasi */
-    min-width: calc(50% - 10px);
-    flex-basis: calc(50% - 10px);
-  }
-  .admin-form.filter-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 20px;
   }
 }
 
@@ -1168,120 +839,20 @@ body {
     align-items: stretch;
   }
   .admin-form .form-row {
+    /* Form row menjadi satu kolom di mobile */
     flex-direction: column;
-    gap: 0;
+    gap: 0; /* Hapus gap antar kolom, margin diatur oleh .form-group */
   }
   .admin-form .form-row .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Beri jarak antar field di mobile */
   }
   .admin-form .form-row .form-group:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0; /* Hapus margin bawah untuk field terakhir di baris */
   }
   .form-actions {
-    flex-direction: column;
+    flex-direction: column; /* Tombol form stack di mobile */
   }
   .form-actions .button {
-    width: 100%;
+    width: 100%; /* Tombol full width */
   }
-
-  /* Responsif untuk Tagihan & Perhitungan Filter & Laporan Filter */
-  .filter-form-inline,
-  .admin-form.filter-form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .filter-form-inline .form-group,
-  .admin-form.filter-form .form-group {
-    min-width: 0;
-    width: 100%;
-    flex-basis: auto;
-  }
-  .filter-form-inline select,
-  .filter-form-inline input[type="text"],
-  .filter-form-inline input[type="number"],
-  .filter-form-inline input[type="date"],
-  .admin-form.filter-form input[type="text"],
-  .admin-form.filter-form input[type="number"],
-  .admin-form.filter-form select,
-  .admin-form.filter-form input[type="date"] {
-    width: 100%;
-  }
-  .filter-form-inline .button.btn-sm,
-  .admin-form.filter-form .form-actions .button {
-    width: 100%;
-    margin-top: 10px;
-  }
-  .calculation-summary p {
-    /* Untuk Form Buat Perhitungan */
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 10px;
-  }
-  .calculation-summary p span {
-    margin-top: 3px;
-  }
-
-  /* Responsif untuk Detail Perhitungan & Laporan Harian/Bulanan */
-  .admin-card .admin-card-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .admin-card .admin-card-header .header-actions {
-    margin-top: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    gap: 5px;
-  }
-  .admin-card .admin-card-header .header-actions .btn {
-    flex-grow: 1;
-    text-align: center;
-  }
-  .calculation-details p strong {
-    min-width: auto;
-    display: block;
-    margin-bottom: 2px;
-  }
-}
-
-/* Styling untuk pesan error dan sukses (umum) */
-.auth-errors,
-.flash-message.auth-errors {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-  padding: 10px 15px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  text-align: left;
-  font-size: 0.9rem;
-}
-.auth-errors p,
-.flash-message.auth-errors p {
-  margin: 0 0 5px 0;
-}
-.auth-errors ul,
-.flash-message.auth-errors ul {
-  margin: 0;
-  padding-left: 20px;
-}
-.auth-errors li,
-.flash-message.auth-errors li {
-  margin-bottom: 3px;
-}
-
-.auth-success,
-.flash-message.auth-success {
-  background-color: #d1e7dd;
-  color: #0f5132;
-  border: 1px solid #badbcc;
-  padding: 10px 15px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-.auth-success p,
-.flash-message.auth-success p {
-  margin: 0;
 }

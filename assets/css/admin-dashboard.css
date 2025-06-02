@@ -1,0 +1,91 @@
+.admin-dashboard-summary {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* Responsif, 1-4 kolom tergantung lebar */
+  gap: 20px; /* Jarak antar item summary */
+}
+
+.summary-item {
+  background-color: #f8f9fa; /* Warna latar item summary */
+  padding: 20px; /* Padding dalam item */
+  border-radius: 6px;
+  border: 1px solid #e9ecef; /* Border tipis */
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04); /* Shadow halus */
+}
+
+.summary-item h4 {
+  font-size: 0.95rem; /* Ukuran judul item */
+  color: #495057; /* Warna teks judul */
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 2rem; /* Ukuran angka summary */
+  font-weight: 700;
+  color: #003366; /* Warna angka summary */
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.summary-link {
+  font-size: 0.85rem;
+  color: #007bff; /* Warna link */
+  text-decoration: none;
+  font-weight: 500;
+}
+.summary-link:hover {
+  text-decoration: underline;
+}
+
+/* Recent Activity List */
+.admin-recent-activity {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px; /* Jarak dari elemen sebelumnya jika ada */
+}
+
+.admin-recent-activity li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0; /* Garis pemisah antar aktivitas */
+  font-size: 0.9rem;
+  color: #454545;
+  display: flex; /* Untuk alignment waktu */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-recent-activity li:last-child {
+  border-bottom: none; /* Hapus border untuk item terakhir */
+}
+
+.activity-time {
+  font-size: 0.8rem;
+  color: #777;
+  white-space: nowrap; /* Mencegah waktu wrap */
+  margin-left: 15px; /* Jarak dari teks aktivitas */
+}
+
+/* Responsif untuk konten dashboard */
+@media (max-width: 768px) {
+  .admin-dashboard-summary {
+    grid-template-columns: 1fr; /* Satu kolom di mobile */
+  }
+  .summary-item {
+    padding: 15px;
+  }
+  .summary-value {
+    font-size: 1.8rem;
+  }
+  .admin-recent-activity li {
+    flex-direction: column; /* Stack teks dan waktu di mobile */
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .activity-time {
+    margin-left: 0;
+  }
+}

@@ -1,17 +1,13 @@
 <?php
 // logout.php
-
-// 1. Mulai atau lanjutkan session yang ada
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// 2. Hapus semua variabel session
+// Hapus semua variabel session
 $_SESSION = array();
 
-// 3. Hancurkan session
-// Jika ingin menghancurkan session sepenuhnya, hapus juga cookie session.
-// Catatan: Ini akan menghancurkan session, dan bukan hanya data session!
+// Hancurkan session
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(
@@ -24,12 +20,25 @@ if (ini_get("session.use_cookies")) {
         $params["httponly"]
     );
 }
-
-// Akhirnya, hancurkan session.
 session_destroy();
 
-// 4. Arahkan pengguna ke halaman login publik
-// Kita asumsikan halaman login utama adalah 'login.php' di root direktori.
-// Jika Anda memiliki halaman landing sebelum login (misalnya index.php), Anda bisa arahkan ke sana.
-header("Location: login.php");
-exit;
+// Definisikan BASE_URL jika belum ada (untuk redirect ke login.php di root)
+if (!defined('BASE_URL')) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'];
+    // Menentukan root path dari script saat ini (logout.php ada di root)
+    $root_path = dirname($_SERVER['SCRIPT_NAME']);
+    // Pastikan $root_path diakhiri dengan slash jika bukan root domain
+    if ($root_path === '/' || $root_path === '\\') {
+        $root_path = '/';
+    } else {
+        $root_path = rtrim($root_path, '/\\') . '/';
+    }
+    if ($root_path === '//') $root_path = '/';
+    define('BASE_URL', $protocol . $host . $root_path);
+}
+
+
+// Redirect ke halaman login
+header("Location: " . BASE_URL . "login.php");
+exit();

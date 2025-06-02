@@ -1,17 +1,19 @@
 <?php
-// /admin/dashboard_admin.php (Layout Menyatu)
+// admin/index.php (Dashboard Admin)
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Definisikan BASE_URL_ADMIN di awal, sebelum digunakan
+// Definisi BASE_URL_ADMIN
 if (!defined('BASE_URL_ADMIN')) {
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
     $host = $_SERVER['HTTP_HOST'];
+    // Mendapatkan path root dari script saat ini (index.php ada di dalam folder admin)
     $script_path_parts = explode('/', dirname($_SERVER['SCRIPT_NAME']));
-    array_pop($script_path_parts);
+    array_pop($script_path_parts); // Hapus 'admin' dari path untuk mendapatkan root aplikasi
     $root_path = implode('/', $script_path_parts) . '/';
-    if ($root_path === '//') $root_path = '/';
+    if ($root_path === '//') $root_path = '/'; // Handle kasus jika aplikasi di root domain
     define('BASE_URL_ADMIN', $protocol . $host . $root_path);
 }
 
@@ -23,19 +25,15 @@ if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {
 
 // Data Admin dari Session
 $id_admin = $_SESSION['id_pengguna'];
-$nama_admin = isset($_SESSION['nama_lengkap']) ? htmlspecialchars($_SESSION['nama_lengkap']) : (isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Admin');
-$foto_profil_admin = isset($_SESSION['foto_profil']) ? htmlspecialchars($_SESSION['foto_profil']) : BASE_URL_ADMIN . 'assets/images/default_avatar.png';
+$nama_admin_session = isset($_SESSION['nama_lengkap']) ? htmlspecialchars($_SESSION['nama_lengkap']) : (isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Admin');
+$foto_profil_admin_session = BASE_URL_ADMIN . 'assets/images/default_avatar.png'; // Foto profil default
 
 // Pengaturan untuk halaman ini
-$page_title_admin = "Dashboard"; // Judul spesifik untuk halaman ini
-$current_page = 'dashboard_admin'; // Untuk menandai menu aktif di sidebar
-// $current_parent_page = ''; // Tidak ada parent untuk dashboard
-// $current_parent_page_sub = ''; // Tidak ada sub-parent untuk dashboard
-
+$page_title_admin = "Dashboard";
+$current_page = 'dashboard_admin'; // Penanda menu aktif
 $page_title_for_header = $page_title_admin;
 
-// Include koneksi database jika diperlukan untuk konten halaman
-require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di folder admin
+require_once '../php/db_connect.php'; // Koneksi database
 
 ?>
 <!DOCTYPE html>
@@ -44,8 +42,9 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $page_title_for_header . ' - Admin Panel InfoPajak'; ?></title>
+    <title><?php echo htmlspecialchars($page_title_for_header) . ' - Admin Panel InfoPajak'; ?></title>
     <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin_style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin-dashboard.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -60,15 +59,15 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
 
         <aside class="admin-sidebar" id="admin-main-sidebar">
             <div class="admin-sidebar-header">
-                <img src="<?php echo $foto_profil_admin; ?>" alt="Foto Profil <?php echo $nama_admin; ?>" class="admin-sidebar-profile-pic"
-                    onerror="this.onerror=null;this.src='https://placehold.co/80x80/003366/ffffff?text=<?php echo substr($nama_admin, 0, 1); ?>';">
-                <span class="admin-sidebar-user-name"><?php echo $nama_admin; ?></span>
+                <img src="<?php echo $foto_profil_admin_session; ?>" alt="Foto Profil <?php echo $nama_admin_session; ?>" class="admin-sidebar-profile-pic"
+                    onerror="this.onerror=null;this.src='https://placehold.co/80x80/003366/ffffff?text=<?php echo substr($nama_admin_session, 0, 1); ?>';">
+                <span class="admin-sidebar-user-name"><?php echo $nama_admin_session; ?></span>
                 <span class="admin-sidebar-user-role">(Administrator)</span>
             </div>
             <nav class="admin-sidebar-nav">
                 <ul>
                     <li class="<?php echo ($current_page == 'dashboard_admin') ? 'active' : ''; ?>">
-                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/dashboard_admin.php">
+                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/index.php">
                             <i class="fas fa-tachometer-alt fa-fw"></i>
                             <span>Dashboard</span>
                         </a>
@@ -81,12 +80,12 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
                         </a>
                         <ul class="admin-submenu">
                             <li class="<?php echo (isset($current_page) && $current_page == 'management_wajib_pajak') ? 'active' : ''; ?>">
-                                <a href="<?php echo BASE_URL_ADMIN; ?>/admin/kelola_wajib_pajak.php">
+                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/kelola_wajib_pajak.php">
                                     <i class="fas fa-users fa-fw"></i> Management Wajib Pajak
                                 </a>
                             </li>
                             <li class="<?php echo (isset($current_page) && $current_page == 'tagihan_perhitungan') ? 'active' : ''; ?>">
-                                <a href="<?php echo BASE_URL_ADMIN; ?>/admin/tagihan_perhitungan.php">
+                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/tagihan_perhitungan.php">
                                     <i class="fas fa-file-invoice-dollar fa-fw"></i> Tagihan & Perhitungan
                                 </a>
                             </li>
@@ -98,27 +97,21 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
                                 </a>
                                 <ul class="admin-submenu">
                                     <li class="<?php echo (isset($current_page) && $current_page == 'laporan_detail') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/laporan_detail.php"><i class="fas fa-file-alt fa-fw"></i> Laporan Detail</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/laporan_detail.php"><i class="fas fa-file-alt fa-fw"></i> Laporan Detail</a>
                                     </li>
                                     <li class="<?php echo (isset($current_page) && $current_page == 'laporan_harian') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/laporan_harian.php"><i class="fas fa-calendar-day fa-fw"></i> Laporan Harian</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/laporan_harian.php"><i class="fas fa-calendar-day fa-fw"></i> Laporan Harian</a>
                                     </li>
                                     <li class="<?php echo (isset($current_page) && $current_page == 'laporan_bulanan') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/laporan_bulanan.php"><i class="fas fa-calendar-alt fa-fw"></i> Laporan Bulanan</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/laporan_bulanan.php"><i class="fas fa-calendar-alt fa-fw"></i> Laporan Bulanan</a>
                                     </li>
                                     <li class="<?php echo (isset($current_page) && $current_page == 'rekapitulasi') ? 'active' : ''; ?>">
-                                        <a href="<?php echo BASE_URL_ADMIN; ?>/admin/rekapitulasi_laporan.php"><i class="fas fa-clipboard-list fa-fw"></i> Rekapitulasi</a>
+                                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/rekapitulasi_laporan.php"><i class="fas fa-clipboard-list fa-fw"></i> Rekapitulasi</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="<?php echo (isset($current_page) && $current_page == 'kelola_pengguna') ? 'active' : ''; ?>">
-                                <a href="<?php echo BASE_URL_ADMIN; ?>/admin/kelola_pengguna.php">
-                                    <i class="fas fa-user-cog fa-fw"></i>
-                                    <span>Manajemen Pengguna</span>
-                                </a>
-                            </li>
                             <li class="<?php echo (isset($current_page) && $current_page == 'pengaturan_admin') ? 'active' : ''; ?>">
-                                <a href="<?php echo BASE_URL_ADMIN; ?>/admin/pengaturan_admin.php">
+                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/pengaturan_admin.php">
                                     <i class="fas fa-cog fa-fw"></i>
                                     <span>Pengaturan</span>
                                 </a>
@@ -141,29 +134,20 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
         <main class="admin-main-content" id="admin-main-content-area">
             <header class="admin-content-header">
                 <div class="header-left">
-                    <h1 class="header-page-title"><?php echo $page_title_for_header; ?></h1>
-                    <p class="header-welcome-text">Selamat Datang, <?php echo $nama_admin; ?>!</p>
-                </div>
-                <div class="header-center">
-                    <form action="<?php echo BASE_URL_ADMIN; ?>/admin/search_results.php" method="GET" class="header-search-form">
-                        <input type="search" name="q" placeholder="Cari..." aria-label="Search">
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </form>
+                    <h1 class="header-page-title"><?php echo htmlspecialchars($page_title_for_header); ?></h1>
+                    <p class="header-welcome-text">Selamat Datang, <?php echo $nama_admin_session; ?>!</p>
                 </div>
                 <div class="header-right">
-                    <a href="<?php echo BASE_URL_ADMIN; ?>/admin/notifikasi.php" class="header-icon-link notification-link" aria-label="Notifikasi">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge">3</span> </a>
                     <div class="admin-profile-dropdown">
                         <a href="#" class="admin-profile-link-header" id="profile-dropdown-toggle">
-                            <img src="<?php echo $foto_profil_admin; ?>" alt="Avatar <?php echo $nama_admin; ?>" class="admin-avatar-header"
-                                onerror="this.onerror=null;this.src='https://placehold.co/32x32/cccccc/000000?text=<?php echo substr($nama_admin, 0, 1); ?>';">
-                            <span><?php echo $nama_admin; ?></span>
+                            <img src="<?php echo $foto_profil_admin_session; ?>" alt="Avatar <?php echo $nama_admin_session; ?>" class="admin-avatar-header"
+                                onerror="this.onerror=null;this.src='https://placehold.co/32x32/cccccc/000000?text=<?php echo substr($nama_admin_session, 0, 1); ?>';">
+                            <span><?php echo $nama_admin_session; ?></span>
                             <i class="fas fa-chevron-down dropdown-arrow-header"></i>
                         </a>
                         <div class="profile-dropdown-menu" id="profile-menu">
-                            <a href="<?php echo BASE_URL_ADMIN; ?>/admin/pengaturan_admin.php?tab=profil">Profil Saya</a>
-                            <a href="<?php echo BASE_URL_ADMIN; ?>/admin/pengaturan_admin.php?tab=keamanan">Ganti Password</a>
+                            <a href="<?php echo BASE_URL_ADMIN; ?>admin/pengaturan_admin.php?tab=profil">Profil Saya</a>
+                            <a href="<?php echo BASE_URL_ADMIN; ?>admin/pengaturan_admin.php?tab=keamanan">Ganti Password</a>
                             <hr>
                             <a href="<?php echo BASE_URL_ADMIN; ?>logout.php">Logout</a>
                         </div>
@@ -202,7 +186,7 @@ require_once '../php/db_connect.php'; // Path disesuaikan karena file ini ada di
                                 }
                                 ?>
                             </p>
-                            <a href="<?php echo BASE_URL_ADMIN; ?>/admin/kelola_pengguna.php?status=pending" class="summary-link">Lihat Detail</a>
+                            <a href="<?php echo BASE_URL_ADMIN; ?>admin/kelola_wajib_pajak.php?status=pending" class="summary-link">Lihat Detail</a>
                         </div>
                         <div class="summary-item">
                             <h4>Total Perhitungan Pajak</h4>

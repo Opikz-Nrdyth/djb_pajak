@@ -1,0 +1,282 @@
+/* assets/css/admin-laporan-harian.css */
+/* Styling spesifik untuk Halaman Laporan Harian. */
+/* Bergantung pada admin_style.css global untuk layout dasar. */
+
+/* Styling Form Filter Tanggal Inline */
+.filter-form-inline {
+  display: flex;
+  flex-wrap: wrap; /* Memungkinkan wrap jika layar sempit */
+  gap: 15px; /* Jarak antar elemen form */
+  align-items: flex-end; /* Sejajarkan tombol dengan bagian bawah input */
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa; /* Latar sedikit beda untuk form filter */
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.filter-form-inline .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Jarak antara label dan input */
+  flex-grow: 1; /* Biarkan grup form tumbuh jika ada ruang */
+  /* min-width: 180px; -> Bisa disesuaikan jika perlu */
+}
+
+.filter-form-inline label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.filter-form-inline input[type="date"] {
+  padding: 8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  line-height: 1.5; /* Untuk tinggi input yang konsisten */
+  background-color: #fff;
+  color: #333;
+  /* width: auto; atau biarkan default agar menyesuaikan flex-grow dari .form-group */
+  min-width: 180px; /* Lebar minimum untuk input tanggal */
+}
+.filter-form-inline input[type="date"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* Tombol di filter-form-inline menggunakan .button .btn-primary .btn-sm dari global */
+.filter-form-inline .button.btn-sm {
+  /* Tidak perlu style tambahan jika global sudah cukup */
+}
+
+/* Header Card untuk Hasil Laporan Harian */
+#hasil-laporan-harian .admin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Agar tombol bisa wrap di layar kecil */
+  gap: 10px; /* Jarak antara judul dan grup tombol */
+}
+
+#hasil-laporan-harian .header-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; /* Tombol bisa wrap jika tidak muat */
+}
+/* Tombol .button .btn-success .btn-sm dan .btn-print .btn-sm sudah dari global */
+/* Jika .btn-print atau .btn-success punya style unik, definisikan di sini */
+/* Contoh jika .btn-print belum ada di global: */
+.btn-print {
+  background-color: #6c757d;
+  color: white;
+  border-color: #6c757d;
+}
+.btn-print:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+/* Contoh jika .btn-success belum ada di global: */
+.btn-success {
+  background-color: #198754;
+  color: white;
+  border-color: #198754;
+}
+.btn-success:hover {
+  background-color: #157347;
+  border-color: #146c43;
+}
+
+/* Ringkasan Laporan */
+.report-summary {
+  margin: 15px 0; /* Jarak atas bawah dari header card dan tabel */
+  padding: 15px;
+  background-color: #e9f5ff; /* Warna latar lembut untuk ringkasan */
+  border: 1px solid #b8daff;
+  border-radius: 6px;
+}
+.report-summary p {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+.report-summary p:last-child {
+  margin-bottom: 0;
+}
+.report-summary p strong {
+  font-weight: 600;
+  color: #003366; /* Warna aksen untuk label ringkasan */
+}
+
+/* Styling Tabel Data Laporan Harian */
+.table-container {
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  table-layout: fixed; /* Untuk distribusi kolom yang lebih baik */
+}
+
+.data-table th,
+.data-table td {
+  padding: 10px 8px;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+  font-size: 0.88rem;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+.data-table th {
+  background-color: #f8f9fa;
+  color: #343a40;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* Penentuan lebar kolom pada TH (karena table-layout: fixed;) */
+.data-table th:nth-child(1) {
+  width: 8%;
+} /* ID Hitung */
+.data-table th:nth-child(2) {
+  width: 25%;
+} /* Wajib Pajak (NIK) */
+.data-table th:nth-child(3) {
+  width: 8%;
+  text-align: center;
+} /* Tahun Pajak */
+.data-table th:nth-child(4) {
+  width: 12%;
+} /* Jam Perhitungan */
+.data-table th:nth-child(5) {
+  width: 17%;
+  text-align: right;
+} /* Jml. PBB */
+.data-table th:nth-child(6) {
+  width: 15%;
+  text-align: center;
+} /* Status Perhitungan */
+.data-table th:nth-child(7) {
+  width: 10%;
+} /* Admin Pereview */
+.data-table th:nth-child(8) {
+  width: 5%;
+  text-align: center;
+} /* Aksi */
+
+/* Sejajarkan text-align td dengan th nya */
+.data-table td:nth-child(3) {
+  text-align: center;
+} /* Tahun Pajak */
+.data-table td:nth-child(5) {
+  text-align: right;
+} /* Jml. PBB */
+.data-table td:nth-child(6) {
+  text-align: center;
+} /* Status Perhitungan */
+.data-table td:nth-child(8) {
+  text-align: center;
+} /* Aksi */
+
+.data-table tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+.data-table .action-buttons {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+/* .button, .btn-view, .btn-sm dari admin_style.css global */
+
+/* Kelas Status untuk Tabel */
+.data-table td[class*="status-"] {
+  padding: 4px 6px;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.2;
+  border: none;
+  white-space: nowrap;
+}
+.data-table td.status-draft {
+  color: #495057;
+  background-color: #e9ecef;
+}
+.data-table td.status-final {
+  color: #052c65;
+  background-color: #cfe2ff;
+}
+.data-table td.status-dikirim-ke-user {
+  color: #055160;
+  background-color: #cff4fc;
+}
+/* Tambahkan status lain jika ada untuk halaman ini */
+
+.data-table small {
+  /* Untuk NIK di bawah nama WP */
+  display: block;
+  font-size: 0.85em;
+  color: #6c757d;
+  margin-top: 2px;
+}
+
+/* Penyesuaian Responsif */
+@media (max-width: 992px) {
+  #hasil-laporan-harian .admin-card-header {
+    /* Biarkan default flex-wrap handle tombol */
+  }
+  .data-table {
+    /* table-layout: auto; -> Pertimbangkan jika fixed terlalu kaku di tablet */
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-form-inline .form-group,
+  .filter-form-inline input[type="date"] {
+    width: 100%;
+    min-width: 0; /* Reset min-width */
+  }
+  .filter-form-inline .button.btn-sm {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #hasil-laporan-harian .admin-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #hasil-laporan-harian .header-actions {
+    margin-top: 10px;
+    width: 100%;
+  }
+  #hasil-laporan-harian .header-actions .button {
+    flex-grow: 1;
+  }
+
+  .data-table {
+    display: block; /* Membuat tabel bisa di-scroll horizontal di mobile */
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .data-table thead,
+  .data-table tbody,
+  .data-table tr {
+    display: block; /* Atau pendekatan lain untuk tabel responsif */
+  }
+  /* Untuk pendekatan display:block pada tabel, Anda mungkin perlu styling th dan td lebih lanjut */
+}

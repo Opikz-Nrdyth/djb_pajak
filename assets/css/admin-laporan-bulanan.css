@@ -1,0 +1,265 @@
+/* assets/css/admin-laporan-bulanan.css */
+/* Styling spesifik untuk Halaman Laporan Bulanan. */
+/* Bergantung pada admin_style.css global untuk layout dasar. */
+
+/* Styling Form Filter (filter-form-inline) */
+.filter-form-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.filter-form-inline .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+  min-width: 200px; /* Lebar minimum untuk select bulan/tahun */
+}
+
+.filter-form-inline label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.filter-form-inline select {
+  padding: 8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  background-color: #fff;
+  color: #333;
+  width: 100%; /* Agar select mengisi .form-group */
+}
+.filter-form-inline select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+/* Tombol .button .btn-primary .btn-sm dari admin_style.css global */
+
+/* Header Card untuk Hasil Laporan Bulanan */
+#hasil-laporan-bulanan .admin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#hasil-laporan-bulanan .header-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+/* Tombol .button .btn-success .btn-sm dan .btn-print .btn-sm dari admin_style.css global */
+/* Jika .btn-print atau .btn-success punya style unik, definisikan di sini */
+.btn-print {
+  /* Contoh definisi jika belum ada di global */
+  background-color: #6c757d;
+  color: white;
+  /* border-color: #6c757d; (jika .button tidak set border) */
+}
+.btn-print:hover {
+  background-color: #5a6268;
+  /* border-color: #545b62; */
+}
+.btn-success {
+  /* Contoh definisi jika belum ada di global */
+  background-color: #198754;
+  color: white;
+  /* border-color: #198754; (jika .button tidak set border) */
+}
+.btn-success:hover {
+  background-color: #157347;
+  /* border-color: #146c43; */
+}
+
+/* Ringkasan Laporan */
+.report-summary {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: #e9f5ff;
+  border: 1px solid #b8daff;
+  border-radius: 6px;
+}
+.report-summary p {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+.report-summary p:last-child {
+  margin-bottom: 0;
+}
+.report-summary p strong {
+  font-weight: 600;
+  color: #003366;
+}
+
+/* Styling Tabel Data Laporan Bulanan */
+.table-container {
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  table-layout: fixed;
+}
+
+.data-table th,
+.data-table td {
+  padding: 10px 8px;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+  font-size: 0.88rem;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+.data-table th {
+  background-color: #f8f9fa;
+  color: #343a40;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* Penentuan lebar kolom TH (sesuaikan dengan konten Laporan Bulanan) */
+.data-table th:nth-child(1) {
+  width: 10%;
+} /* ID Hitung */
+.data-table th:nth-child(2) {
+  width: 25%;
+} /* Wajib Pajak (NIK) */
+.data-table th:nth-child(3) {
+  width: 20%;
+} /* Tgl. Perhitungan */
+.data-table th:nth-child(4) {
+  width: 15%;
+  text-align: right;
+} /* Jml. PBB */
+.data-table th:nth-child(5) {
+  width: 15%;
+  text-align: center;
+} /* Status Perhitungan */
+.data-table th:nth-child(6) {
+  width: 10%;
+} /* Admin Pereview */
+.data-table th:nth-child(7) {
+  width: 5%;
+  text-align: center;
+} /* Aksi */
+
+/* Sejajarkan text-align td dengan th nya */
+.data-table td:nth-child(4) {
+  text-align: right;
+} /* Jml. PBB */
+.data-table td:nth-child(5) {
+  text-align: center;
+} /* Status Perhitungan */
+.data-table td:nth-child(7) {
+  text-align: center;
+} /* Aksi */
+
+.data-table tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+.data-table .action-buttons {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+/* .button, .btn-view, .btn-sm dari admin_style.css global */
+
+/* Kelas Status untuk Tabel */
+.data-table td[class*="status-"] {
+  padding: 4px 6px;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.2;
+  border: none;
+  white-space: nowrap;
+}
+.data-table td.status-draft {
+  color: #495057;
+  background-color: #e9ecef;
+}
+.data-table td.status-final {
+  color: #052c65;
+  background-color: #cfe2ff;
+}
+.data-table td.status-dikirim-ke-user {
+  color: #055160;
+  background-color: #cff4fc;
+}
+/* Tambahkan status lain jika relevan untuk laporan bulanan */
+
+.data-table small {
+  display: block;
+  font-size: 0.85em;
+  color: #6c757d;
+  margin-top: 2px;
+}
+
+/* Penyesuaian Responsif */
+@media (max-width: 992px) {
+  .filter-form-inline .form-group {
+    min-width: calc(50% - 10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-form-inline .form-group,
+  .filter-form-inline select {
+    width: 100%;
+    min-width: 0;
+  }
+  .filter-form-inline .button.btn-sm {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #hasil-laporan-bulanan .admin-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #hasil-laporan-bulanan .header-actions {
+    margin-top: 10px;
+    width: 100%;
+  }
+  #hasil-laporan-bulanan .header-actions .button {
+    flex-grow: 1;
+  }
+
+  .data-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .data-table thead,
+  .data-table tbody,
+  .data-table tr {
+    display: block;
+  }
+}
