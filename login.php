@@ -5,10 +5,10 @@ session_start(); // Mulai session di awal file
 // Jika pengguna sudah login, redirect ke dashboard yang sesuai
 if (isset($_SESSION['id_pengguna'])) {
     if ($_SESSION['role'] === 'admin') {
-        header("Location: admin/dashboard_admin.php"); // Sesuaikan path jika perlu
+        header("Location: admin/"); // Sesuaikan path jika perlu
         exit();
     } else {
-        header("Location: user/dashboard_user.php"); // Sesuaikan path jika perlu
+        header("Location: user/"); // Sesuaikan path jika perlu
         exit();
     }
 }
@@ -53,10 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Anda bisa menambahkan data lain ke session jika perlu, misal nama_lengkap $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
 
                         if ($user['role'] === 'admin') {
-                            header("Location: admin/admin-dashboard.php");
+                            header("Location: admin/");
                             exit();
                         } else {
-                            header("Location: user/dashboard_user.php");
+                            header("Location: user/");
                             exit();
                         }
                     } else if ($user['status_akun'] === 'nonaktif') {

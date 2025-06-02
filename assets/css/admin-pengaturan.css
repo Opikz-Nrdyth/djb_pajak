@@ -326,6 +326,22 @@ body {
   margin: 5px 0;
 }
 
+.settings-tabs a {
+  text-decoration: none;
+  color: white;
+  padding: 8px 10px;
+  background-color: #007bff;
+  border-radius: 4px;
+}
+
+.settings-tabs .active {
+  background-color: #052c65;
+}
+
+.settings-tabs a:hover {
+  background-color: #0056b3;
+}
+
 /* Inner Content Area */
 .admin-content-inner {
   padding: 25px;

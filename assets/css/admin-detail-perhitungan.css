@@ -81,6 +81,7 @@
   min-height: 50px;
   white-space: pre-wrap;
 }
+
 .calculation-details .detail-section span[class*="status-"] {
   padding: 3px 8px;
   border-radius: 4px;
@@ -114,6 +115,18 @@
 .calculation-details span.status-dikirim-ke-user {
   background-color: #cff4fc;
   color: #055160;
+}
+
+.btn-edit {
+  color: #ffc107;
+  background-color: #fff8e6;
+  border-color: #ffeeba;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.btn-edit:hover {
+  background-color: #ffc107;
+  color: #212529;
 }
 
 /* Penyesuaian responsif untuk detail perhitungan */

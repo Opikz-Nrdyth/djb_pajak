@@ -7,6 +7,8 @@
     <title>Sistem Informasi Pajak Bangunan</title>
     <link rel="stylesheet" href="assets/css/landing.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 
 <body>
@@ -34,13 +36,14 @@
 
         <main class="main-content" id="main-content-area">
             <div class="container">
-                <section class="welcome-section">
+                <section class="welcome-section" data-aos="zoom-in">
                     <h1 class="main-title">SELAMAT DATANG DI<br>SISTEM INFORMASI PAJAK BANGUNAN</h1>
                     <p class="subtitle">Kenali dan pahami kewajiban pajak bangunan Anda dengan mudah bersama kami.</p>
                     <a href="https://online-pajak.com" target="_blank" rel="noopener noreferrer" class="button button-external">Kunjungi Online-Pajak.com</a>
+                    <p class="button button-external">Isi email, NIK, Jenis pajak, dan Jumlah</p>
                 </section>
 
-                <section id="apa-itu-pajak" class="info-section">
+                <section id="apa-itu-pajak" class="info-section" data-aos="fade-right">
                     <h2>Apa Itu Pajak?</h2>
                     <div class="info-content">
                         <img src="https://placehold.co/300x200/e2e8f0/333333?text=Pajak" alt="Ilustrasi Pajak" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+Pajak';">
@@ -51,7 +54,7 @@
                     </div>
                 </section>
 
-                <section id="tentang-djp" class="info-section info-section-alt">
+                <section id="tentang-djp" class="info-section info-section-alt" data-aos="fade-left">
                     <h2>Apa itu DJP (Direktorat Jenderal Pajak)?</h2>
                     <div class="info-content reverse">
                         <img src="https://placehold.co/300x200/d1fae5/10b981?text=DJP" alt="Gedung DJP" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+DJP';">
@@ -61,7 +64,7 @@
                         </div>
                     </div>
                 </section>
-                <section id="langkah-pengisian" class="steps-highlight-section">
+                <section id="langkah-pengisian" class="steps-highlight-section" data-aos="fade-up">
                     <h2>Langkah Mudah Persiapan Data Anda</h2>
                     <div class="steps-container">
                         <div class="step-card">
@@ -91,6 +94,9 @@
         </main>
     </div>
 
+    <script>
+        AOS.init();
+    </script>
     <script src="assets/js/script_landing.js?v=<?php echo time(); ?>"></script>
 </body>
 

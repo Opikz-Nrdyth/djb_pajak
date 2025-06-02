@@ -156,6 +156,16 @@ require_once '../php/db_connect.php'; // Koneksi database
             </header>
 
             <div class="admin-content-inner">
+                <div class="animation-lottie">
+                    <dotlottie-player
+                        src="https://lottie.host/2ec9df8e-8468-400e-8202-ab04cdce3254/U0OYTZiu0w.lottie"
+                        background="transparent"
+                        speed="1"
+                        style="width: 500px; height: 500px"
+                        loop
+                        autoplay></dotlottie-player>
+                </div>
+
                 <div class="admin-card">
                     <div class="admin-card-header">
                         Ringkasan Sistem
@@ -227,20 +237,16 @@ require_once '../php/db_connect.php'; // Koneksi database
                     </div>
                 </div>
 
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        Aktivitas Terbaru (Contoh)
-                    </div>
-                    <ul class="admin-recent-activity">
-                        <li>Pengguna 'user123' baru saja mendaftar. <span class="activity-time">5 menit lalu</span></li>
-                        <li>Perhitungan pajak untuk NIK '320xxxxxxxxx' telah diverifikasi. <span class="activity-time">1 jam lalu</span></li>
-                        <li>Laporan bulanan Juni 2024 telah dibuat. <span class="activity-time">Kemarin</span></li>
-                        <li>Admin 'admin_utama' mengubah pengaturan sistem. <span class="activity-time">2 hari lalu</span></li>
-                    </ul>
-                </div>
+
             </div>
         </main>
     </div>
+
+
+    <script
+        src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+        type="module"></script>
+
 
     <script src="<?php echo BASE_URL_ADMIN; ?>assets/js/admin_script.js?v=<?php echo time(); ?>"></script>
     <?php

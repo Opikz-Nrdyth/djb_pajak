@@ -326,17 +326,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_wajib_pajak']) 
                     <h1 class="header-page-title"><?php echo htmlspecialchars($page_title_for_header); ?></h1>
                     <p class="header-welcome-text">Selamat Datang, <?php echo $nama_admin; ?>!</p>
                 </div>
-                <div class="header-center">
-                    <form action="<?php echo BASE_URL_ADMIN; ?>admin/search_results.php" method="GET" class="header-search-form">
-                        <input type="search" name="q" placeholder="Cari..." aria-label="Search">
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
+
                 <div class="header-right">
-                    <a href="<?php echo BASE_URL_ADMIN; ?>admin/notifikasi.php" class="header-icon-link notification-link" aria-label="Notifikasi">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge">3</span>
-                    </a>
+
                     <div class="admin-profile-dropdown">
                         <a href="#" class="admin-profile-link-header" id="profile-dropdown-toggle">
                             <img src="<?php echo $foto_profil_admin; ?>" alt="Avatar <?php echo $nama_admin; ?>" class="admin-avatar-header"
