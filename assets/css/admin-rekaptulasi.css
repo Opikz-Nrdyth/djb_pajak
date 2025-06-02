@@ -1,0 +1,266 @@
+.card-lr {
+  background-color: #fff;
+  padding: 20px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  margin-bottom: 25px;
+}
+
+.report-controls-lr .filter-row-lr {
+  display: flex;
+  flex-wrap: wrap; /* Agar responsif */
+  align-items: flex-end; /* Sejajarkan item ke bawah untuk label dan input */
+  gap: 15px; /* Jarak antar grup filter */
+  margin-bottom: 15px;
+}
+.report-controls-lr .filter-row-lr:last-child {
+  margin-bottom: 0;
+}
+
+.report-controls-lr .action-row-lr {
+  justify-content: space-between; /* Tombol tampilkan di kiri, aksi lain di kanan */
+  margin-top: 10px;
+}
+
+.filter-group-lr {
+  display: flex;
+  flex-direction: column; /* Label di atas input/select */
+  gap: 5px; /* Jarak antara label dan input */
+  flex-grow: 1; /* Agar grup filter mengisi ruang jika memungkinkan */
+}
+.filter-group-lr.date-range-lr {
+  min-width: 180px; /* Lebar minimal untuk date picker */
+}
+
+.filter-group-lr label {
+  font-size: 14px;
+  color: #495057;
+  font-weight: 500;
+}
+
+.filter-group-lr select,
+.filter-group-lr input[type="date"] {
+  padding: 9px 10px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  width: 100%; /* Input/select mengisi lebar grupnya */
+}
+
+.filter-group-lr select:focus,
+.filter-group-lr input[type="date"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-lr {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s ease-out, transform 0.1s ease-out;
+}
+
+.btn-primary-lr {
+  background-color: #007bff;
+  color: white;
+}
+.btn-primary-lr:hover {
+  background-color: #0056b3;
+}
+.btn-primary-lr:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary-lr {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-secondary-lr:hover {
+  background-color: #545b62;
+}
+.btn-secondary-lr:active {
+  transform: translateY(1px);
+}
+
+.action-group-lr {
+  display: flex;
+  gap: 10px;
+}
+
+.summary-metrics-lr {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.metric-card-lr {
+  /* Sama seperti laporan lain */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.metric-card-lr h4 {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.metric-card-lr p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff;
+  margin: 0;
+}
+
+.rekap-data-container {
+  display: grid;
+  grid-template-columns: 1fr; /* Default satu kolom */
+  gap: 25px;
+}
+
+/* Jika ingin tabel dan chart berdampingan di layar besar */
+@media (min-width: 1024px) {
+  .rekap-data-container {
+    grid-template-columns: 1.5fr 1fr; /* Tabel lebih lebar dari chart */
+  }
+}
+
+.report-table-container-lr .table-header-info-lr {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #495057;
+}
+.report-table-container-lr .table-header-info-lr strong {
+  color: #0d1b2a;
+}
+
+.table-wrapper-lr {
+  overflow-x: auto;
+}
+.data-table-lr {
+  width: 100%;
+  border-collapse: collapse; /* white-space: nowrap; (opsional, tergantung data) */
+}
+.data-table-lr th,
+.data-table-lr td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.data-table-lr th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.data-table-lr tbody tr:hover {
+  background-color: #f1f3f5;
+  transition: background-color 0.2s ease-out;
+}
+/* Class text-align bisa ditambahkan dari CSS global jika ada */
+.data-table-lr .text-right {
+  text-align: right !important;
+}
+.data-table-lr .text-center {
+  text-align: center !important;
+}
+
+.chart-container-lr .chart-header-lr {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chart-container-lr .chart-header-lr h3 {
+  font-size: 17px;
+  color: #343a40;
+  font-weight: 600;
+  margin: 0;
+}
+.chart-type-select-lr {
+  padding: 6px 8px;
+  font-size: 13px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.chart-placeholder-lr {
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+#rekapReportChartCanvas {
+  max-width: 100%;
+}
+
+.message-placeholder-lr {
+  /* Sama seperti laporan lain */
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  color: #6c757d;
+}
+.message-placeholder-lr i {
+  font-size: 36px;
+  margin-bottom: 15px;
+  color: #007bff;
+}
+.message-placeholder-lr p {
+  font-size: 16px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .report-controls-lr .filter-row-lr {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px; /* Jarak antar grup filter yang ditumpuk */
+  }
+  .filter-group-lr {
+    width: 100%;
+  }
+  .report-controls-lr .action-row-lr {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .action-group-lr {
+    width: 100%;
+    display: flex;
+    justify-content: stretch;
+  }
+  .action-group-lr .btn-lr {
+    flex-grow: 1; /* Tombol aksi berbagi ruang */
+  }
+  .btn-lr {
+    width: 100%;
+    justify-content: center;
+  }
+  .summary-metrics-lr {
+    grid-template-columns: 1fr;
+  }
+  .rekap-data-container {
+    grid-template-columns: 1fr;
+  } /* Chart dan tabel selalu tumpuk di mobile */
+  .chart-container-lr .chart-header-lr {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

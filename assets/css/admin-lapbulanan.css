@@ -1,0 +1,315 @@
+.card-lb {
+  background-color: #fff;
+  padding: 20px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  margin-bottom: 25px;
+}
+
+.report-controls-lb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.filter-group-lb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap; /* Memastikan filter group juga responsif */
+}
+
+.filter-group-lb label {
+  font-size: 14px;
+  color: #495057;
+  font-weight: 500;
+  margin-bottom: 0; /* Reset margin jika ada dari form group umum */
+}
+
+.filter-group-lb select,
+.filter-group-lb input[type="number"] {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  min-width: 120px; /* Lebar minimal untuk select bulan dan input tahun */
+}
+.filter-group-lb input[type="number"] {
+  min-width: 90px; /* Tahun biasanya lebih pendek */
+  width: 90px;
+}
+
+.filter-group-lb select:focus,
+.filter-group-lb input[type="number"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-lb {
+  /* Style tombol umum untuk halaman ini */
+  padding: 9px 18px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s ease-out, transform 0.1s ease-out;
+}
+
+.btn-primary-lb {
+  background-color: #007bff;
+  color: white;
+}
+.btn-primary-lb:hover {
+  background-color: #0056b3;
+}
+.btn-primary-lb:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary-lb {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-secondary-lb:hover {
+  background-color: #545b62;
+}
+.btn-secondary-lb:active {
+  transform: translateY(1px);
+}
+
+.action-group-lb {
+  display: flex;
+  gap: 10px;
+  margin-left: auto; /* Dorong grup aksi ke kanan jika ada ruang */
+}
+
+.summary-metrics-lb {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(230px, 1fr)
+  ); /* Sedikit lebih lebar untuk data bulanan */
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.metric-card-lb {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.metric-card-lb h4 {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.metric-card-lb p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff;
+  margin: 0;
+}
+
+.chart-header-lb {
+  margin-bottom: 15px;
+}
+.chart-header-lb h3 {
+  font-size: 17px;
+  color: #343a40;
+  font-weight: 600;
+}
+.chart-placeholder-lb {
+  min-height: 300px; /* Tinggi minimal untuk area chart */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa; /* Latar belakang area chart jika kosong */
+  border-radius: 4px;
+}
+#monthlyReportChartCanvas {
+  /* ID dari elemen canvas */
+  max-width: 100%;
+}
+
+.report-table-container-lb .table-header-info-lb {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #495057;
+}
+.report-table-container-lb .table-header-info-lb strong {
+  color: #0d1b2a;
+}
+
+.table-wrapper-lb {
+  overflow-x: auto;
+}
+
+.data-table-lb {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.data-table-lb th,
+.data-table-lb td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.data-table-lb th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.data-table-lb tbody tr:hover {
+  background-color: #f1f3f5;
+  transition: background-color 0.2s ease-out;
+}
+
+.text-right-lb {
+  text-align: right !important;
+}
+
+.status-badge-lb {
+  /* Style badge sama dengan laporan harian */
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+}
+.status-lunas-lb {
+  background-color: #28a745;
+}
+.status-verifikasi-lb {
+  background-color: #ffc107;
+  color: #212529;
+}
+.status-gagal-lb {
+  background-color: #dc3545;
+}
+.status-pending-lb {
+  background-color: #17a2b8;
+}
+
+.btn-action-table-lb {
+  /* Style tombol aksi di tabel sama */
+  background: none;
+  border: 1px solid #007bff;
+  color: #007bff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+.btn-action-table-lb i {
+  margin-right: 5px;
+}
+.btn-action-table-lb:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination-lb {
+  /* Style paginasi sama */
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #6c757d;
+}
+.pagination-buttons-lb button {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  color: #007bff;
+  padding: 8px 12px;
+  margin-left: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out;
+}
+.pagination-buttons-lb button:hover:not(:disabled) {
+  background-color: #e9ecef;
+}
+.pagination-buttons-lb button:disabled {
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+.pagination-buttons-lb button i {
+  margin: 0 3px;
+}
+
+.message-placeholder-lb {
+  /* Style placeholder sama */
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  color: #6c757d;
+}
+.message-placeholder-lb i {
+  font-size: 36px;
+  margin-bottom: 15px;
+  color: #007bff;
+}
+.message-placeholder-lb p {
+  font-size: 16px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .report-controls-lb {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-group-lb {
+    width: 100%;
+    margin-bottom: 10px; /* Jarak antar filter group di mobile */
+  }
+  .filter-group-lb select,
+  .filter-group-lb input[type="number"] {
+    width: 100%; /* Input full width di mobile */
+    min-width: 0;
+  }
+  .action-group-lb {
+    width: 100%;
+    justify-content: stretch; /* Tombol aksi mengisi ruang */
+  }
+  .action-group-lb .btn-lb {
+    flex-grow: 1; /* Tombol aksi berbagi ruang */
+  }
+  .btn-lb {
+    width: 100%; /* Tombol utama Tampilkan Laporan jadi full width */
+    justify-content: center;
+  }
+  .summary-metrics-lb {
+    grid-template-columns: 1fr;
+  }
+  .chart-container-lb {
+    padding: 15px;
+  }
+  .chart-placeholder-lb {
+    min-height: 250px;
+  }
+}

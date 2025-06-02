@@ -1,0 +1,202 @@
+.card-twp {
+  /* Menggunakan style card umum jika sudah ada, atau definisikan: */
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  margin-bottom: 25px;
+}
+
+.form-container-twp {
+  /* Alias untuk .card-twp */
+  /* Styling sudah di .card-twp */
+}
+
+.form-section-twp {
+  margin-bottom: 30px;
+}
+.form-section-twp:last-of-type {
+  margin-bottom: 10px; /* Kurangi margin untuk seksi terakhir sebelum tombol */
+}
+
+.form-section-title-twp {
+  font-size: 17px;
+  font-weight: 600;
+  color: #0056b3; /* Biru DJP untuk sub-judul seksi */
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e7ff; /* Garis bawah lebih soft */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.icon-section-twp {
+  font-size: 18px;
+}
+
+.form-row-twp {
+  display: flex;
+  flex-wrap: wrap; /* Agar responsif */
+  gap: 20px; /* Jarak antar form-group dalam satu baris */
+  margin-bottom: 15px; /* Jarak antar baris form */
+}
+.form-row-twp:last-child {
+  margin-bottom: 0;
+}
+
+.form-group-twp {
+  flex: 1 1 calc(50% - 10px); /* Default 2 kolom, dengan gap 20px */
+  min-width: 250px; /* Lebar minimal sebelum wrap */
+  /* margin-bottom: 15px; (dihapus karena .form-row-twp yang mengatur) */
+}
+/* Jika ada form group yang butuh lebar penuh dalam .form-row-twp */
+.form-group-twp.full-width {
+  flex-basis: 100%;
+}
+
+.form-group-twp label {
+  display: block;
+  font-size: 14px;
+  color: #495057;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.required-field-twp {
+  color: #dc3545; /* Merah untuk tanda wajib */
+  font-weight: bold;
+  margin-left: 2px;
+}
+
+.form-group-twp input[type="text"],
+.form-group-twp input[type="email"],
+.form-group-twp input[type="tel"],
+.form-group-twp input[type="password"],
+.form-group-twp input[type="date"],
+.form-group-twp input[type="number"],
+.form-group-twp select,
+.form-group-twp textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+  background-color: #fff; /* Pastikan background putih */
+}
+
+.form-group-twp input:focus,
+.form-group-twp select:focus,
+.form-group-twp textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-group-twp textarea {
+  resize: vertical; /* Hanya bisa diresize vertikal */
+  min-height: 80px;
+}
+
+.form-group-twp small {
+  /* Untuk teks bantuan di bawah input */
+  font-size: 12px;
+  color: #6c757d;
+  display: block;
+  margin-top: 5px;
+}
+
+.radio-group-twp {
+  display: flex;
+  gap: 15px; /* Jarak antar pilihan radio */
+  align-items: center;
+  padding-top: 5px; /* Sedikit padding agar sejajar dengan input lain */
+}
+.radio-label-twp {
+  font-size: 14px;
+  color: #343a40;
+  font-weight: normal; /* Tidak bold */
+  display: inline-flex; /* Agar input dan label sejajar */
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 0 !important; /* Override margin label umum */
+}
+.radio-label-twp input[type="radio"] {
+  margin-right: 6px;
+  accent-color: #007bff; /* Warna radio button saat terpilih */
+}
+
+.form-divider-twp {
+  border: 0;
+  border-top: 1px dashed #d1d9e6; /* Garis putus-putus lebih soft */
+  margin: 30px 0;
+}
+
+.form-actions-twp {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: flex-end; /* Tombol di kanan */
+  gap: 10px; /* Jarak antar tombol */
+  flex-wrap: wrap; /* Agar tombol bisa wrap */
+}
+
+.btn-twp {
+  /* Tombol umum di halaman ini */
+  padding: 10px 22px; /* Sedikit lebih besar paddingnya */
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease-out;
+}
+.btn-primary-twp {
+  background-color: #007bff;
+  color: white;
+}
+.btn-primary-twp:hover {
+  background-color: #0056b3;
+}
+.btn-secondary-twp {
+  background-color: #f8f9fa;
+  color: #495057;
+  border: 1px solid #ced4da;
+}
+.btn-secondary-twp:hover {
+  background-color: #e2e6ea;
+  border-color: #b1bbc4;
+}
+
+/* Responsif untuk Form Tambah WP */
+@media (max-width: 768px) {
+  .form-container-twp {
+    padding: 20px;
+  }
+  .form-row-twp {
+    gap: 0; /* Hilangkan gap, margin diatur oleh .form-group-twp */
+  }
+  .form-group-twp {
+    flex-basis: 100%; /* Satu kolom di mobile */
+    margin-bottom: 15px; /* Jarak antar field yang ditumpuk */
+  }
+  .form-group-twp:last-child {
+    margin-bottom: 0;
+  }
+  .radio-group-twp {
+    flex-direction: column; /* Tumpuk radio button */
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .form-actions-twp {
+    flex-direction: column; /* Tombol menumpuk */
+  }
+  .btn-twp {
+    width: 100%; /* Tombol full width */
+    justify-content: center; /* Teks & ikon di tengah tombol */
+  }
+}

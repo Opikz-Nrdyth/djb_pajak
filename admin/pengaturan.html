@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/images/icon.png" type="image/png" />
+    <link rel="stylesheet" href="../assets/css/admin-layout.css" />
+    <link rel="stylesheet" href="../assets/css/admin-pengaturan.css" />
+    <title>DJP - Pengaturan</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    /* Menggunakan versi yang lebih umum atau pastikan versi 6.7.2 benar */
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    /* Integrity untuk 6.5.1 */ crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <img src="../assets/images/icon.png" alt="DJP Logo" />
+          <span class="sidebar-logo-text">DJP</span>
+        </div>
+        <p class="sidebar-title">Sistem Informasi Pajak Bangunan</p>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="/admin/" id="nav-dashboard">
+              <i class="fas fa-tachometer-alt menu-icon"></i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/wajibpajak.html" id="nav-dashboard">
+              <i class="fas fa-users menu-icon"></i>
+              <span class="nav-text">Management Wajib Pajak</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/tagihanperhitungan.html" id="nav-tagihan">
+              <i class="fas fa-file-invoice-dollar menu-icon"></i>
+              <span class="nav-text">Tagihan & Perhitungan</span>
+            </a>
+          </li>
+          <li class="has-submenu">
+            <a href="/admin/laporan-harian.html">
+              <i class="fas fa-chart-bar menu-icon"></i>
+              <span class="nav-text">Laporan Pajak</span>
+              <i class="fas fa-chevron-down arrow-icon"></i>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="/admin/laporan-detail.html"
+                  ><span class="nav-text">Laporan Detail</span></a
+                >
+              </li>
+              <li>
+                <a href="/admin/laporan-harian.html"
+                  ><span class="nav-text">Laporan Harian</span></a
+                >
+              </li>
+              <li>
+                <a href="/admin/laporan-bulanan.html"
+                  ><span class="nav-text">Laporan Bulanan</span></a
+                >
+              </li>
+              <li>
+                <a href="/admin/rekaptulasi.html"
+                  ><span class="nav-text">Rekapitulasi</span></a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/admin/pengaturan.html" class="active">
+              <i class="fas fa-cog menu-icon"></i>
+              <span class="nav-text">Pengaturan</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-minimizer">
+        <button id="sidebarToggleBtn" aria-label="Toggle Sidebar">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+    </aside>
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+    <main class="main-content" id="mainContent">
+      <header class="content-header">
+        <div class="header-left">
+          <button
+            class="mobile-nav-toggle"
+            id="mobileNavToggle"
+            aria-label="Open Navigation Menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="greeting">
+            <h1>Pengaturan</h1>
+
+            <p>Selamat Datang, Admin!</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="search-bar">
+            <input type="text" placeholder="Cari..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <button class="icon-button" aria-label="Notifikasi">
+            <i class="fas fa-bell"></i>
+            <span class="badge">3</span>
+          </button>
+          <div class="user-profile">
+            <img src="https://i.pravatar.cc/150?img=32" alt="Avatar Admin" />
+            <span>Nama Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="content-body">
+        <div class="settings-container-ps">
+          <div class="settings-content-wrapper-ps">
+            <div
+              class="settings-tab-content-ps card-ps active"
+              id="profilSayaTab"
+            >
+              <h2>Profil Saya</h2>
+              <form id="formProfilSayaPs">
+                <div class="form-group-ps avatar-upload-group-ps">
+                  <label>Foto Profil:</label>
+                  <div class="avatar-current-ps">
+                    <img
+                      src="https://i.pravatar.cc/150?img=32"
+                      alt="Avatar saat ini"
+                      id="avatarPreviewPs"
+                    />
+                  </div>
+                  <div class="avatar-action-ps">
+                    <input
+                      type="file"
+                      id="avatarUploadPs"
+                      name="avatarUploadPs"
+                      accept="image/*"
+                      style="display: none"
+                    />
+                    <button
+                      type="button"
+                      class="btn-ps btn-outline-ps"
+                      onclick="document.getElementById('avatarUploadPs').click();"
+                    >
+                      <i class="fas fa-upload"></i> Ganti Foto
+                    </button>
+                    <small>Format: JPG, PNG. Maks: 2MB.</small>
+                  </div>
+                </div>
+
+                <div class="form-group-ps">
+                  <label for="namaLengkapPs">Nama Lengkap:</label>
+                  <input
+                    type="text"
+                    id="namaLengkapPs"
+                    name="namaLengkapPs"
+                    value="Nama Admin Utama"
+                    placeholder="Masukkan nama lengkap"
+                  />
+                </div>
+                <div class="form-group-ps">
+                  <label for="emailProfilPs">Email:</label>
+                  <input
+                    type="email"
+                    id="emailProfilPs"
+                    name="emailProfilPs"
+                    value="adminutama@djp.go.id"
+                    readonly
+                  />
+                  <small>Email tidak dapat diubah melalui halaman ini.</small>
+                </div>
+
+                <hr class="form-divider-ps" />
+                <h3>Ubah Password</h3>
+                <div class="form-group-ps">
+                  <label for="passwordLamaPs">Password Lama:</label>
+                  <input
+                    type="password"
+                    id="passwordLamaPs"
+                    name="passwordLamaPs"
+                    placeholder="Masukkan password lama Anda"
+                  />
+                </div>
+                <div class="form-row-ps">
+                  <div class="form-group-ps">
+                    <label for="passwordBaruPs">Password Baru:</label>
+                    <input
+                      type="password"
+                      id="passwordBaruPs"
+                      name="passwordBaruPs"
+                      placeholder="Minimal 8 karakter"
+                    />
+                  </div>
+                  <div class="form-group-ps">
+                    <label for="konfirmasiPasswordBaruPs"
+                      >Konfirmasi Password Baru:</label
+                    >
+                    <input
+                      type="password"
+                      id="konfirmasiPasswordBaruPs"
+                      name="konfirmasiPasswordBaruPs"
+                      placeholder="Ulangi password baru"
+                    />
+                  </div>
+                </div>
+                <div class="form-actions-ps">
+                  <button type="submit" class="btn-ps btn-primary-ps">
+                    <i class="fas fa-save"></i> Simpan Perubahan Profil
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="settings-tab-content-ps card-ps" id="aplikasiTab">
+              <h2>Pengaturan Aplikasi</h2>
+              <form id="formAplikasiPs">
+                <div class="form-group-ps">
+                  <label for="namaAplikasiPs">Nama Aplikasi/Instansi:</label>
+                  <input
+                    type="text"
+                    id="namaAplikasiPs"
+                    name="namaAplikasiPs"
+                    value="Sistem Informasi Pajak Bangunan DJP"
+                  />
+                </div>
+                <div class="form-row-ps">
+                  <div class="form-group-ps">
+                    <label for="zonaWaktuPs">Zona Waktu:</label>
+                    <select id="zonaWaktuPs" name="zonaWaktuPs">
+                      <option value="WIB" selected>
+                        (GMT+07:00) Waktu Indonesia Barat
+                      </option>
+                      <option value="WITA">
+                        (GMT+08:00) Waktu Indonesia Tengah
+                      </option>
+                      <option value="WIT">
+                        (GMT+09:00) Waktu Indonesia Timur
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group-ps">
+                    <label for="formatTanggalPs">Format Tanggal Default:</label>
+                    <select id="formatTanggalPs" name="formatTanggalPs">
+                      <option value="DD-MM-YYYY" selected>
+                        DD-MM-YYYY (Contoh: 29-05-2025)
+                      </option>
+                      <option value="MM-DD-YYYY">
+                        MM-DD-YYYY (Contoh: 05-29-2025)
+                      </option>
+                      <option value="YYYY-MM-DD">
+                        YYYY-MM-DD (Contoh: 2025-05-29)
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group-ps">
+                  <label for="bahasaDefaultPs">Bahasa Default:</label>
+                  <select id="bahasaDefaultPs" name="bahasaDefaultPs">
+                    <option value="id" selected>Bahasa Indonesia</option>
+                    <option value="en">English</option>
+                  </select>
+                </div>
+                <div class="form-actions-ps">
+                  <button type="submit" class="btn-ps btn-primary-ps">
+                    <i class="fas fa-save"></i> Simpan Pengaturan Aplikasi
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="settings-tab-content-ps card-ps" id="notifikasiTab">
+              <h2>Preferensi Notifikasi</h2>
+              <form id="formNotifikasiPs">
+                <div class="form-group-ps checkbox-group-ps">
+                  <input
+                    type="checkbox"
+                    id="emailLaporanBaruPs"
+                    name="emailLaporanBaruPs"
+                    checked
+                  />
+                  <label for="emailLaporanBaruPs"
+                    >Kirim notifikasi email saat ada laporan baru yang
+                    dihasilkan.</label
+                  >
+                </div>
+                <div class="form-group-ps checkbox-group-ps">
+                  <input
+                    type="checkbox"
+                    id="inAppAktivitasPentingPs"
+                    name="inAppAktivitasPentingPs"
+                    checked
+                  />
+                  <label for="inAppAktivitasPentingPs"
+                    >Tampilkan notifikasi in-app untuk aktivitas penting (mis.
+                    pembayaran gagal).</label
+                  >
+                </div>
+                <div class="form-group-ps checkbox-group-ps">
+                  <input
+                    type="checkbox"
+                    id="emailRingkasanMingguanPs"
+                    name="emailRingkasanMingguanPs"
+                  />
+                  <label for="emailRingkasanMingguanPs"
+                    >Kirim ringkasan aktivitas mingguan melalui email.</label
+                  >
+                </div>
+                <hr class="form-divider-ps" />
+                <div class="form-group-ps">
+                  <label for="emailNotifikasiTargetPs"
+                    >Email Tujuan Notifikasi Utama:</label
+                  >
+                  <input
+                    type="email"
+                    id="emailNotifikasiTargetPs"
+                    name="emailNotifikasiTargetPs"
+                    value="adminutama@djp.go.id"
+                    placeholder="Email untuk menerima notifikasi"
+                  />
+                </div>
+                <div class="form-actions-ps">
+                  <button type="submit" class="btn-ps btn-primary-ps">
+                    <i class="fas fa-save"></i> Simpan Preferensi Notifikasi
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="settings-tab-content-ps card-ps" id="keamananTab">
+              <h2>Pengaturan Keamanan</h2>
+              <div class="info-group-ps">
+                <h4>Informasi Login Terakhir</h4>
+                <p>
+                  <strong>Waktu:</strong>
+                  <span id="lastLoginTimePs">29 Mei 2025, 15:30:00 WIB</span>
+                </p>
+                <p>
+                  <strong>Alamat IP:</strong>
+                  <span id="lastLoginIpPs">103.XX.XX.123</span> (Malang,
+                  Indonesia)
+                </p>
+                <p>
+                  <strong>Perangkat:</strong>
+                  <span id="lastLoginDevicePs">Chrome di Windows</span>
+                </p>
+              </div>
+              <hr class="form-divider-ps" />
+              <div class="form-group-ps">
+                <h4>Two-Factor Authentication (2FA)</h4>
+                <p>
+                  Saat ini 2FA
+                  <strong class="status-2fa-ps status-disabled-ps"
+                    >Tidak Aktif</strong
+                  >.
+                </p>
+                <button
+                  type="button"
+                  class="btn-ps btn-secondary-ps"
+                  id="setup2faBtnPs"
+                  style="margin-top: 10px"
+                >
+                  <i class="fas fa-user-shield"></i> Atur 2FA
+                </button>
+                <small style="display: block; margin-top: 5px"
+                  >Amankan akun Anda dengan lapisan keamanan tambahan.</small
+                >
+              </div>
+              <hr class="form-divider-ps" />
+              <div class="form-group-ps">
+                <h4>Sesi Aktif</h4>
+                <p>
+                  Anda saat ini login dari perangkat ini. Apakah Anda ingin
+                  keluar dari semua perangkat lain?
+                </p>
+                <button
+                  type="button"
+                  class="btn-ps btn-danger-ps"
+                  id="logoutOtherDevicesBtnPs"
+                  style="margin-top: 10px"
+                >
+                  <i class="fas fa-sign-out-alt"></i> Logout dari Perangkat Lain
+                </button>
+              </div>
+              <div class="form-actions-ps" style="margin-top: 30px">
+                <button
+                  type="button"
+                  class="btn-ps btn-outline-ps"
+                  onclick="alert('Menampilkan riwayat aktivitas...')"
+                >
+                  <i class="fas fa-history"></i> Lihat Riwayat Aktivitas Login
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../assets/js/layout.js"></script>
+  </body>
+</html>

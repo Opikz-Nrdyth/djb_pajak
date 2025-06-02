@@ -1,0 +1,492 @@
+/* assets/css/admin_style.css */
+
+/* Reset dan Basic Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f0f2f5; /* Latar belakang admin panel */
+}
+
+.admin-page-wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Admin Sidebar Styling */
+.admin-sidebar {
+  width: 260px;
+  background-color: #003366; /* Warna biru tua DJP */
+  color: #e0e0e0; /* Warna teks terang untuk kontras */
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  overflow-y: auto; /* Scroll jika menu panjang */
+}
+
+.admin-sidebar-header {
+  padding: 20px 15px; /* Disesuaikan paddingnya */
+  text-align: center;
+  border-bottom: 1px solid #004080; /* Garis pemisah lebih gelap */
+  display: flex;
+  flex-direction: column; /* Agar gambar dan nama tersusun vertikal */
+  align-items: center;
+}
+
+.admin-sidebar-profile-pic {
+  width: 80px; /* Ukuran foto profil di sidebar */
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 2px solid #004080;
+}
+.admin-sidebar-user-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+.admin-sidebar-user-role {
+  font-size: 0.8rem;
+  color: #a0b0c0; /* Warna lebih lembut untuk role */
+}
+
+.admin-sidebar-nav ul {
+  list-style: none;
+  padding: 15px 0;
+}
+
+.admin-sidebar-nav li a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-left: 4px solid transparent;
+}
+.admin-sidebar-nav li a i.fa-fw {
+  /* Styling untuk ikon Font Awesome */
+  margin-right: 12px; /* Jarak ikon ke teks */
+  width: 20px;
+  text-align: center;
+  font-size: 1em; /* Ukuran ikon default */
+}
+.admin-sidebar-nav li a span {
+  flex-grow: 1;
+}
+
+.admin-sidebar-nav li a:hover,
+.admin-sidebar-nav li.active > a {
+  background-color: #004080;
+  color: #ffffff;
+  border-left-color: #ffc107;
+}
+
+/* Submenu Styling */
+.admin-sidebar-nav li.has-submenu > a .submenu-arrow {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+  font-size: 0.7em; /* Ukuran panah submenu */
+}
+.admin-sidebar-nav li.has-submenu.open > a .submenu-arrow i {
+  transform: rotate(-180deg);
+}
+
+.admin-submenu {
+  list-style: none;
+  padding-left: 0;
+  background-color: #002a53;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+.admin-sidebar-nav li.has-submenu.open > .admin-submenu {
+  max-height: 1000px;
+}
+
+.admin-submenu li a {
+  padding-left: 30px; /* Indentasi awal untuk submenu item */
+  font-size: 0.9em;
+  border-left: 4px solid transparent;
+}
+.admin-submenu li a i.fa-fw {
+  margin-right: 10px; /* Jarak ikon submenu */
+}
+.admin-submenu li a:hover,
+.admin-submenu li.active > a {
+  background-color: #004080;
+  color: #ffffff;
+  border-left-color: #ffc107;
+}
+/* Untuk submenu level 2 (Laporan Pajak -> Laporan Detail, dll) */
+.admin-submenu li.has-submenu > a {
+  padding-left: 30px; /* Sama dengan item submenu lain */
+}
+.admin-submenu li.has-submenu .admin-submenu li a {
+  /* Item di dalam submenu level 2 */
+  padding-left: 45px; /* Indentasi lebih dalam */
+}
+
+.admin-sidebar-footer {
+  margin-top: auto;
+  padding: 15px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #a0a0c0; /* Warna lebih lembut */
+  border-top: 1px solid #004080;
+}
+
+/* Admin Main Content Styling */
+.admin-main-content {
+  flex-grow: 1;
+  padding-left: 260px;
+  transition: padding-left 0.3s ease-in-out;
+  background-color: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Mencegah double scrollbar jika konten pas */
+}
+
+/* Header di dalam Konten Utama */
+.admin-content-header {
+  background-color: #ffffff;
+  padding: 12px 25px; /* Padding disesuaikan */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  min-height: 60px; /* Tinggi minimal header */
+}
+
+.header-left {
+  flex-shrink: 0;
+}
+.header-page-title {
+  font-size: 1.5rem; /* Ukuran judul halaman */
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+.header-welcome-text {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin: 0;
+}
+
+.header-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center; /* Pusatkan search bar jika ada ruang */
+  padding: 0 20px; /* Beri jarak dari elemen kiri dan kanan */
+}
+.header-search-form {
+  display: flex;
+  align-items: center;
+  background-color: #f0f2f5;
+  border-radius: 20px; /* Membuat search bar lebih rounded */
+  padding: 0px 5px 0px 15px;
+  width: 100%;
+  max-width: 350px; /* Batas lebar search bar */
+  height: 38px;
+}
+.header-search-form input[type="search"] {
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  width: 100%;
+  color: #333;
+}
+.header-search-form input[type="search"]::placeholder {
+  color: #888;
+}
+.header-search-form button {
+  background: transparent;
+  border: none;
+  color: #555;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.header-search-form button:hover {
+  color: #007bff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Jarak antar item di kanan */
+}
+.header-icon-link {
+  color: #555;
+  font-size: 1.2rem; /* Ukuran ikon notifikasi */
+  text-decoration: none;
+  position: relative;
+  padding: 5px;
+}
+.header-icon-link:hover {
+  color: #007bff;
+}
+.notification-badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #dc3545; /* Warna merah untuk badge */
+  color: white;
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.admin-profile-dropdown {
+  position: relative;
+}
+.admin-profile-link-header {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+.admin-profile-link-header:hover {
+  background-color: #f0f2f5;
+}
+.admin-avatar-header {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+.admin-profile-link-header span {
+  font-size: 0.9rem;
+}
+.dropdown-arrow-header {
+  font-size: 0.7rem;
+  margin-left: 5px;
+  color: #777;
+  transition: transform 0.2s ease;
+}
+.admin-profile-dropdown.open .dropdown-arrow-header {
+  transform: rotate(180deg);
+}
+
+.profile-dropdown-menu {
+  display: none; /* Sembunyikan default */
+  position: absolute;
+  top: calc(100% + 5px); /* Posisi di bawah tombol profil */
+  right: 0;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  width: 200px;
+  z-index: 1100;
+  overflow: hidden; /* Untuk border-radius pada item */
+}
+.admin-profile-dropdown.open .profile-dropdown-menu {
+  display: block;
+}
+.profile-dropdown-menu a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+.profile-dropdown-menu a:hover {
+  background-color: #f0f2f5;
+}
+.profile-dropdown-menu hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 5px 0;
+}
+
+/* Inner Content Area */
+.admin-content-inner {
+  padding: 25px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+.admin-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  margin-bottom: 20px;
+}
+.admin-card-header {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #003366;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+/* Dashboard Summary Styles */
+.admin-dashboard-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.summary-item {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  text-align: center;
+}
+.summary-item h4 {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.summary-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #003366;
+  margin-bottom: 5px;
+}
+.summary-link {
+  font-size: 0.8rem;
+  color: #007bff;
+  text-decoration: none;
+}
+.summary-link:hover {
+  text-decoration: underline;
+}
+/* Recent Activity */
+.admin-recent-activity {
+  list-style: none;
+  padding: 0;
+}
+.admin-recent-activity li {
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+  font-size: 0.9rem;
+  color: #444;
+}
+.admin-recent-activity li:last-child {
+  border-bottom: none;
+}
+.activity-time {
+  font-size: 0.8rem;
+  color: #777;
+  float: right; /* Waktu di kanan */
+}
+
+/* Admin Sidebar Toggle Button (Mobile) */
+.admin-sidebar-toggle-button {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 15px;
+  z-index: 1001;
+  background-color: #003366;
+  border: 1px solid #004080;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.admin-sidebar-toggle-button .icon-bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: white;
+  margin: 4px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Responsive Design untuk Admin Panel */
+@media (max-width: 992px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+  }
+  .admin-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+  }
+  .admin-main-content {
+    padding-left: 0;
+  }
+  .admin-sidebar-toggle-button {
+    display: block;
+  }
+  .header-center {
+    /* Search bar di mobile bisa disembunyikan atau di-stack */
+    display: none; /* Sembunyikan search bar di tablet agar header tidak terlalu penuh */
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-content-header {
+    padding: 10px 15px;
+    flex-wrap: wrap; /* Biarkan item header wrap jika tidak cukup ruang */
+  }
+  .header-left {
+    width: 100%; /* Judul halaman mengambil lebar penuh */
+    margin-bottom: 5px; /* Beri jarak jika wrap */
+    text-align: center; /* Pusatkan judul di mobile */
+  }
+  .header-page-title {
+    font-size: 1.2rem;
+  }
+  .header-welcome-text {
+    display: none; /* Sembunyikan welcome text di mobile header */
+  }
+  .header-center {
+    display: none; /* Tetap sembunyikan search bar */
+  }
+  .header-right {
+    width: 100%;
+    justify-content: space-around; /* Sebar ikon notif & profil */
+    margin-top: 5px;
+  }
+  .admin-avatar-header {
+    width: 28px;
+    height: 28px;
+  }
+  .admin-profile-link-header span {
+    /* Tampilkan nama admin di mobile jika diinginkan */
+    /* display: none; */
+  }
+  .admin-content-inner {
+    padding: 15px;
+  }
+  .admin-dashboard-summary {
+    grid-template-columns: 1fr; /* Satu kolom di mobile */
+  }
+  .activity-time {
+    float: none;
+    display: block;
+    margin-top: 3px;
+  }
+}

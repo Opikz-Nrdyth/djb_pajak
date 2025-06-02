@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/images/icon.png" type="image/png" />
+    <link rel="stylesheet" href="../assets/css/admin-layout.css" />
+    <link rel="stylesheet" href="../assets/css/admin-laporandetail.css" />
+    <title>DJP - Lap Detail</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    /* Menggunakan versi yang lebih umum atau pastikan versi 6.7.2 benar */
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    /* Integrity untuk 6.5.1 */ crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <img src="../assets/images/icon.png" alt="DJP Logo" />
+          <span class="sidebar-logo-text">DJP</span>
+        </div>
+        <p class="sidebar-title">Sistem Informasi Pajak Bangunan</p>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="/admin/" id="nav-dashboard">
+              <i class="fas fa-tachometer-alt menu-icon"></i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/wajibpajak.html" id="nav-dashboard">
+              <i class="fas fa-users menu-icon"></i>
+              <span class="nav-text">Management Wajib Pajak</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/tagihanperhitungan.html" id="nav-tagihan">
+              <i class="fas fa-file-invoice-dollar menu-icon"></i>
+              <span class="nav-text">Tagihan & Perhitungan</span>
+            </a>
+          </li>
+          <li class="has-submenu">
+            <a href="/admin/laporan-harian.html" class="active">
+              <i class="fas fa-chart-bar menu-icon"></i>
+              <span class="nav-text">Laporan Pajak</span>
+              <i class="fas fa-chevron-down arrow-icon"></i>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="/admin/laporan-detail.html"
+                  ><span class="nav-text">Laporan Detail</span></a
+                >
+              </li>
+              <li>
+                <a href="/admin/laporan-harian.html"
+                  ><span class="nav-text">Laporan Harian</span></a
+                >
+              </li>
+              <li>
+                <a href="/admin/laporan-bulanan.html"
+                  ><span class="nav-text">Laporan Bulanan</span></a
+                >
+              </li>
+              <li>
+                <a href="/admin/rekaptulasi.html"
+                  ><span class="nav-text">Rekapitulasi</span></a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/admin/pengaturan.html">
+              <i class="fas fa-cog menu-icon"></i>
+              <span class="nav-text">Pengaturan</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-minimizer">
+        <button id="sidebarToggleBtn" aria-label="Toggle Sidebar">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+    </aside>
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+    <main class="main-content" id="mainContent">
+      <header class="content-header">
+        <div class="header-left">
+          <button
+            class="mobile-nav-toggle"
+            id="mobileNavToggle"
+            aria-label="Open Navigation Menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="greeting">
+            <h1>Laporan Detail Pajak</h1>
+
+            <p>Selamat Datang, Admin!</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="search-bar">
+            <input type="text" placeholder="Cari..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <button class="icon-button" aria-label="Notifikasi">
+            <i class="fas fa-bell"></i>
+            <span class="badge">3</span>
+          </button>
+          <div class="user-profile">
+            <img src="https://i.pravatar.cc/150?img=32" alt="Avatar Admin" />
+            <span>Nama Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="content-body">
+        <div class="search-form-ldp card-ldp">
+          <form id="formCariDetailPajakLdp">
+            <div class="form-row-ldp input-group-ldp">
+              <div class="form-group-ldp">
+                <label for="nikWpLdp">NIK Wajib Pajak:</label>
+                <input
+                  type="text"
+                  id="nikWpLdp"
+                  name="nikWpLdp"
+                  placeholder="Masukkan NIK Wajib Pajak"
+                />
+              </div>
+              <div class="form-group-ldp">
+                <label for="namaWpLdp">Nama Wajib Pajak (Opsional):</label>
+                <input
+                  type="text"
+                  id="namaWpLdp"
+                  name="namaWpLdp"
+                  placeholder="Masukkan Nama (jika NIK tidak diketahui)"
+                />
+              </div>
+            </div>
+            <div class="form-row-ldp input-group-ldp">
+              <div class="form-group-ldp">
+                <label for="noReferensiLdp"
+                  >No. Referensi Laporan/Tagihan (Opsional):</label
+                >
+                <input
+                  type="text"
+                  id="noReferensiLdp"
+                  name="noReferensiLdp"
+                  placeholder="Contoh: PBB/2024/00123"
+                />
+              </div>
+              <div class="form-group-ldp">
+                <label for="periodeTahunLdp"
+                  >Tahun Periode Pajak (Opsional):</label
+                >
+                <input
+                  type="number"
+                  id="periodeTahunLdp"
+                  name="periodeTahunLdp"
+                  placeholder="YYYY (Contoh: 2024)"
+                />
+              </div>
+            </div>
+            <div class="form-actions-ldp">
+              <button
+                type="submit"
+                class="btn-ldp btn-primary-ldp"
+                id="cariDetailBtnLdp"
+              >
+                <i class="fas fa-search"></i> Cari Detail Laporan
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div
+          class="loading-indicator-ldp"
+          id="loadingIndicatorLdp"
+          style="display: none"
+        >
+          <i class="fas fa-spinner fa-spin"></i
+          ><span>Mencari data detail laporan...</span>
+        </div>
+
+        <div
+          class="report-detail-container-ldp card-ldp"
+          id="reportDetailContainerLdp"
+          style="display: none"
+        >
+          <div class="detail-header-ldp">
+            <h2>Detail Laporan Pajak</h2>
+            <span class="report-id-ldp"
+              >No. Referensi:
+              <strong id="detailNoReferensiDisplay">-</strong></span
+            >
+          </div>
+
+          <div class="detail-section-ldp">
+            <h3>
+              <i class="fas fa-user icon-section-ldp"></i> Informasi Wajib Pajak
+            </h3>
+            <div class="info-grid-ldp">
+              <div class="info-item-ldp">
+                <label>Nama:</label><span id="detailNamaWp">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>NIK:</label><span id="detailNikWp">-</span>
+              </div>
+              <div class="info-item-ldp full-width-ldp">
+                <label>Alamat:</label><span id="detailAlamatWp">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>No. Telepon:</label><span id="detailTeleponWp">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-section-ldp">
+            <h3>
+              <i class="fas fa-file-invoice-dollar icon-section-ldp"></i>
+              Rincian Tagihan Pajak
+            </h3>
+            <div class="info-grid-ldp two-column-ldp">
+              <div class="info-item-ldp">
+                <label>Jenis Pajak:</label><span id="detailJenisPajak">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>Periode Pajak:</label
+                ><span id="detailPeriodePajak">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>Tanggal Tagihan:</label
+                ><span id="detailTanggalTagihan">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>Tanggal Jatuh Tempo:</label
+                ><span id="detailJatuhTempo">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>Luas Bangunan:</label
+                ><span id="detailLuasBangunan">-</span> m²
+              </div>
+              <div class="info-item-ldp">
+                <label>Luas Tanah:</label><span id="detailLuasTanah">-</span> m²
+              </div>
+              <div class="info-item-ldp">
+                <label>NJOP Bangunan/m²:</label><span>Rp </span
+                ><span id="detailNjopBangunan">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>NJOP Tanah/m²:</label><span>Rp </span
+                ><span id="detailNjopTanah">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>Dasar Pengenaan Pajak (DPP):</label><span>Rp </span
+                ><span id="detailDpp">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>Tarif Pajak:</label
+                ><span id="detailTarifPajak">-</span> %
+              </div>
+              <div class="info-item-ldp">
+                <label>Pokok Pajak:</label><span>Rp </span
+                ><span id="detailPokokPajak">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>Denda:</label><span>Rp </span
+                ><span id="detailDenda">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>Potongan:</label><span>Rp </span
+                ><span id="detailPotongan">-</span>
+              </div>
+              <div class="info-item-ldp total-amount-ldp">
+                <label>Total Yang Harus Dibayar:</label><span>Rp </span
+                ><strong id="detailTotalBayar">-</strong>
+              </div>
+              <div class="info-item-ldp">
+                <label>Status Pembayaran:</label
+                ><span id="detailStatusBayar" class="status-badge-ldp">-</span>
+              </div>
+              <div class="info-item-ldp">
+                <label>Tanggal Pembayaran:</label
+                ><span id="detailTglBayar">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-actions-ldp">
+            <button class="btn-ldp btn-secondary-ldp" id="cetakDetailBtnLdp">
+              <i class="fas fa-print"></i> Cetak Detail Laporan
+            </button>
+            <button
+              class="btn-ldp btn-success-ldp"
+              id="bayarBtnLdp"
+              style="display: none"
+            >
+              <i class="fas fa-credit-card"></i> Bayar Sekarang
+            </button>
+            <button
+              class="btn-ldp btn-warning-ldp"
+              id="ingatkanBtnLdp"
+              style="display: none"
+            >
+              <i class="fas fa-bell"></i> Kirim Pengingat
+            </button>
+          </div>
+        </div>
+        <div class="message-placeholder-ldp" id="reportDetailPlaceholderLdp">
+          <i class="fas fa-search-location"></i>
+          <p>
+            Gunakan form di atas untuk mencari detail laporan pajak yang
+            spesifik.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="../assets/js/layout.js"></script>
+  </body>
+</html>

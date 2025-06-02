@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/images/icon.png" type="image/png" />
+    <link rel="stylesheet" href="../assets/css/admin-layout.css" />
+    <link rel="stylesheet" href="../assets/css/admin-lapbulanan.css" />
+    <title>DJP - Lap Bulanan</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    /* Menggunakan versi yang lebih umum atau pastikan versi 6.7.2 benar */
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    /* Integrity untuk 6.5.1 */ crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <img src="../assets/images/icon.png" alt="DJP Logo" />
+          <span class="sidebar-logo-text">DJP</span>
+        </div>
+        <p class="sidebar-title">Sistem Informasi Pajak Bangunan</p>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="/admin/" id="nav-dashboard">
+              <i class="fas fa-tachometer-alt menu-icon"></i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/wajibpajak.html" id="nav-dashboard">
+              <i class="fas fa-users menu-icon"></i>
+              <span class="nav-text">Management Wajib Pajak</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/tagihanperhitungan.html" id="nav-tagihan">
+              <i class="fas fa-file-invoice-dollar menu-icon"></i>
+              <span class="nav-text">Tagihan & Perhitungan</span>
+            </a>
+          </li>
+          <li class="has-submenu">
+            <a href="/admin/laporan-harian.html" class="active">
+              <i class="fas fa-chart-bar menu-icon"></i>
+              <span class="nav-text">Laporan Pajak</span>
+              <i class="fas fa-chevron-down arrow-icon"></i>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="/admin/laporan-detail.html"
+                  ><span class="nav-text">Laporan Detail</span></a
+                >
+              </li>
+              <li>
+                <a href="/admin/laporan-harian.html"
+                  ><span class="nav-text">Laporan Harian</span></a
+                >
+              </li>
+              <li>
+                <a href="/admin/laporan-bulanan.html"
+                  ><span class="nav-text">Laporan Bulanan</span></a
+                >
+              </li>
+              <li>
+                <a href="/admin/rekaptulasi.html"
+                  ><span class="nav-text">Rekapitulasi</span></a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/admin/pengaturan.html">
+              <i class="fas fa-cog menu-icon"></i>
+              <span class="nav-text">Pengaturan</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-minimizer">
+        <button id="sidebarToggleBtn" aria-label="Toggle Sidebar">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+    </aside>
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+    <main class="main-content" id="mainContent">
+      <header class="content-header">
+        <div class="header-left">
+          <button
+            class="mobile-nav-toggle"
+            id="mobileNavToggle"
+            aria-label="Open Navigation Menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="greeting">
+            <h1>Laporan Bulanan</h1>
+
+            <p>Selamat Datang, Admin!</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="search-bar">
+            <input type="text" placeholder="Cari..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <button class="icon-button" aria-label="Notifikasi">
+            <i class="fas fa-bell"></i>
+            <span class="badge">3</span>
+          </button>
+          <div class="user-profile">
+            <img src="https://i.pravatar.cc/150?img=32" alt="Avatar Admin" />
+            <span>Nama Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="content-body">
+        <div class="report-controls-lb card-lb">
+          <div class="filter-group-lb">
+            <label for="reportMonthSelect">Pilih Bulan:</label>
+            <select id="reportMonthSelect" name="reportMonthSelect">
+              {/* Options akan diisi oleh JavaScript, contoh: */} {/*
+              <option value="1">Januari</option>
+              <option value="2">Februari</option>
+              ... */}
+            </select>
+          </div>
+          <div class="filter-group-lb">
+            <label for="reportYearInputLb">Pilih Tahun:</label>
+            <input
+              type="number"
+              id="reportYearInputLb"
+              name="reportYearInputLb"
+              placeholder="YYYY"
+            />
+          </div>
+          <button class="btn-lb btn-primary-lb" id="generateReportBtnLb">
+            <i class="fas fa-play"></i> Tampilkan Laporan
+          </button>
+          <div class="action-group-lb">
+            <button class="btn-lb btn-secondary-lb" id="exportCsvBtnLb">
+              <i class="fas fa-file-csv"></i> Export CSV
+            </button>
+            <button class="btn-lb btn-secondary-lb" id="printPdfBtnLb">
+              <i class="fas fa-print"></i> Cetak PDF
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="summary-metrics-lb"
+          id="summaryMetricsContainerLb"
+          style="display: none"
+        >
+          <div class="metric-card-lb">
+            <h4>Total Transaksi (Bulan)</h4>
+            <p id="totalTransaksiBulanLb">-</p>
+          </div>
+          <div class="metric-card-lb">
+            <h4>Pajak Terkumpul (Bulan Ini)</h4>
+            <p id="totalPajakBulanLb">-</p>
+          </div>
+          <div class="metric-card-lb">
+            <h4>Rata-rata Transaksi Harian</h4>
+            <p id="avgTransaksiHarianLb">-</p>
+          </div>
+          <div class="metric-card-lb">
+            <h4>Pertumbuhan vs Bulan Lalu</h4>
+            <p id="pertumbuhanBulanLb">-</p>
+          </div>
+        </div>
+
+        <div
+          class="chart-container-lb card-lb"
+          id="monthlyChartContainerLb"
+          style="display: none"
+        >
+          <div class="chart-header-lb">
+            <h3>
+              Grafik Tren Pajak Harian (Bulan
+              <span id="chartMonthName">-</span>
+              <span id="chartYearName">-</span>)
+            </h3>
+          </div>
+          <div class="chart-placeholder-lb">
+            <canvas id="monthlyReportChartCanvas"></canvas>
+
+            <p>Data grafik tidak tersedia untuk periode ini.</p>
+          </div>
+        </div>
+
+        <div
+          class="report-table-container-lb card-lb"
+          id="monthlyReportTableContainerLb"
+          style="display: none"
+        >
+          <div class="table-header-info-lb">
+            Detail Transaksi untuk:
+            <strong id="displayedReportPeriodLb">-</strong>
+          </div>
+          <div class="table-wrapper-lb">
+            <table class="data-table-lb">
+              <thead>
+                <tr>
+                  <th>ID Transaksi</th>
+                  <th>Tanggal</th>
+                  <th>Waktu</th>
+                  <th>Nama Wajib Pajak</th>
+                  <th>Jenis Pajak</th>
+                  <th class="text-right-lb">Nominal (Rp)</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="reportTableBodyLb">
+                <tr>
+                  <td>TRXM202505001</td>
+                  <td>01/05/2025</td>
+                  <td>08:30:15</td>
+                  <td>Agus Purnomo</td>
+                  <td>PBB</td>
+                  <td class="text-right-lb">550.000</td>
+                  <td>
+                    <span class="status-badge-lb status-lunas-lb">Lunas</span>
+                  </td>
+                  <td>
+                    <button class="btn-action-table-lb">
+                      <i class="fas fa-eye"></i> Detail
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TRXM202505002</td>
+                  <td>01/05/2025</td>
+                  <td>10:15:00</td>
+                  <td>Rina Wijaya</td>
+                  <td>Retribusi</td>
+                  <td class="text-right-lb">150.000</td>
+                  <td>
+                    <span class="status-badge-lb status-lunas-lb">Lunas</span>
+                  </td>
+                  <td>
+                    <button class="btn-action-table-lb">
+                      <i class="fas fa-eye"></i> Detail
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TRXM202505003</td>
+                  <td>02/05/2025</td>
+                  <td>13:05:45</td>
+                  <td>Joko Susilo</td>
+                  <td>BPHTB</td>
+                  <td class="text-right-lb">25.000.000</td>
+                  <td>
+                    <span class="status-badge-lb status-verifikasi-lb"
+                      >Pending Verifikasi</span
+                    >
+                  </td>
+                  <td>
+                    <button class="btn-action-table-lb">
+                      <i class="fas fa-eye"></i> Detail
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="pagination-lb"
+            id="reportPaginationLb"
+            style="display: none"
+          >
+            <span
+              >Halaman <strong id="currentPageLb">1</strong> dari
+              <strong id="totalPagesLb">1</strong></span
+            >
+            <div class="pagination-buttons-lb">
+              <button id="prevPageBtnLb" disabled>
+                <i class="fas fa-chevron-left"></i> Sebelumnya
+              </button>
+              <button id="nextPageBtnLb">
+                Berikutnya <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="message-placeholder-lb" id="reportPlaceholderLb">
+          <i class="fas fa-calendar-alt"></i>
+          <p>
+            Silakan pilih bulan dan tahun, lalu klik "Tampilkan Laporan" untuk
+            melihat data.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="../assets/js/layout.js"></script>
+  </body>
+</html>

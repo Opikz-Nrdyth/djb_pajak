@@ -1,0 +1,170 @@
+/* assets/css/auth.css */
+
+/* Reset dan Basic Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.auth-page {
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #e9f0f4; /* Latar belakang sedikit berbeda untuk auth */
+  background-image: url("../images/background-djp.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.auth-container {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px; /* Lebar form auth */
+  text-align: center;
+}
+.register-container {
+  /* Sedikit lebih lebar untuk form register */
+  max-width: 500px;
+}
+
+.auth-header {
+  margin-bottom: 25px;
+}
+
+.auth-logo {
+  max-height: 35px;
+  margin-bottom: 10px;
+}
+
+.auth-header h1 {
+  /* Untuk "Sistem Informasi Pajak Bangunan" */
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+.auth-header h2 {
+  /* Untuk "Login Akun" atau "Buat Akun Baru" */
+  font-size: 1.5rem;
+  color: #0056b3;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.auth-form .form-group {
+  margin-bottom: 18px;
+  text-align: left; /* Label dan input align kiri */
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="tel"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.auth-form input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.button.button-auth {
+  background-color: #007bff;
+  color: white;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.button.button-auth:hover {
+  background-color: #0056b3;
+}
+
+.auth-errors {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: left;
+  font-size: 0.9rem;
+}
+.auth-errors p {
+  margin: 0;
+}
+
+.auth-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth-footer {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+.auth-footer p {
+  margin-bottom: 8px;
+  color: #555;
+}
+.auth-footer a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive untuk Auth Pages */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 20px;
+    margin: 15px; /* Beri sedikit margin pada mobile */
+  }
+  .auth-header h1 {
+    font-size: 1rem;
+  }
+  .auth-header h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 20px 15px;
+  }
+}
