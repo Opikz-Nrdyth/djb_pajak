@@ -1,9 +1,3 @@
--- database.sql
-
--- Membuat database jika belum ada
-CREATE DATABASE IF NOT EXISTS `db_pajak_bangunan` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `db_pajak_bangunan`;
-
 -- Tabel untuk pengguna (termasuk admin dan user biasa)
 CREATE TABLE IF NOT EXISTS `pengguna` (
   `id_pengguna` INT AUTO_INCREMENT PRIMARY KEY,

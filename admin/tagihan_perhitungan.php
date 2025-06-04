@@ -301,13 +301,13 @@ if (empty($available_years) || !in_array($current_year_for_select, $available_ye
                                     <th class="text-center">Tahun</th>
                                     <th>Tgl. Hitung</th>
                                     <th class="text-right">Jml. PBB</th>
-                                    <th>Status Verifikasi</th>
-                                    <th>Status Hitung</th>
-
+                                    <th>Status Verifikasi & Hitung</th>
+                                    <th>Nama Admin</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+
                                 <?php if (!empty($perhitungan_list)): ?>
                                     <?php foreach ($perhitungan_list as $ph): ?>
                                         <tr>
