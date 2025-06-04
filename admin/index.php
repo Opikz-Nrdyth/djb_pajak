@@ -5,17 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Definisi BASE_URL_ADMIN
-if (!defined('BASE_URL_ADMIN')) {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $host = $_SERVER['HTTP_HOST'];
-    // Mendapatkan path root dari script saat ini (index.php ada di dalam folder admin)
-    $script_path_parts = explode('/', dirname($_SERVER['SCRIPT_NAME']));
-    array_pop($script_path_parts); // Hapus 'admin' dari path untuk mendapatkan root aplikasi
-    $root_path = implode('/', $script_path_parts) . '/';
-    if ($root_path === '//') $root_path = '/'; // Handle kasus jika aplikasi di root domain
-    define('BASE_URL_ADMIN', $protocol . $host . $root_path);
-}
+require_once("../php/config.php");
 
 // Proteksi halaman admin
 if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {

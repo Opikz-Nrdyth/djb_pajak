@@ -1,239 +1,3 @@
-/* assets/css/admin_style.css */
-
-/* Reset dan Basic Styling */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f0f2f5; /* Latar belakang admin panel */
-}
-
-.admin-page-wrapper {
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-}
-
-/* Admin Sidebar Styling */
-.admin-sidebar {
-  width: 260px;
-  background-color: #003366; /* Warna biru tua DJP */
-  color: #e0e0e0; /* Warna teks terang untuk kontras */
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  z-index: 1000;
-  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
-  overflow-y: auto; /* Scroll jika menu panjang */
-}
-
-.admin-sidebar-header {
-  padding: 20px 15px;
-  text-align: center;
-  border-bottom: 1px solid #004080;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.admin-sidebar-profile-pic {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
-  border: 2px solid #004080;
-}
-.admin-sidebar-user-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 3px;
-}
-.admin-sidebar-user-role {
-  font-size: 0.8rem;
-  color: #a0b0c0;
-}
-
-.admin-sidebar-nav ul {
-  list-style: none;
-  padding: 15px 0;
-}
-
-.admin-sidebar-nav li a {
-  display: flex;
-  align-items: center;
-  padding: 12px 20px;
-  color: #e0e0e0;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  border-left: 4px solid transparent;
-}
-.admin-sidebar-nav li a i.fa-fw {
-  margin-right: 12px;
-  width: 20px;
-  text-align: center;
-  font-size: 1em;
-}
-.admin-sidebar-nav li a span {
-  flex-grow: 1;
-}
-
-.admin-sidebar-nav li a:hover,
-.admin-sidebar-nav li.active > a {
-  background-color: #004080;
-  color: #ffffff;
-  border-left-color: #ffc107;
-}
-
-/* Submenu Styling */
-.admin-sidebar-nav li.has-submenu > a .submenu-arrow {
-  margin-left: auto;
-  transition: transform 0.2s ease;
-  font-size: 0.7em;
-}
-.admin-sidebar-nav li.has-submenu.open > a .submenu-arrow i {
-  transform: rotate(-180deg);
-}
-
-.admin-submenu {
-  list-style: none;
-  padding-left: 0;
-  background-color: #002a53;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
-}
-.admin-sidebar-nav li.has-submenu.open > .admin-submenu {
-  max-height: 1000px;
-}
-
-.admin-submenu li a {
-  padding-left: 30px;
-  font-size: 0.9em;
-  border-left: 4px solid transparent;
-}
-.admin-submenu li a i.fa-fw {
-  margin-right: 10px;
-}
-.admin-submenu li a:hover,
-.admin-submenu li.active > a {
-  background-color: #004080;
-  color: #ffffff;
-  border-left-color: #ffc107;
-}
-.admin-submenu li.has-submenu > a {
-  padding-left: 30px;
-}
-.admin-submenu li.has-submenu .admin-submenu li a {
-  padding-left: 45px;
-}
-
-.admin-sidebar-footer {
-  margin-top: auto;
-  padding: 15px;
-  text-align: center;
-  font-size: 0.8rem;
-  color: #a0a0c0;
-  border-top: 1px solid #004080;
-}
-
-/* Admin Main Content Styling */
-.admin-main-content {
-  flex-grow: 1;
-  padding-left: 260px;
-  transition: padding-left 0.3s ease-in-out;
-  background-color: #f0f2f5;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* Header di dalam Konten Utama */
-.admin-content-header {
-  background-color: #ffffff;
-  padding: 12px 25px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 900;
-  min-height: 60px;
-}
-
-.header-left {
-  flex-shrink: 0;
-}
-.header-page-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin: 0;
-}
-.header-welcome-text {
-  font-size: 0.85rem;
-  color: #7f8c8d;
-  margin: 0;
-}
-
-.header-center {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  padding: 0 20px;
-}
-.header-search-form {
-  display: flex;
-  align-items: center;
-  background-color: #f0f2f5;
-  border-radius: 20px;
-  padding: 0px 5px 0px 15px;
-  width: 100%;
-  max-width: 350px;
-  height: 38px;
-}
-.header-search-form input[type="search"] {
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 8px 10px;
-  font-size: 0.9rem;
-  width: 100%;
-  color: #333;
-}
-.header-search-form input[type="search"]::placeholder {
-  color: #888;
-}
-.header-search-form button {
-  background: transparent;
-  border: none;
-  color: #555;
-  padding: 8px 10px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-.header-search-form button:hover {
-  color: #007bff;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
 .header-icon-link {
   color: #555;
   font-size: 1.2rem;
@@ -244,111 +8,14 @@ body {
 .header-icon-link:hover {
   color: #007bff;
 }
-.notification-badge {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  background-color: #dc3545;
-  color: white;
-  font-size: 0.65rem;
-  font-weight: bold;
-  padding: 2px 5px;
-  border-radius: 50%;
-  line-height: 1;
-}
 
-.admin-profile-dropdown {
-  position: relative;
-}
-.admin-profile-link-header {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  padding: 5px;
-  border-radius: 5px;
-  transition: background-color 0.2s ease;
-}
-.admin-profile-link-header:hover {
-  background-color: #f0f2f5;
-}
-.admin-avatar-header {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 8px;
-  object-fit: cover;
-  border: 1px solid #ddd;
-}
-.admin-profile-link-header span {
-  font-size: 0.9rem;
-}
-.dropdown-arrow-header {
-  font-size: 0.7rem;
-  margin-left: 5px;
-  color: #777;
-  transition: transform 0.2s ease;
-}
-.admin-profile-dropdown.open .dropdown-arrow-header {
-  transform: rotate(180deg);
-}
-
-.profile-dropdown-menu {
-  display: none;
-  position: absolute;
-  top: calc(100% + 5px);
-  right: 0;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  width: 200px;
-  z-index: 1100;
-  overflow: hidden;
-}
-.admin-profile-dropdown.open .profile-dropdown-menu {
-  display: block;
-}
-.profile-dropdown-menu a {
-  display: block;
-  padding: 10px 15px;
-  text-decoration: none;
-  color: #333;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
-}
-.profile-dropdown-menu a:hover {
-  background-color: #f0f2f5;
-}
-.profile-dropdown-menu hr {
-  border: none;
-  border-top: 1px solid #eee;
-  margin: 5px 0;
-}
-
-/* Inner Content Area */
 .admin-content-inner {
   padding: 25px;
   flex-grow: 1;
   overflow-y: auto;
   background-color: #f8f9fa;
 }
-.admin-card {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-  margin-bottom: 20px;
-}
-.admin-card-header {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #003366;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-/* Dashboard Summary Styles */
+
 .admin-dashboard-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -381,7 +48,6 @@ body {
 .summary-link:hover {
   text-decoration: underline;
 }
-/* Recent Activity */
 .admin-recent-activity {
   list-style: none;
   padding: 0;
@@ -401,29 +67,6 @@ body {
   float: right;
 }
 
-/* Admin Sidebar Toggle Button (Mobile) */
-.admin-sidebar-toggle-button {
-  display: none;
-  position: fixed;
-  top: 12px;
-  left: 15px;
-  z-index: 1001;
-  background-color: #003366;
-  border: 1px solid #004080;
-  padding: 8px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.admin-sidebar-toggle-button .icon-bar {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background-color: white;
-  margin: 4px 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-/* === STYLING UNTUK KELOLA WAJIB PAJAK & FORM EDIT === */
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -573,7 +216,6 @@ body {
   margin-right: 4px;
 }
 .action-buttons .btn span {
-  /* display: none; */
 }
 
 .btn-view {
@@ -632,7 +274,6 @@ body {
   background-color: #5a6268;
 }
 
-/* Styling untuk Form Admin (.admin-form) */
 .admin-form fieldset {
   border: 1px solid #e0e0e0;
   padding: 20px;
@@ -656,9 +297,7 @@ body {
   margin-bottom: 0;
 }
 .admin-form .form-group:last-child {
-  /* Tidak perlu style khusus, flex: 1 sudah cukup */
 }
-/* Jika .form-group tidak di dalam .form-row */
 .admin-form > .form-group {
   margin-bottom: 15px;
 }
@@ -720,26 +359,7 @@ body {
   padding: 10px 20px;
   font-size: 0.95rem;
 }
-.btn-primary {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
-}
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
-}
-.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-  border-color: #6c757d;
-}
-.btn-secondary:hover {
-  background-color: #5a6268;
-  border-color: #545b62;
-}
 
-/* === STYLING UNTUK FORM BUAT PERHITUNGAN PAJAK (Tambahan) === */
 .admin-form.calculation-form fieldset {
   margin-bottom: 30px;
 }
@@ -798,19 +418,7 @@ body {
   font-weight: 600;
 }
 
-.btn-info {
-  background-color: #0dcaf0;
-  color: white;
-  border-color: #0dcaf0;
-}
-.btn-info:hover {
-  background-color: #0aa8c2;
-  border-color: #0aa8c2;
-}
-
-/* === STYLING UNTUK TAGIHAN & PERHITUNGAN PAJAK & LAPORAN (Tambahan) === */
 .filter-form-inline {
-  /* Digunakan juga untuk Laporan Detail Filter Form */
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
@@ -906,11 +514,10 @@ body {
   margin-top: 2px;
 }
 
-/* === STYLING UNTUK DETAIL WAJIB PAJAK & DETAIL PERHITUNGAN & LAPORAN HARIAN/BULANAN (Tambahan) === */
-.admin-card.detail-view-card .admin-card-header, /* Untuk Detail WP */
-.admin-card#hasil-laporan-harian .admin-card-header, /* Untuk Laporan Harian */
-.admin-card#hasil-laporan-bulanan .admin-card-header, /* Untuk Laporan Bulanan */
-.admin-card#hasil-rekapitulasi .admin-card-header /* Untuk Rekapitulasi */ {
+.admin-card.detail-view-card .admin-card-header,
+.admin-card#hasil-laporan-harian .admin-card-header,
+.admin-card#hasil-laporan-bulanan .admin-card-header,
+.admin-card#hasil-rekapitulasi .admin-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -955,7 +562,6 @@ body {
 }
 
 .report-summary {
-  /* Digunakan di Laporan Harian & Bulanan */
   margin: 15px 0;
   padding: 15px;
   background-color: #e9f5ff;
@@ -976,14 +582,12 @@ body {
 }
 
 .detail-grid {
-  /* Untuk Detail Wajib Pajak */
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
   margin-top: 20px;
 }
 .detail-section {
-  /* Untuk Detail Wajib Pajak & Detail Perhitungan */
   margin-bottom: 25px;
   padding-bottom: 15px;
   border-bottom: 1px dashed #e0e0e0;
@@ -1013,7 +617,7 @@ body {
   display: inline-block;
   margin-right: 5px;
 }
-.detail-section span[class*="status-"], /* Untuk status di Detail WP */
+.detail-section span[class*="status-"],
 .detail-section span[class*="role-"] {
   padding: 3px 8px;
   border-radius: 4px;
@@ -1040,7 +644,6 @@ span.role-user {
 }
 
 .calculation-details {
-  /* Digunakan di Detail Perhitungan */
   margin-top: 20px;
 }
 .calculation-details hr {
@@ -1061,7 +664,6 @@ span.role-user {
   min-height: 50px;
   white-space: pre-wrap;
 }
-/* Status di Detail Perhitungan (menggunakan styling dari Laporan Harian/Bulanan) */
 .calculation-details span.status-lengkap,
 .calculation-details span.status-diverifikasi {
   background-color: #d1e7dd;
@@ -1089,17 +691,13 @@ span.role-user {
 }
 
 .rekap-content {
-  /* Untuk halaman rekapitulasi */
   margin-top: 20px;
 }
 .rekap-content .report-summary {
-  /* Styling sudah ada */
 }
 .rekap-content .table-container {
-  /* Styling sudah ada */
 }
 .admin-card-header small {
-  /* Untuk periode di header card hasil rekap */
   display: block;
   font-size: 0.85em;
   color: #555;
@@ -1107,9 +705,7 @@ span.role-user {
   margin-top: 3px;
 }
 
-/* === STYLING UNTUK PENGATURAN ADMIN (Tabulasi) === */
 .settings-card .admin-card-header {
-  /* Styling standar .admin-card-header */
 }
 
 .settings-tabs {
@@ -1143,7 +739,6 @@ span.role-user {
 }
 
 .profile-pic-group {
-  /* Untuk form profil di pengaturan */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1162,30 +757,11 @@ span.role-user {
   font-size: 0.9rem;
 }
 
-/* Responsif untuk Content Area Admin (Tambahan untuk Kelola WP & Form) */
 @media (max-width: 992px) {
-  .admin-sidebar {
-    transform: translateX(-100%);
-  }
-  .admin-sidebar.open {
-    transform: translateX(0);
-    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
-  }
-  .admin-main-content {
-    padding-left: 0;
-  }
-  .admin-sidebar-toggle-button {
-    display: block;
-  }
-  .header-center {
-    display: none;
-  }
   .filter-form-inline .form-group {
-    /* Untuk Tagihan & Perhitungan */
     min-width: calc(50% - 10px);
   }
   .admin-form.filter-form .form-group {
-    /* Untuk Laporan Detail Filter & Rekapitulasi */
     min-width: calc(50% - 10px);
     flex-basis: calc(50% - 10px);
   }
@@ -1197,35 +773,8 @@ span.role-user {
 }
 
 @media (max-width: 768px) {
-  .admin-content-header {
-    padding: 10px 15px;
-    flex-wrap: wrap;
-  }
-  .header-left {
-    width: 100%;
-    margin-bottom: 5px;
-    text-align: center;
-  }
-  .header-page-title {
-    font-size: 1.2rem;
-  }
-  .header-welcome-text {
-    display: none;
-  }
   .header-center {
     display: none;
-  }
-  .header-right {
-    width: 100%;
-    justify-content: space-around;
-    margin-top: 5px;
-  }
-  .admin-avatar-header {
-    width: 28px;
-    height: 28px;
-  }
-  .admin-content-inner {
-    padding: 15px;
   }
   .admin-dashboard-summary {
     grid-template-columns: 1fr;
@@ -1235,8 +784,6 @@ span.role-user {
     display: block;
     margin-top: 3px;
   }
-
-  /* Responsif untuk Kelola WP & Form */
   .page-header,
   .actions-bar {
     flex-direction: column;
@@ -1284,8 +831,6 @@ span.role-user {
   .form-actions .button {
     width: 100%;
   }
-
-  /* Responsif untuk Tagihan & Perhitungan Filter & Laporan Filter */
   .filter-form-inline,
   .admin-form.filter-form {
     flex-direction: column;
@@ -1313,7 +858,6 @@ span.role-user {
     margin-top: 10px;
   }
   .calculation-summary p {
-    /* Untuk Form Buat Perhitungan */
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 10px;
@@ -1321,8 +865,6 @@ span.role-user {
   .calculation-summary p span {
     margin-top: 3px;
   }
-
-  /* Responsif untuk Detail Perhitungan & Laporan Harian/Bulanan */
   .admin-card .admin-card-header {
     flex-direction: column;
     align-items: flex-start;
@@ -1343,7 +885,6 @@ span.role-user {
     display: block;
     margin-bottom: 2px;
   }
-  /* Responsif untuk Pengaturan Admin Tabs */
   .settings-tabs {
     flex-direction: column;
     border-bottom: none;
@@ -1353,53 +894,11 @@ span.role-user {
     border-left: 3px solid transparent;
     margin-bottom: 0;
     padding: 10px 15px;
-    border-radius: 4px 0 0 4px; /* Rounded di kiri */
+    border-radius: 4px 0 0 4px;
   }
   .settings-tabs .tab-link.active {
     border-left-color: #007bff;
     background-color: #e9f5ff;
-    border-bottom-color: transparent; /* Hapus border bawah di mobile */
+    border-bottom-color: transparent;
   }
-}
-
-/* Styling untuk pesan error dan sukses (umum) */
-.auth-errors,
-.flash-message.auth-errors {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-  padding: 10px 15px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  text-align: left;
-  font-size: 0.9rem;
-}
-.auth-errors p,
-.flash-message.auth-errors p {
-  margin: 0 0 5px 0;
-}
-.auth-errors ul,
-.flash-message.auth-errors ul {
-  margin: 0;
-  padding-left: 20px;
-}
-.auth-errors li,
-.flash-message.auth-errors li {
-  margin-bottom: 3px;
-}
-
-.auth-success,
-.flash-message.auth-success {
-  background-color: #d1e7dd;
-  color: #0f5132;
-  border: 1px solid #badbcc;
-  padding: 10px 15px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-.auth-success p,
-.flash-message.auth-success p {
-  margin: 0;
 }

@@ -4,21 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Define BASE_URL_ADMIN if not already defined
-if (!defined('BASE_URL_ADMIN')) {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $host = $_SERVER['HTTP_HOST'];
-    // Script is in 'admin/', so dirname($_SERVER['SCRIPT_NAME']) is /project_root/admin or /admin
-    // dirname() of that gives the project root.
-    $app_root_path_temp = dirname(dirname($_SERVER['SCRIPT_NAME']));
-
-    if ($app_root_path_temp === '/' || $app_root_path_temp === '\\') {
-        $root_path = '/';
-    } else {
-        $root_path = rtrim($app_root_path_temp, '/') . '/';
-    }
-    define('BASE_URL_ADMIN', $protocol . $host . $root_path);
-}
+require_once("../php/config.php");
 
 // Page Protection
 if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {
@@ -131,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_perhitungan_paj
         $stmt_update = $conn->prepare($sql_update);
         if ($stmt_update) {
             $stmt_update->bind_param(
-                "idddddddddssssii", // d for double, i for integer, s for string
+                "idddddddddsssii", // String tipe yang sudah diperbaiki
                 $periode_pajak_tahun_update,
                 $njop_bangunan_per_meter_update,
                 $njop_tanah_per_meter_update,

@@ -4,16 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Definisikan BASE_URL_ADMIN
-if (!defined('BASE_URL_ADMIN')) {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $host = $_SERVER['HTTP_HOST'];
-    $script_path_parts = explode('/', dirname($_SERVER['SCRIPT_NAME']));
-    array_pop($script_path_parts);
-    $root_path = implode('/', $script_path_parts) . '/';
-    if ($root_path === '//') $root_path = '/';
-    define('BASE_URL_ADMIN', $protocol . $host . $root_path);
-}
+require_once("../php/config.php");
 
 // Proteksi halaman admin
 if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {
@@ -169,6 +160,7 @@ if (isset($_POST['ubah_password'])) $active_tab = 'keamanan';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title_for_header) . ' - Admin Panel InfoPajak'; ?></title>
+    <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin_style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin-pengaturan.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -288,83 +280,95 @@ if (isset($_POST['ubah_password'])) $active_tab = 'keamanan';
                         <a href="?tab=profil" class="tab-link <?php echo ($active_tab == 'profil') ? 'active' : ''; ?>">Profil Saya</a>
                         <a href="?tab=keamanan" class="tab-link <?php echo ($active_tab == 'keamanan') ? 'active' : ''; ?>">Ubah Password</a>
                     </div>
+                    <?php
+                    // Tentukan tab aktif di awal, default ke 'profil'
+                    $current_tab_value = isset($_GET["tab"]) ? $_GET["tab"] : "profil";
 
-                    <div class="settings-tab-content <?php echo ($active_tab == 'profil') ? 'active' : ''; ?>" id="profil-content">
-                        <div class="admin-card-header" style="border-bottom:none; padding-bottom:0; margin-bottom:20px;">
-                            <h3>Informasi Profil</h3>
+                    if ($current_tab_value == "profil") {
+                    ?>
+                        <div class="settings-tab-content active" id="profil-content">
+                            <div class="admin-card-header" style="border-bottom:none; padding-bottom:0; margin-bottom:20px;">
+                                <h3>Informasi Profil</h3>
+                            </div>
+                            <?php if (!empty($errors_profil)): ?>
+                                <div class="auth-errors">
+                                    <?php foreach ($errors_profil as $error): ?><p><?php echo htmlspecialchars($error); ?></p><?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (!empty($success_profil)): ?>
+                                <div class="auth-success">
+                                    <p><?php echo htmlspecialchars($success_profil); ?></p>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($admin_data_db): ?>
+                                <form action="pengaturan_admin.php?tab=profil" method="POST" class="admin-form">
+                                    <div class="form-group">
+                                        <label for="nama_lengkap_profil">Nama Lengkap</label>
+                                        <input type="text" id="nama_lengkap_profil" name="nama_lengkap_profil" value="<?php echo htmlspecialchars($admin_data_db['nama_lengkap']); ?>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email_profil">Email</label>
+                                        <input type="email" id="email_profil" name="email_profil" value="<?php echo htmlspecialchars($admin_data_db['email']); ?>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="no_telepon_profil">Nomor Telepon</label>
+                                        <input type="tel" id="no_telepon_profil" name="no_telepon_profil" value="<?php echo htmlspecialchars($admin_data_db['no_telepon'] ?? ''); ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="username_profil">Username</label>
+                                        <input type="text" id="username_profil" name="username_profil_display" value="<?php echo htmlspecialchars($admin_data_db['username']); ?>" readonly disabled>
+                                        <small>Username tidak dapat diubah.</small>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" name="update_profil" class="button btn-primary">Simpan Perubahan Profil</button>
+                                    </div>
+                                </form>
+                            <?php else: ?>
+                                <p>Gagal memuat data profil admin.</p>
+                            <?php endif; ?>
                         </div>
-                        <?php if (!empty($errors_profil)): ?>
-                            <div class="auth-errors">
-                                <?php foreach ($errors_profil as $error): ?><p><?php echo htmlspecialchars($error); ?></p><?php endforeach; ?>
+                    <?php
+                    } elseif ($current_tab_value == "keamanan") {
+                    ?>
+                        <div class="settings-tab-content active" id="keamanan-content">
+                            <div class="admin-card-header" style="border-bottom:none; padding-bottom:0; margin-bottom:20px;">
+                                <h3>Ubah Password</h3>
                             </div>
-                        <?php endif; ?>
-                        <?php if (!empty($success_profil)): ?>
-                            <div class="auth-success">
-                                <p><?php echo htmlspecialchars($success_profil); ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if ($admin_data_db): ?>
-                            <form action="pengaturan_admin.php?tab=profil" method="POST" class="admin-form">
+                            <?php if (!empty($errors_password)): ?>
+                                <div class="auth-errors">
+                                    <?php foreach ($errors_password as $error): ?><p><?php echo htmlspecialchars($error); ?></p><?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (!empty($success_password)): ?>
+                                <div class="auth-success">
+                                    <p><?php echo htmlspecialchars($success_password); ?></p>
+                                </div>
+                            <?php endif; ?>
+                            <form action="pengaturan_admin.php?tab=keamanan" method="POST" class="admin-form">
                                 <div class="form-group">
-                                    <label for="nama_lengkap_profil">Nama Lengkap</label>
-                                    <input type="text" id="nama_lengkap_profil" name="nama_lengkap_profil" value="<?php echo htmlspecialchars($admin_data_db['nama_lengkap']); ?>" required>
+                                    <label for="password_lama">Password Lama</label>
+                                    <input type="password" id="password_lama" name="password_lama" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email_profil">Email</label>
-                                    <input type="email" id="email_profil" name="email_profil" value="<?php echo htmlspecialchars($admin_data_db['email']); ?>" required>
+                                    <label for="password_baru">Password Baru</label>
+                                    <input type="password" id="password_baru" name="password_baru" required minlength="8">
+                                    <small>Minimal 8 karakter.</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="no_telepon_profil">Nomor Telepon</label>
-                                    <input type="tel" id="no_telepon_profil" name="no_telepon_profil" value="<?php echo htmlspecialchars($admin_data_db['no_telepon'] ?? ''); ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="username_profil">Username</label>
-                                    <input type="text" id="username_profil" name="username_profil_display" value="<?php echo htmlspecialchars($admin_data_db['username']); ?>" readonly disabled>
-                                    <small>Username tidak dapat diubah.</small>
+                                    <label for="konfirmasi_password_baru">Konfirmasi Password Baru</label>
+                                    <input type="password" id="konfirmasi_password_baru" name="konfirmasi_password_baru" required>
                                 </div>
                                 <div class="form-actions">
-                                    <button type="submit" name="update_profil" class="button btn-primary">Simpan Perubahan Profil</button>
+                                    <button type="submit" name="ubah_password" class="button btn-primary">Ubah Password</button>
                                 </div>
                             </form>
-                        <?php else: ?>
-                            <p>Gagal memuat data profil admin.</p>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="settings-tab-content <?php echo ($active_tab == 'keamanan') ? 'active' : ''; ?>" id="keamanan-content">
-                        <div class="admin-card-header" style="border-bottom:none; padding-bottom:0; margin-bottom:20px;">
-                            <h3>Ubah Password</h3>
                         </div>
-                        <?php if (!empty($errors_password)): ?>
-                            <div class="auth-errors">
-                                <?php foreach ($errors_password as $error): ?><p><?php echo htmlspecialchars($error); ?></p><?php endforeach; ?>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (!empty($success_password)): ?>
-                            <div class="auth-success">
-                                <p><?php echo htmlspecialchars($success_password); ?></p>
-                            </div>
-                        <?php endif; ?>
-                        <form action="pengaturan_admin.php?tab=keamanan" method="POST" class="admin-form">
-                            <div class="form-group">
-                                <label for="password_lama">Password Lama</label>
-                                <input type="password" id="password_lama" name="password_lama" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password_baru">Password Baru</label>
-                                <input type="password" id="password_baru" name="password_baru" required minlength="8">
-                                <small>Minimal 8 karakter.</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="konfirmasi_password_baru">Konfirmasi Password Baru</label>
-                                <input type="password" id="konfirmasi_password_baru" name="konfirmasi_password_baru" required>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" name="ubah_password" class="button btn-primary">Ubah Password</button>
-                            </div>
-                        </form>
-                    </div>
+                    <?php
+                    } else {
+                        echo "<p>Tab tidak ditemukan.</p>";
+                    }
+                    ?>
                 </div>
             </div>
         </main>

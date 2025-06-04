@@ -1,3 +1,6 @@
+<?php
+require_once("php/config.php");
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -46,7 +49,7 @@
                 <section id="apa-itu-pajak" class="info-section" data-aos="fade-right">
                     <h2>Apa Itu Pajak?</h2>
                     <div class="info-content">
-                        <img src="https://placehold.co/300x200/e2e8f0/333333?text=Pajak" alt="Ilustrasi Pajak" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+Pajak';">
+                        <img src="<?php echo BASE_URL_ADMIN; ?>assets/images/pajak.jpg" alt="Ilustrasi Pajak" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+Pajak';">
                         <div class="text-content">
                             <p>Pajak adalah kontribusi wajib kepada negara yang terutang oleh orang pribadi atau badan yang bersifat memaksa berdasarkan Undang-Undang, dengan tidak mendapatkan imbalan secara langsung dan digunakan untuk keperluan negara bagi sebesar-besarnya kemakmuran rakyat. [cite: 2]</p>
                             <p>Pembayaran pajak merupakan perwujudan dari kewajiban kenegaraan dan peran serta Wajib Pajak untuk secara bersama-sama membiayai pengeluaran negara dan pembangunan nasional. [cite: 3] Dana dari pajak digunakan untuk membiayai berbagai fasilitas dan layanan publik. [cite: 4]</p>
@@ -57,7 +60,7 @@
                 <section id="tentang-djp" class="info-section info-section-alt" data-aos="fade-left">
                     <h2>Apa itu DJP (Direktorat Jenderal Pajak)?</h2>
                     <div class="info-content reverse">
-                        <img src="https://placehold.co/300x200/d1fae5/10b981?text=DJP" alt="Gedung DJP" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+DJP';">
+                        <img src="<?php echo BASE_URL_ADMIN; ?>assets/images/gedung-djb.jpeg" alt="Gedung DJP" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+DJP';">
                         <div class="text-content">
                             <p>Direktorat Jenderal Pajak (DJP) adalah salah satu direktorat jenderal di bawah Kementerian Keuangan Republik Indonesia yang mempunyai tugas merumuskan serta melaksanakan kebijakan dan standardisasi teknis di bidang perpajakan. [cite: 5]</p>
                             <p>DJP memiliki tanggung jawab untuk mengadministrasikan penerimaan negara dari sektor perpajakan, yang merupakan sumber utama pendapatan negara. [cite: 6] Tugas utama DJP meliputi penyuluhan, pelayanan, pengawasan, dan penegakan hukum. [cite: 7]</p>

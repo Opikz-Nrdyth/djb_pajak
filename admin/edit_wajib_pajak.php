@@ -4,16 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Definisikan BASE_URL_ADMIN
-if (!defined('BASE_URL_ADMIN')) {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $host = $_SERVER['HTTP_HOST'];
-    $script_path_parts = explode('/', dirname($_SERVER['SCRIPT_NAME']));
-    array_pop($script_path_parts);
-    $root_path = implode('/', $script_path_parts) . '/';
-    if ($root_path === '//') $root_path = '/';
-    define('BASE_URL_ADMIN', $protocol . $host . $root_path);
-}
+require_once("../php/config.php");
 
 // Proteksi halaman admin
 if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {
@@ -227,6 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_wajib_pajak']) 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title_for_header) . ' - Admin Panel InfoPajak'; ?></title>
+    <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin_style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin-edit-wajib-pajak.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">

@@ -4,19 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Definisikan BASE_URL_ADMIN
-if (!defined('BASE_URL_ADMIN')) {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $host = $_SERVER['HTTP_HOST'];
-    $app_root_path_temp = dirname(dirname($_SERVER['SCRIPT_NAME']));
-
-    if ($app_root_path_temp === '/' || $app_root_path_temp === '\\') {
-        $root_path = '/';
-    } else {
-        $root_path = rtrim($app_root_path_temp, '/') . '/';
-    }
-    define('BASE_URL_ADMIN', $protocol . $host . $root_path);
-}
+require_once("../php/config.php");
 
 // Proteksi halaman admin
 if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {
