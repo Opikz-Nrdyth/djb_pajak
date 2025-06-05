@@ -68,6 +68,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title_for_header) . ' - InfoPajak'; ?></title>
+    <link rel="icon" type="image/png" href="<?php echo BASE_URL_ADMIN; ?>assets/images/icon.png">
     <link rel="stylesheet" href="<?php echo BASE_URL_USER_ROOT; ?>assets/css/user_style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL_USER_ROOT; ?>assets/css/user-detail-tagihan.css?v=<?php echo time(); ?>">
 
