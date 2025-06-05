@@ -356,12 +356,18 @@ body {
   .user-sidebar {
     transform: translateX(-100%);
   }
+  .user-header-page-title {
+    margin-left: 50px;
+  }
   .user-sidebar.open {
     transform: translateX(0);
     box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
   }
   .user-main-content {
     padding-left: 0;
+  }
+  .user-content-inner {
+    width: 100vw;
   }
   .user-sidebar-toggle-button {
     display: block;
@@ -378,6 +384,7 @@ body {
   }
   .user-content-inner {
     padding: 15px;
+    width: 100vw;
   }
   .user-profile-link-header span {
     /* Sembunyikan nama di header mobile jika terlalu ramai */
