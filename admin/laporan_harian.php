@@ -75,9 +75,9 @@ if (empty($errors)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title_for_header) . ' - Admin Panel InfoPajak'; ?></title>
-    <link rel="icon" type="image/png" href="<?php echo BASE_URL_ADMIN; ?>assets/images/icon.png">
-    <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin_style.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin-laporan-harian.css?v=<?php echo time(); ?>">
+    <link rel="icon" type="image/png" href="<?php echo BASE_URL_ADMIN . $root_project; ?>assets/images/icon.png">
+    <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN . $root_project; ?>assets/css/admin_style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN . $root_project; ?>assets/css/admin-laporan-harian.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -279,7 +279,7 @@ if (empty($errors)) {
         </main>
     </div>
 
-    <script src="<?php echo BASE_URL_ADMIN; ?>assets/js/admin_script.js?v=<?php echo time(); ?>"></script>
+    <script src="<?php echo BASE_URL_ADMIN . $root_project; ?>assets/js/admin_script.js?v=<?php echo time(); ?>"></script>
     <script>
         function exportTableToCSV(filename, tableId) {
             let csv = [];
@@ -365,7 +365,7 @@ if (empty($errors)) {
             printWindow.document.write('</style></head><body>');
             printWindow.document.write('<div style="text-align:center; margin-bottom:20px;">');
             // Ganti dengan path logo yang benar atau hapus jika tidak ada
-            // printWindow.document.write('<img src="<?php echo BASE_URL_ADMIN; ?>assets/images/logo_djp_admin.png" alt="Logo" style="height:50px; margin-bottom:10px;">');
+            // printWindow.document.write('<img src="<?php echo BASE_URL_ADMIN . $root_project; ?>assets/images/logo_djp_admin.png" alt="Logo" style="height:50px; margin-bottom:10px;">');
             printWindow.document.write('<h2>' + title + '</h2><hr></div>');
             printWindow.document.write(summaryHtml);
             printWindow.document.write(tableHtml);

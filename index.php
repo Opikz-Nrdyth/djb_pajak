@@ -8,7 +8,7 @@ require_once("php/config.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Informasi Pajak Bangunan</title>
-    <link rel="icon" type="image/png" href="<?php echo BASE_URL_ADMIN; ?>assets/images/icon.png">
+    <link rel="icon" type="image/png" href="<?php echo BASE_URL_ADMIN . $root_project; ?>assets/images/icon.png">
     <link rel="stylesheet" href="assets/css/landing.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -50,7 +50,7 @@ require_once("php/config.php");
                 <section id="apa-itu-pajak" class="info-section" data-aos="fade-right">
                     <h2>Apa Itu Pajak?</h2>
                     <div class="info-content">
-                        <img src="<?php echo BASE_URL_ADMIN; ?>assets/images/pajak.jpg" alt="Ilustrasi Pajak" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+Pajak';">
+                        <img src="<?php echo BASE_URL_ADMIN . $root_project; ?>assets/images/pajak.jpg" alt="Ilustrasi Pajak" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+Pajak';">
                         <div class="text-content">
                             <p>Pajak adalah kontribusi wajib kepada negara yang terutang oleh orang pribadi atau badan yang bersifat memaksa berdasarkan Undang-Undang, dengan tidak mendapatkan imbalan secara langsung dan digunakan untuk keperluan negara bagi sebesar-besarnya kemakmuran rakyat. [cite: 2]</p>
                             <p>Pembayaran pajak merupakan perwujudan dari kewajiban kenegaraan dan peran serta Wajib Pajak untuk secara bersama-sama membiayai pengeluaran negara dan pembangunan nasional. [cite: 3] Dana dari pajak digunakan untuk membiayai berbagai fasilitas dan layanan publik. [cite: 4]</p>
@@ -61,7 +61,7 @@ require_once("php/config.php");
                 <section id="tentang-djp" class="info-section info-section-alt" data-aos="fade-left">
                     <h2>Apa itu DJP (Direktorat Jenderal Pajak)?</h2>
                     <div class="info-content reverse">
-                        <img src="<?php echo BASE_URL_ADMIN; ?>assets/images/gedung-djb.jpeg" alt="Gedung DJP" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+DJP';">
+                        <img src="<?php echo BASE_URL_ADMIN . $root_project; ?>assets/images/gedung-djb.jpeg" alt="Gedung DJP" class="info-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/000000?text=Info+DJP';">
                         <div class="text-content">
                             <p>Direktorat Jenderal Pajak (DJP) adalah salah satu direktorat jenderal di bawah Kementerian Keuangan Republik Indonesia yang mempunyai tugas merumuskan serta melaksanakan kebijakan dan standardisasi teknis di bidang perpajakan. [cite: 5]</p>
                             <p>DJP memiliki tanggung jawab untuk mengadministrasikan penerimaan negara dari sektor perpajakan, yang merupakan sumber utama pendapatan negara. [cite: 6] Tugas utama DJP meliputi penyuluhan, pelayanan, pengawasan, dan penegakan hukum. [cite: 7]</p>

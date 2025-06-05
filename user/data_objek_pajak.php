@@ -160,9 +160,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_data_objek_paja
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title_for_header) . ' - InfoPajak'; ?></title>
-    <link rel="icon" type="image/png" href="<?php echo BASE_URL_ADMIN; ?>assets/images/icon.png">
-    <link rel="stylesheet" href="<?php echo BASE_URL_USER_ROOT; ?>assets/css/user_style.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="<?php echo BASE_URL_USER_ROOT; ?>assets/css/user-data-objek-pajak.css?v=<?php echo time(); ?>">
+    <link rel="icon" type="image/png" href="<?php echo BASE_URL_ADMIN . $root_project; ?>assets/images/icon.png">
+    <link rel="stylesheet" href="<?php echo BASE_URL_USER_ROOT . $root_project; ?>assets/css/user_style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL_USER_ROOT . $root_project; ?>assets/css/user-data-objek-pajak.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -315,7 +315,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_data_objek_paja
         </main>
     </div>
 
-    <script src="<?php echo BASE_URL_USER_ROOT; ?>assets/js/user_script.js?v=<?php echo time(); ?>"></script>
+    <script src="<?php echo BASE_URL_USER_ROOT . $root_project; ?>assets/js/user_script.js?v=<?php echo time(); ?>"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const userProfileDropdownToggle = document.getElementById('user-profile-dropdown-toggle');

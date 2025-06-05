@@ -11,6 +11,8 @@ if (!defined('BASE_URL_ADMIN')) {
     define('BASE_URL_ADMIN', $protocol . $host . $root_path);
 }
 
+$root_project = "djb_pajak";
+
 // Definisikan BASE_URL_USER_ROOT
 if (!defined('BASE_URL_USER_ROOT')) {
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
