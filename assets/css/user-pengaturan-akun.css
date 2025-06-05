@@ -1,0 +1,124 @@
+.settings-tabs {
+  display: flex;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 25px;
+}
+
+.settings-tabs .tab-link {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #495057;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+
+.settings-tabs .tab-link:hover {
+  color: #0056b3;
+}
+
+.settings-tabs .tab-link.active {
+  color: #004a99;
+  border-bottom-color: #004a99;
+}
+
+.settings-tab-content {
+  display: none;
+}
+
+.settings-tab-content.active {
+  display: block;
+}
+
+.user-form fieldset {
+  border: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.user-form legend {
+  display: none;
+}
+
+.user-card-header.no-border-bottom {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 20px !important;
+  font-size: 1.2rem;
+}
+
+.user-card-header.no-border-bottom h3 {
+  margin: 0;
+}
+
+.user-form .form-group {
+  margin-bottom: 18px;
+}
+
+.user-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.user-form input[type="text"],
+.user-form input[type="email"],
+.user-form input[type="tel"],
+.user-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.user-form input[readonly][disabled] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.user-form small {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 4px;
+}
+
+.user-form .form-actions {
+  margin-top: 20px;
+  text-align: left;
+  padding-top: 0;
+  border-top: none;
+}
+
+.user-form .form-actions .button {
+  margin-left: 0;
+}
+
+@media (max-width: 768px) {
+  .settings-tabs {
+    flex-direction: column;
+    border-bottom: none;
+  }
+
+  .settings-tabs .tab-link {
+    border-bottom: none;
+    border-left: 3px solid transparent;
+    margin-bottom: 0;
+    padding: 10px 15px;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .settings-tabs .tab-link.active {
+    border-left-color: #004a99;
+    background-color: #e8eff5;
+    border-bottom-color: transparent;
+  }
+
+  .user-card-header.no-border-bottom {
+    font-size: 1.1rem;
+  }
+}

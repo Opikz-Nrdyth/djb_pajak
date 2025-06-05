@@ -1,0 +1,160 @@
+.user-card.calculation-detail-card .user-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-card.calculation-detail-card .header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.user-card.calculation-detail-card .header-actions .btn {
+  margin-left: 0;
+}
+
+.user-card.calculation-detail-card .header-actions .btn-sm {
+  font-size: 0.8rem;
+  padding: 5px 10px;
+}
+
+.btn-print {
+  background-color: #6c757d;
+  color: white;
+  border-color: #6c757d;
+}
+
+.btn-print:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+.calculation-details {
+  margin-top: 20px;
+}
+
+.calculation-details .detail-section {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #e0e0e0;
+}
+
+.calculation-details .detail-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.calculation-details .detail-section h3 {
+  font-size: 1.1rem;
+  color: #004a99;
+  margin-bottom: 12px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.calculation-details p {
+  font-size: 0.95rem;
+  color: #454545;
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+.calculation-details p strong {
+  font-weight: 500;
+  color: #333;
+  min-width: 180px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.calculation-details hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 10px 0;
+}
+
+.calculation-details .pbb-terutang strong {
+  font-size: 1.05rem;
+  color: #c0392b;
+}
+
+.calculation-details .catatan-box {
+  background-color: #f9f9f9;
+  border: 1px solid #e9ecef;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  min-height: 40px;
+  white-space: pre-wrap;
+}
+
+.calculation-details .detail-section span[class*="status-"] {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: white;
+}
+
+.calculation-details span.status-draft {
+  background-color: #adb5bd;
+  color: #212529;
+}
+
+.calculation-details span.status-final {
+  background-color: #cfe2ff;
+  color: #052c65;
+}
+
+.calculation-details span.status-dikirim-ke-user {
+  background-color: #cff4fc;
+  color: #055160;
+}
+
+.calculation-details span.status-belum-lengkap {
+  background-color: #fff3cd;
+  color: #664d03;
+}
+
+.calculation-details span.status-perlu-revisi {
+  background-color: #ffe5d0;
+  color: #723b0a;
+}
+
+.calculation-details span.status-lengkap,
+.calculation-details span.status-diverifikasi {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.detail-view-card .form-actions {
+  justify-content: space-between !important;
+}
+
+@media (max-width: 768px) {
+  .user-card.calculation-detail-card .user-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-card.calculation-detail-card .header-actions {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .user-card.calculation-detail-card .header-actions .btn {
+    margin-left: 0;
+    margin-right: 10px;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .calculation-details p strong {
+    min-width: auto;
+    display: block;
+    margin-bottom: 2px;
+  }
+}
