@@ -5,7 +5,16 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once("../php/config.php");
+// Definisi BASE_URL_ADMIN
+if (!defined('BASE_URL_ADMIN')) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'];
+    $script_path_parts = explode('/', dirname($_SERVER['SCRIPT_NAME']));
+    array_pop($script_path_parts);
+    $root_path = implode('/', $script_path_parts) . '/';
+    if ($root_path === '//') $root_path = '/';
+    define('BASE_URL_ADMIN', $protocol . $host . $root_path);
+}
 
 // Proteksi halaman admin
 if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {
@@ -16,48 +25,103 @@ if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {
 // Data Admin dari Session
 $id_admin_logged_in = $_SESSION['id_pengguna'];
 $nama_admin_session = isset($_SESSION['nama_lengkap']) ? htmlspecialchars($_SESSION['nama_lengkap']) : (isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Admin');
-$foto_profil_admin_session = BASE_URL_ADMIN . 'assets/images/default_avatar.png'; // Menggunakan avatar default
+$foto_profil_admin_session = BASE_URL_ADMIN . 'assets/images/default_avatar.png';
 
 // Pengaturan untuk halaman ini
 $page_title_admin = "Buat Perhitungan Pajak Baru";
-$current_page = 'tagihan_perhitungan'; // Menandai menu "Tagihan & Perhitungan" sebagai aktif
-$current_parent_page = 'pengelolaan_pajak'; // Menandai parent menu "Menu Pengelolaan Pajak"
+$current_page = 'tagihan_perhitungan';
+$current_parent_page = 'pengelolaan_pajak';
 $page_title_for_header = $page_title_admin;
 
 require_once '../php/db_connect.php';
 
 $errors = [];
-// Pesan sukses akan ditangani via flash message di halaman tagihan_perhitungan.php
+$all_users_with_objek = []; // Untuk dropdown pertama (pilih pengguna)
+$objek_pajak_user_selected = []; // Untuk dropdown kedua (pilih objek pajak spesifik)
 
-$wajib_pajak_options = [];
-// Ambil daftar wajib pajak (user) yang memiliki data DJP dan status akun aktif
-$sql_wp_options = "SELECT p.id_pengguna, p.nama_lengkap, p.nik, djp.id_data_djp, djp.alamat_objek_pajak, djp.luas_bangunan, djp.luas_tanah 
-                   FROM pengguna p 
-                   JOIN data_djp_user djp ON p.id_pengguna = djp.id_pengguna
-                   WHERE p.role = 'user' AND p.status_akun = 'aktif' 
-                   ORDER BY p.nama_lengkap ASC";
-$result_wp_options = $conn->query($sql_wp_options);
-if ($result_wp_options && $result_wp_options->num_rows > 0) {
-    while ($row = $result_wp_options->fetch_assoc()) {
-        $wajib_pajak_options[] = $row;
+// Ambil daftar semua pengguna (role 'user' dan status 'aktif')
+$sql_users = "SELECT id_pengguna, nama_lengkap, nik 
+              FROM pengguna 
+              WHERE role = 'user' AND status_akun = 'aktif' 
+              ORDER BY nama_lengkap ASC";
+$result_users = $conn->query($sql_users);
+if ($result_users && $result_users->num_rows > 0) {
+    while ($row_user = $result_users->fetch_assoc()) {
+        // Cek apakah user ini punya data objek pajak
+        $stmt_check_objek = $conn->prepare("SELECT COUNT(*) as total_objek FROM data_djp_user WHERE id_pengguna = ?");
+        if ($stmt_check_objek) {
+            $stmt_check_objek->bind_param("i", $row_user['id_pengguna']);
+            $stmt_check_objek->execute();
+            $count_objek = $stmt_check_objek->get_result()->fetch_assoc()['total_objek'];
+            if ($count_objek > 0) {
+                $all_users_with_objek[] = $row_user;
+            }
+            $stmt_check_objek->close();
+        }
     }
 }
 
+// Jika ada pengguna yang dipilih dari dropdown pertama (via GET dari JS atau POST sebelumnya)
+$selected_user_id_for_objek = null;
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_pengguna_wp'])) { // Jika form disubmit dengan id_pengguna_wp
+    $selected_user_id_for_objek = intval($_POST['id_pengguna_wp']);
+} elseif (isset($_GET['get_objek_for_user_id']) && is_numeric($_GET['get_objek_for_user_id'])) { // Jika AJAX request
+    // Ini bagian untuk AJAX request, akan mengembalikan JSON
+    header('Content-Type: application/json');
+    $userId = intval($_GET['get_objek_for_user_id']);
+    $sql_objek_ajax = "SELECT id_data_djp, alamat_objek_pajak, luas_bangunan, luas_tanah 
+                       FROM data_djp_user 
+                       WHERE id_pengguna = ? 
+                       ORDER BY alamat_objek_pajak ASC";
+    $stmt_objek_ajax = $conn->prepare($sql_objek_ajax);
+    $data_to_return = ['objek_pajak' => []];
+    if ($stmt_objek_ajax) {
+        $stmt_objek_ajax->bind_param("i", $userId);
+        $stmt_objek_ajax->execute();
+        $result_objek_ajax = $stmt_objek_ajax->get_result();
+        while ($row_objek = $result_objek_ajax->fetch_assoc()) {
+            // Format luas untuk ditampilkan di dropdown/data attribute jika perlu
+            $row_objek['luas_bangunan_formatted'] = number_format(floatval($row_objek['luas_bangunan']), 2, '.', '');
+            $row_objek['luas_tanah_formatted'] = number_format(floatval($row_objek['luas_tanah']), 2, '.', '');
+            $data_to_return['objek_pajak'][] = $row_objek;
+        }
+        $stmt_objek_ajax->close();
+    }
+    echo json_encode($data_to_return);
+    $conn->close();
+    exit(); // Hentikan eksekusi setelah mengirim JSON
+}
+
+// Jika ada pengguna terpilih (baik dari POST atau GET untuk repopulate), ambil objek pajaknya
+if ($selected_user_id_for_objek) {
+    $stmt_objek_selected = $conn->prepare("SELECT id_data_djp, alamat_objek_pajak, luas_bangunan, luas_tanah FROM data_djp_user WHERE id_pengguna = ? ORDER BY alamat_objek_pajak ASC");
+    if ($stmt_objek_selected) {
+        $stmt_objek_selected->bind_param("i", $selected_user_id_for_objek);
+        $stmt_objek_selected->execute();
+        $result_objek_selected = $stmt_objek_selected->get_result();
+        while ($row_objek_s = $result_objek_selected->fetch_assoc()) {
+            $objek_pajak_user_selected[] = $row_objek_s;
+        }
+        $stmt_objek_selected->close();
+    }
+}
+
+
 // Proses form submission untuk buat perhitungan
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_perhitungan'])) {
-    $id_data_djp = isset($_POST['id_data_djp']) ? intval($_POST['id_data_djp']) : null;
+    $id_pengguna_wp = isset($_POST['id_pengguna_wp']) ? intval($_POST['id_pengguna_wp']) : null; // ID Pengguna dari select pertama
+    $id_data_djp = isset($_POST['id_data_djp']) ? intval($_POST['id_data_djp']) : null; // ID Objek Pajak dari select kedua
     $periode_pajak_tahun = isset($_POST['periode_pajak_tahun']) ? intval($_POST['periode_pajak_tahun']) : null;
-    // Membersihkan input mata uang dari titik (pemisah ribuan) dan mengganti koma (desimal) dengan titik
     $njop_bangunan_per_meter = isset($_POST['njop_bangunan_per_meter']) ? floatval(str_replace('.', '', str_replace(',', '.', $_POST['njop_bangunan_per_meter']))) : 0.00;
     $njop_tanah_per_meter = isset($_POST['njop_tanah_per_meter']) ? floatval(str_replace('.', '', str_replace(',', '.', $_POST['njop_tanah_per_meter']))) : 0.00;
     $njoptkp = isset($_POST['njoptkp']) ? floatval(str_replace('.', '', str_replace(',', '.', $_POST['njoptkp']))) : 0.00;
-    $persentase_pbb = isset($_POST['persentase_pbb']) ? floatval(str_replace(',', '.', $_POST['persentase_pbb'])) / 100 : 0.0050; // Mengganti koma jadi titik untuk floatval
+    $persentase_pbb = isset($_POST['persentase_pbb']) ? floatval(str_replace(',', '.', $_POST['persentase_pbb'])) / 100 : 0.0050;
     $catatan_admin = isset($_POST['catatan_admin']) ? $conn->real_escape_string(trim($_POST['catatan_admin'])) : null;
     $status_verifikasi_data_user = isset($_POST['status_verifikasi_data_user']) ? $conn->real_escape_string(trim($_POST['status_verifikasi_data_user'])) : 'belum_lengkap';
     $status_perhitungan = 'draft';
 
-    // Validasi input
-    if (empty($id_data_djp)) $errors[] = "Wajib Pajak / Objek Pajak harus dipilih.";
+    if (empty($id_pengguna_wp)) $errors[] = "Wajib Pajak harus dipilih.";
+    if (empty($id_data_djp)) $errors[] = "Objek Pajak spesifik harus dipilih.";
     if (empty($periode_pajak_tahun) || !is_numeric($periode_pajak_tahun) || $periode_pajak_tahun < 1900 || $periode_pajak_tahun > (date("Y") + 5)) {
         $errors[] = "Tahun Periode Pajak tidak valid.";
     }
@@ -65,31 +129,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_perhitungan']))
         $errors[] = "Status Verifikasi Data tidak valid.";
     }
 
-    // Ambil luas bangunan dan tanah dari db berdasarkan id_data_djp
     $luas_bangunan = 0;
     $luas_tanah = 0;
     if ($id_data_djp && empty($errors)) {
-        $stmt_luas = $conn->prepare("SELECT luas_bangunan, luas_tanah FROM data_djp_user WHERE id_data_djp = ?");
+        $stmt_luas = $conn->prepare("SELECT luas_bangunan, luas_tanah FROM data_djp_user WHERE id_data_djp = ? AND id_pengguna = ?");
         if ($stmt_luas) {
-            $stmt_luas->bind_param("i", $id_data_djp);
+            $stmt_luas->bind_param("ii", $id_data_djp, $id_pengguna_wp); // Pastikan objek pajak milik user yang dipilih
             $stmt_luas->execute();
             $result_luas = $stmt_luas->get_result();
             if ($objek_pajak = $result_luas->fetch_assoc()) {
                 $luas_bangunan = floatval($objek_pajak['luas_bangunan']);
                 $luas_tanah = floatval($objek_pajak['luas_tanah']);
                 if ($luas_bangunan <= 0 && $luas_tanah <= 0) {
-                    $errors[] = "Luas bangunan dan luas tanah untuk objek pajak terpilih adalah 0 atau tidak valid. Silakan perbarui data wajib pajak terlebih dahulu.";
+                    $errors[] = "Luas bangunan dan luas tanah untuk objek pajak terpilih adalah 0 atau tidak valid.";
                 }
             } else {
-                $errors[] = "Data objek pajak tidak ditemukan untuk perhitungan luas.";
+                $errors[] = "Data objek pajak dengan ID terpilih tidak ditemukan untuk pengguna yang dipilih.";
             }
             $stmt_luas->close();
         } else {
-            $errors[] = "Gagal mengambil data luas: " . $conn->error;
+            $errors[] = "Gagal mengambil data luas objek pajak: " . $conn->error;
         }
     }
 
-    // Jika tidak ada error, lakukan perhitungan dan simpan
     if (empty($errors)) {
         $total_njop_bangunan = $luas_bangunan * $njop_bangunan_per_meter;
         $total_njop_tanah = $luas_tanah * $njop_tanah_per_meter;
@@ -150,7 +212,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_perhitungan']))
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title_for_header) . ' - Admin Panel InfoPajak'; ?></title>
-    <link rel="icon" type="image/png" href="<?php echo BASE_URL_ADMIN; ?>assets/images/icon.png">
     <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin_style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin-buat-perhitungan.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -280,20 +341,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_perhitungan']))
                     <form action="buat_perhitungan.php" method="POST" class="admin-form calculation-form">
                         <fieldset>
                             <legend>Pilih Wajib Pajak & Objek Pajak</legend>
-                            <div class="form-group">
-                                <label for="id_data_djp">Wajib Pajak - Objek Pajak</label>
-                                <select name="id_data_djp" id="id_data_djp" required>
-                                    <option value="">-- Pilih Wajib Pajak --</option>
-                                    <?php foreach ($wajib_pajak_options as $wp): ?>
-                                        <option value="<?php echo $wp['id_data_djp']; ?>"
-                                            data-luas-bangunan="<?php echo htmlspecialchars(isset($wp['luas_bangunan']) ? number_format(floatval($wp['luas_bangunan']), 2, '.', '') : '0.00'); ?>"
-                                            data-luas-tanah="<?php echo htmlspecialchars(isset($wp['luas_tanah']) ? number_format(floatval($wp['luas_tanah']), 2, '.', '') : '0.00'); ?>"
-                                            <?php echo (isset($_POST['id_data_djp']) && $_POST['id_data_djp'] == $wp['id_data_djp']) ? 'selected' : ''; ?>>
-                                            <?php echo htmlspecialchars($wp['nama_lengkap']) . " (NIK: " . htmlspecialchars($wp['nik']) . ") - " . htmlspecialchars($wp['alamat_objek_pajak'] ? substr($wp['alamat_objek_pajak'], 0, 50) . '...' : 'Alamat belum ada'); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <small>Hanya menampilkan pengguna 'aktif' yang memiliki data objek pajak.</small>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="id_pengguna_wp">Wajib Pajak (Pengguna)</label>
+                                    <select name="id_pengguna_wp" id="id_pengguna_wp" required>
+                                        <option value="">-- Pilih Wajib Pajak --</option>
+                                        <?php foreach ($all_users_with_objek as $user): ?>
+                                            <option value="<?php echo $user['id_pengguna']; ?>"
+                                                <?php echo (isset($_POST['id_pengguna_wp']) && $_POST['id_pengguna_wp'] == $user['id_pengguna']) ? 'selected' : (isset($_GET['user_id_for_objek']) && $_GET['user_id_for_objek'] == $user['id_pengguna'] ? 'selected' : ''); ?>>
+                                                <?php echo htmlspecialchars($user['nama_lengkap']) . " (NIK: " . htmlspecialchars($user['nik']) . ")"; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_data_djp">Objek Pajak Spesifik</label>
+                                    <select name="id_data_djp" id="id_data_djp" required <?php echo empty($objek_pajak_user_selected) && !isset($_POST['id_pengguna_wp']) ? 'disabled' : ''; ?>>
+                                        <option value="">-- Pilih Objek Pajak --</option>
+                                        <?php foreach ($objek_pajak_user_selected as $objek): ?>
+                                            <option value="<?php echo $objek['id_data_djp']; ?>"
+                                                data-luas-bangunan="<?php echo htmlspecialchars(number_format(floatval($objek['luas_bangunan']), 2, '.', '')); ?>"
+                                                data-luas-tanah="<?php echo htmlspecialchars(number_format(floatval($objek['luas_tanah']), 2, '.', '')); ?>"
+                                                <?php echo (isset($_POST['id_data_djp']) && $_POST['id_data_djp'] == $objek['id_data_djp']) ? 'selected' : ''; ?>>
+                                                <?php echo htmlspecialchars($objek['alamat_objek_pajak'] ? substr($objek['alamat_objek_pajak'], 0, 70) . '...' : 'ID Objek: ' . $objek['id_data_djp']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <small>Pilih Wajib Pajak terlebih dahulu untuk memuat objek pajaknya.</small>
+                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
@@ -373,22 +448,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_perhitungan']))
     <script src="<?php echo BASE_URL_ADMIN; ?>assets/js/admin_script.js?v=<?php echo time(); ?>"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const idPenggunaWpSelect = document.getElementById('id_pengguna_wp');
             const idDataDjpSelect = document.getElementById('id_data_djp');
             const luasBangunanDisplay = document.getElementById('luas_bangunan_display');
             const luasTanahDisplay = document.getElementById('luas_tanah_display');
             const btnPreview = document.getElementById('btn-preview-calculation');
             const summarySection = document.getElementById('calculation-summary-section');
 
-            function updateLuasDisplay() {
+            function fetchObjekPajak(userId) {
+                idDataDjpSelect.innerHTML = '<option value="">Memuat objek pajak...</option>';
+                idDataDjpSelect.disabled = true;
+                luasBangunanDisplay.value = '';
+                luasTanahDisplay.value = '';
+                summarySection.style.display = 'none';
+
+
+                if (!userId) {
+                    idDataDjpSelect.innerHTML = '<option value="">-- Pilih Wajib Pajak Dahulu --</option>';
+                    return;
+                }
+
+                fetch(`buat_perhitungan.php?get_objek_for_user_id=${userId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        idDataDjpSelect.innerHTML = '<option value="">-- Pilih Objek Pajak --</option>';
+                        if (data.objek_pajak && data.objek_pajak.length > 0) {
+                            data.objek_pajak.forEach(objek => {
+                                const option = document.createElement('option');
+                                option.value = objek.id_data_djp;
+                                option.textContent = objek.alamat_objek_pajak ? String(objek.alamat_objek_pajak).substring(0, 70) + '...' : `ID Objek: ${objek.id_data_djp}`;
+                                option.setAttribute('data-luas-bangunan', objek.luas_bangunan_formatted);
+                                option.setAttribute('data-luas-tanah', objek.luas_tanah_formatted);
+                                idDataDjpSelect.appendChild(option);
+                            });
+                            idDataDjpSelect.disabled = false;
+                        } else {
+                            idDataDjpSelect.innerHTML = '<option value="">-- Tidak ada objek pajak terdaftar untuk user ini --</option>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching objek pajak:', error);
+                        idDataDjpSelect.innerHTML = '<option value="">Gagal memuat objek pajak</option>';
+                    });
+            }
+
+            function updateLuasDisplayFromSelectedObjek() {
                 const selectedOption = idDataDjpSelect.options[idDataDjpSelect.selectedIndex];
                 if (selectedOption && selectedOption.value !== "") {
                     let luasBangunan = selectedOption.getAttribute('data-luas-bangunan');
                     let luasTanah = selectedOption.getAttribute('data-luas-tanah');
-                    luasBangunanDisplay.value = parseFloat(luasBangunan).toLocaleString('id-ID', {
+                    luasBangunanDisplay.value = parseFloat(luasBangunan.replace(/[^0-9.]/g, '')).toLocaleString('id-ID', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                     }) + ' m²';
-                    luasTanahDisplay.value = parseFloat(luasTanah).toLocaleString('id-ID', {
+                    luasTanahDisplay.value = parseFloat(luasTanah.replace(/[^0-9.]/g, '')).toLocaleString('id-ID', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                     }) + ' m²';
@@ -398,13 +511,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_perhitungan']))
                 }
             }
 
+            if (idPenggunaWpSelect) {
+                idPenggunaWpSelect.addEventListener('change', function() {
+                    fetchObjekPajak(this.value);
+                });
+                // Jika ada nilai POST untuk id_pengguna_wp (misalnya setelah validasi gagal), panggil fetchObjekPajak
+                if (idPenggunaWpSelect.value) {
+                    fetchObjekPajak(idPenggunaWpSelect.value);
+                    // Beri sedikit waktu agar dropdown objek pajak terisi sebelum mencoba memilih nilai POST untuk id_data_djp
+                    setTimeout(() => {
+                        <?php if (isset($_POST['id_data_djp'])): ?>
+                            idDataDjpSelect.value = "<?php echo $_POST['id_data_djp']; ?>";
+                            updateLuasDisplayFromSelectedObjek(); // Update luas berdasarkan pilihan dari POST
+                        <?php endif; ?>
+                    }, 500); // Waktu tunggu bisa disesuaikan
+                }
+            }
             if (idDataDjpSelect) {
-                idDataDjpSelect.addEventListener('change', updateLuasDisplay);
-                updateLuasDisplay();
+                idDataDjpSelect.addEventListener('change', updateLuasDisplayFromSelectedObjek);
             }
 
+
             document.querySelectorAll('.input-currency').forEach(function(input) {
-                function formatCurrency(value) {
+                function formatCurrencyOnInput(value) {
                     if (!value) return '';
                     let numStr = String(value).replace(/[^0-9]/g, '');
                     if (numStr === '') return '';
@@ -413,7 +542,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_perhitungan']))
                 input.addEventListener('input', function(e) {
                     let originalCursorPos = e.target.selectionStart;
                     let oldValue = e.target.value;
-                    e.target.value = formatCurrency(e.target.value);
+                    e.target.value = formatCurrencyOnInput(e.target.value);
                     let newValue = e.target.value;
                     if (oldValue.length < newValue.length && originalCursorPos === oldValue.length - (oldValue.match(/\./g) || []).length + (newValue.match(/\./g) || []).length) {
                         e.target.selectionStart = e.target.selectionEnd = newValue.length;
@@ -422,20 +551,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['simpan_perhitungan']))
                         e.target.selectionStart = e.target.selectionEnd = Math.max(0, originalCursorPos + diff);
                     }
                 });
-                input.value = formatCurrency(input.value);
+                // Format nilai awal saat load
+                let initialVal = input.value.replace(/[^0-9]/g, '');
+                if (initialVal) {
+                    input.value = parseInt(initialVal, 10).toLocaleString('id-ID');
+                }
             });
 
             if (btnPreview && summarySection) {
                 btnPreview.addEventListener('click', function() {
-                    const selectedOption = idDataDjpSelect.options[idDataDjpSelect.selectedIndex];
-                    const luasBangunan = selectedOption ? parseFloat(selectedOption.getAttribute('data-luas-bangunan').replace(/[^0-9.]/g, '')) : 0;
-                    const luasTanah = selectedOption ? parseFloat(selectedOption.getAttribute('data-luas-tanah').replace(/[^0-9.]/g, '')) : 0;
+                    const selectedOptionObjek = idDataDjpSelect.options[idDataDjpSelect.selectedIndex];
+                    const luasBangunan = selectedOptionObjek && selectedOptionObjek.value !== "" ? parseFloat(selectedOptionObjek.getAttribute('data-luas-bangunan').replace(/[^0-9.]/g, '')) : 0;
+                    const luasTanah = selectedOptionObjek && selectedOptionObjek.value !== "" ? parseFloat(selectedOptionObjek.getAttribute('data-luas-tanah').replace(/[^0-9.]/g, '')) : 0;
 
                     const njopBangunanPerM = parseFloat(String(document.getElementById('njop_bangunan_per_meter').value).replace(/\./g, '').replace(',', '.')) || 0;
                     const njopTanahPerM = parseFloat(String(document.getElementById('njop_tanah_per_meter').value).replace(/\./g, '').replace(',', '.')) || 0;
                     const njoptkp = parseFloat(String(document.getElementById('njoptkp').value).replace(/\./g, '').replace(',', '.')) || 0;
                     const persentasePbbInput = String(document.getElementById('persentase_pbb').value).replace(',', '.');
                     const persentasePbb = parseFloat(persentasePbbInput) / 100 || 0.005;
+
+                    if (!idDataDjpSelect.value) {
+                        alert("Silakan pilih Wajib Pajak dan Objek Pajaknya terlebih dahulu.");
+                        summarySection.style.display = 'none';
+                        return;
+                    }
+                    if (luasBangunan <= 0 && luasTanah <= 0) {
+                        alert("Luas bangunan dan luas tanah untuk objek pajak terpilih adalah 0 atau tidak valid. Tidak dapat melakukan preview perhitungan.");
+                        summarySection.style.display = 'none';
+                        return;
+                    }
+
 
                     const totalNjopBangunan = luasBangunan * njopBangunanPerM;
                     const totalNjopTanah = luasTanah * njopTanahPerM;

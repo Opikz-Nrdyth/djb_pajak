@@ -4,7 +4,16 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once("../php/config.php");
+// Definisikan BASE_URL_ADMIN
+if (!defined('BASE_URL_ADMIN')) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'];
+    $script_path_parts = explode('/', dirname($_SERVER['SCRIPT_NAME']));
+    array_pop($script_path_parts);
+    $root_path = implode('/', $script_path_parts) . '/';
+    if ($root_path === '//') $root_path = '/';
+    define('BASE_URL_ADMIN', $protocol . $host . $root_path);
+}
 
 // Proteksi halaman admin
 if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {
@@ -15,7 +24,7 @@ if (!isset($_SESSION['id_pengguna']) || $_SESSION['role'] !== 'admin') {
 // Data Admin dari Session
 $id_admin_logged_in = $_SESSION['id_pengguna'];
 $nama_admin_session = isset($_SESSION['nama_lengkap']) ? htmlspecialchars($_SESSION['nama_lengkap']) : (isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Admin');
-$foto_profil_admin_session = BASE_URL_ADMIN . 'assets/images/default_avatar.png'; // Selalu default
+$foto_profil_admin_session = BASE_URL_ADMIN . 'assets/images/default_avatar.png'; // Menggunakan avatar default
 
 // Pengaturan untuk halaman ini
 $page_title_admin = "Detail Wajib Pajak";
@@ -27,7 +36,7 @@ require_once '../php/db_connect.php';
 
 $errors = [];
 $user_detail_data = null;
-$djp_detail_data = null;
+$daftar_objek_pajak_user = []; // Array untuk menampung semua objek pajak user
 $id_wp_to_view = null;
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -49,21 +58,22 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $errors[] = "Gagal mengambil data pengguna: " . $conn->error;
     }
 
-    // Ambil data DJP dari tabel data_djp_user jika pengguna ditemukan
+    // Ambil SEMUA data DJP dari tabel data_djp_user jika pengguna ditemukan
     if ($user_detail_data) {
-        $stmt_djp = $conn->prepare("SELECT * FROM data_djp_user WHERE id_pengguna = ?");
+        $stmt_djp = $conn->prepare("SELECT * FROM data_djp_user WHERE id_pengguna = ? ORDER BY id_data_djp ASC");
         if ($stmt_djp) {
             $stmt_djp->bind_param("i", $id_wp_to_view);
             $stmt_djp->execute();
             $result_djp = $stmt_djp->get_result();
             if ($result_djp->num_rows > 0) {
-                // Asumsi satu pengguna bisa punya beberapa data DJP, kita ambil yang pertama atau Anda bisa kembangkan untuk menampilkan semua
-                $djp_detail_data = $result_djp->fetch_assoc();
+                while ($row_djp = $result_djp->fetch_assoc()) {
+                    $daftar_objek_pajak_user[] = $row_djp;
+                }
             }
-            // Jika tidak ada data DJP, $djp_detail_data akan tetap null
+            // Jika tidak ada data DJP, $daftar_objek_pajak_user akan tetap kosong
             $stmt_djp->close();
         } else {
-            $errors[] = "Gagal mengambil data DJP pengguna: " . $conn->error;
+            $errors[] = "Gagal mengambil data objek pajak pengguna: " . $conn->error;
         }
     }
 } else {
@@ -78,9 +88,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title_for_header) . ' - Admin Panel InfoPajak'; ?></title>
-    <link rel="icon" type="image/png" href="<?php echo BASE_URL_ADMIN; ?>assets/images/icon.png">
-    <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin-detail-wp.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin_style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL_ADMIN; ?>assets/css/admin-detail-wp.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -102,8 +111,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             </div>
             <nav class="admin-sidebar-nav">
                 <ul>
-                    <li class="<?php echo ($current_page == 'dashboard_admin') ? 'active' : ''; ?>">
-                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/dashboard_admin.php">
+                    <li class="<?php echo (isset($current_page) && $current_page == 'dashboard_admin') ? 'active' : ''; ?>">
+                        <a href="<?php echo BASE_URL_ADMIN; ?>admin/index.php">
                             <i class="fas fa-tachometer-alt fa-fw"></i>
                             <span>Dashboard</span>
                         </a>
@@ -115,7 +124,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             <span class="submenu-arrow"><i class="fas fa-chevron-down"></i></span>
                         </a>
                         <ul class="admin-submenu">
-                            <li class="<?php echo (isset($current_page) && $current_page == 'management_wajib_pajak') ? 'active' : ''; ?>">
+                            <li class="<?php echo ($current_page == 'management_wajib_pajak') ? 'active' : ''; ?>">
                                 <a href="<?php echo BASE_URL_ADMIN; ?>admin/kelola_wajib_pajak.php">
                                     <i class="fas fa-users fa-fw"></i> Management Wajib Pajak
                                 </a>
@@ -173,17 +182,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <h1 class="header-page-title"><?php echo htmlspecialchars($page_title_for_header); ?></h1>
                     <p class="header-welcome-text">Selamat Datang, <?php echo $nama_admin_session; ?>!</p>
                 </div>
-                <div class="header-center">
-                    <form action="<?php echo BASE_URL_ADMIN; ?>admin/search_results.php" method="GET" class="header-search-form">
-                        <input type="search" name="q" placeholder="Cari..." aria-label="Search">
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
                 <div class="header-right">
-                    <a href="<?php echo BASE_URL_ADMIN; ?>admin/notifikasi.php" class="header-icon-link notification-link" aria-label="Notifikasi">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge">3</span>
-                    </a>
                     <div class="admin-profile-dropdown">
                         <a href="#" class="admin-profile-link-header" id="profile-dropdown-toggle">
                             <img src="<?php echo $foto_profil_admin_session; ?>" alt="Avatar <?php echo $nama_admin_session; ?>" class="admin-avatar-header"
@@ -207,7 +206,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         Detail Wajib Pajak: <?php echo $user_detail_data ? htmlspecialchars($user_detail_data['nama_lengkap']) : 'Tidak Ditemukan'; ?>
                         <div class="header-actions">
                             <?php if ($user_detail_data): ?>
-                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/edit_wajib_pajak.php?id=<?php echo $id_wp_to_view; ?>" class="btn btn-edit btn-sm"><i class="fas fa-edit"></i> Edit Wajib Pajak</a>
+                                <a href="<?php echo BASE_URL_ADMIN; ?>admin/edit_wajib_pajak.php?id=<?php echo $id_wp_to_view; ?>" class="btn btn-edit btn-sm"><i class="fas fa-edit"></i> Edit Akun WP</a>
+                                <!-- Tombol Tambah Objek Pajak Baru untuk user ini -->
+                                <a href="<?php echo BASE_URL_ADMIN; ?>user/data_objek_pajak.php?user_id_for_new_objek=<?php echo $id_wp_to_view; ?>" class="btn btn-add-new btn-sm"><i class="fas fa-plus"></i> Tambah Objek Pajak</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -221,43 +222,46 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <?php endif; ?>
 
                     <?php if ($user_detail_data): ?>
-                        <div class="detail-grid">
-                            <div class="detail-section">
-                                <h3>Informasi Akun Pengguna</h3>
-                                <p><strong>Nama Lengkap:</strong> <?php echo htmlspecialchars($user_detail_data['nama_lengkap']); ?></p>
-                                <p><strong>NIK:</strong> <?php echo htmlspecialchars($user_detail_data['nik']); ?></p>
-                                <p><strong>Username:</strong> <?php echo htmlspecialchars($user_detail_data['username']); ?></p>
-                                <p><strong>Email:</strong> <?php echo htmlspecialchars($user_detail_data['email']); ?></p>
-                                <p><strong>No. Telepon:</strong> <?php echo htmlspecialchars($user_detail_data['no_telepon'] ?? '-'); ?></p>
-                                <p><strong>Role:</strong> <span class="role-<?php echo strtolower($user_detail_data['role']); ?>"><?php echo ucfirst(htmlspecialchars($user_detail_data['role'])); ?></span></p>
-                                <p><strong>Status Akun:</strong> <span class="status-<?php echo htmlspecialchars($user_detail_data['status_akun']); ?>"><?php echo ucfirst(htmlspecialchars($user_detail_data['status_akun'])); ?></span></p>
-                                <p><strong>Tanggal Registrasi:</strong> <?php echo htmlspecialchars(date('d F Y, H:i', strtotime($user_detail_data['tanggal_registrasi']))); ?></p>
-                            </div>
-
-                            <div class="detail-section">
-                                <h3>Informasi Data DJP (Objek Pajak Utama)</h3>
-                                <?php if ($djp_detail_data): ?>
-                                    <p><strong>NPWP:</strong> <?php echo htmlspecialchars($djp_detail_data['npwp'] ?? '-'); ?></p>
-                                    <p><strong>Nama Pemilik Bangunan (PBB):</strong> <?php echo htmlspecialchars($djp_detail_data['nama_pemilik_bangunan'] ?? '-'); ?></p>
-                                    <p><strong>Alamat Objek Pajak:</strong> <?php echo nl2br(htmlspecialchars($djp_detail_data['alamat_objek_pajak'] ?? '-')); ?></p>
-                                    <p><strong>Jenis Bangunan:</strong> <?php echo htmlspecialchars($djp_detail_data['jenis_bangunan'] ?? '-'); ?></p>
-                                    <p><strong>Luas Bangunan:</strong> <?php echo isset($djp_detail_data['luas_bangunan']) ? number_format(floatval($djp_detail_data['luas_bangunan']), 2, ',', '.') . ' m²' : '-'; ?></p>
-                                    <p><strong>Luas Tanah:</strong> <?php echo isset($djp_detail_data['luas_tanah']) ? number_format(floatval($djp_detail_data['luas_tanah']), 2, ',', '.') . ' m²' : '-'; ?></p>
-                                    <p><strong>Data Tambahan:</strong> <?php echo nl2br(htmlspecialchars($djp_detail_data['data_tambahan'] ?? 'Tidak ada data tambahan.')); ?></p>
-                                    <p><strong>Terakhir Update Data DJP:</strong> <?php echo htmlspecialchars(date('d F Y, H:i', strtotime($djp_detail_data['tanggal_update']))); ?></p>
-                                <?php else: ?>
-                                    <p>Belum ada data DJP (Objek Pajak) yang tersimpan untuk pengguna ini.</p>
-                                    <a href="<?php echo BASE_URL_ADMIN; ?>admin/edit_wajib_pajak.php?id=<?php echo $id_wp_to_view; ?>#data_djp" class="button btn-primary btn-sm">Lengkapi Data DJP</a>
-                                <?php endif; ?>
-                            </div>
+                        <div class="detail-section user-info-section">
+                            <h3>Informasi Akun Pengguna</h3>
+                            <p><strong>Nama Lengkap:</strong> <?php echo htmlspecialchars($user_detail_data['nama_lengkap']); ?></p>
+                            <p><strong>NIK:</strong> <?php echo htmlspecialchars($user_detail_data['nik']); ?></p>
+                            <p><strong>Username:</strong> <?php echo htmlspecialchars($user_detail_data['username']); ?></p>
+                            <p><strong>Email:</strong> <?php echo htmlspecialchars($user_detail_data['email']); ?></p>
+                            <p><strong>No. Telepon:</strong> <?php echo htmlspecialchars($user_detail_data['no_telepon'] ?? '-'); ?></p>
+                            <p><strong>Role:</strong> <span class="role-<?php echo strtolower($user_detail_data['role']); ?>"><?php echo ucfirst(htmlspecialchars($user_detail_data['role'])); ?></span></p>
+                            <p><strong>Status Akun:</strong> <span class="status-<?php echo htmlspecialchars($user_detail_data['status_akun']); ?>"><?php echo ucfirst(htmlspecialchars($user_detail_data['status_akun'])); ?></span></p>
+                            <p><strong>Tanggal Registrasi:</strong> <?php echo htmlspecialchars(date('d F Y, H:i', strtotime($user_detail_data['tanggal_registrasi']))); ?></p>
                         </div>
+
+                        <div class="detail-section objek-pajak-list-section">
+                            <h3>Daftar Objek Pajak Milik Pengguna</h3>
+                            <?php if (!empty($daftar_objek_pajak_user)): ?>
+                                <?php foreach ($daftar_objek_pajak_user as $index => $objek): ?>
+                                    <div class="objek-pajak-item">
+                                        <h4>Objek Pajak #<?php echo $index + 1; ?> <small>(ID Data: <?php echo htmlspecialchars($objek['id_data_djp']); ?>)</small></h4>
+                                        <p><strong>NPWP:</strong> <?php echo htmlspecialchars($objek['npwp'] ?? '-'); ?></p>
+                                        <p><strong>Nama Pemilik (PBB):</strong> <?php echo htmlspecialchars($objek['nama_pemilik_bangunan'] ?? '-'); ?></p>
+                                        <p><strong>Alamat Objek Pajak:</strong> <?php echo nl2br(htmlspecialchars($objek['alamat_objek_pajak'] ?? '-')); ?></p>
+                                        <p><strong>Jenis Bangunan:</strong> <?php echo htmlspecialchars($objek['jenis_bangunan'] ?? '-'); ?></p>
+                                        <p><strong>Luas Bangunan:</strong> <?php echo isset($objek['luas_bangunan']) ? number_format(floatval($objek['luas_bangunan']), 2, ',', '.') . ' m²' : '-'; ?></p>
+                                        <p><strong>Luas Tanah:</strong> <?php echo isset($objek['luas_tanah']) ? number_format(floatval($objek['luas_tanah']), 2, ',', '.') . ' m²' : '-'; ?></p>
+                                        <p><strong>Data Tambahan:</strong> <?php echo nl2br(htmlspecialchars($objek['data_tambahan'] ?? 'Tidak ada.')); ?></p>
+                                        <p><strong>Terakhir Update:</strong> <?php echo htmlspecialchars(date('d F Y, H:i', strtotime($objek['tanggal_update']))); ?></p>
+
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>Pengguna ini belum memiliki data objek pajak yang tersimpan.</p>
+                            <?php endif; ?>
+                        </div>
+
                         <div class="form-actions" style="justify-content: flex-start; margin-top: 20px; border-top:none; padding-top:0;">
                             <a href="<?php echo BASE_URL_ADMIN; ?>admin/kelola_wajib_pajak.php" class="button btn-secondary"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Wajib Pajak</a>
                         </div>
 
                     <?php else: ?>
-                        <?php if (empty($errors)): // Jika tidak ada error spesifik tapi user_detail_data null (misal karena ID tidak ditemukan) 
-                        ?>
+                        <?php if (empty($errors)): ?>
                             <p>Data wajib pajak dengan ID yang diminta tidak ditemukan.</p>
                         <?php endif; ?>
                         <a href="<?php echo BASE_URL_ADMIN; ?>admin/kelola_wajib_pajak.php" class="button btn-secondary"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Wajib Pajak</a>
