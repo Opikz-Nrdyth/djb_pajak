@@ -11,7 +11,7 @@ if (!defined('BASE_URL_ADMIN')) {
     define('BASE_URL_ADMIN', $protocol . $host . $root_path);
 }
 
-$root_project = "djb_pajak";
+$root_project = "djb_pajak/";
 
 // Definisikan BASE_URL_USER_ROOT
 if (!defined('BASE_URL_USER_ROOT')) {
